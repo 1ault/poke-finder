@@ -23,3 +23,113 @@
 	/* Tipografía */
 	--font-family: "Courier New", monospace;
 }
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	font-family: var(--font-family);
+	background: var(--color-bg);
+	background-image: radial-gradient(circle at 1px 1px, var(--color-primary) 1px, transparent 0);
+  	background-size: 20px 20px;
+	color: var(--color-primary);
+	font-size: 16px;
+}
+
+.background-color-4ecdc4 {
+	background-color: var(--color-api);	
+}
+	
+
+.flex { display: flex; }
+
+/* vertical */
+/* ^ */
+/* | */
+/* x */
+/* | */
+/* v */
+.flex-align-start { align-items: flex-start; }
+.flex-align-center { align-items: center; }
+.flex-align-end { align-items: flex-end; }
+.flex-align-stretch { align-items: stretch; }
+
+
+/* horizontal <--x-->*/
+.flex-justify-start { justify-content: flex-start; }
+.flex-justify-center { justify-content: center; }
+.flex-justify-end { justify-content: flex-end; }
+.flex-justify-space-between { justify-content: space-between; }
+
+
+
+
+/* wrap */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+/* direction */
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+
+
+
+.border-color-2d2d2d { border-color: var(--border-color); }
+.border-width-4px { border-width: var(--border-width); }
+.border-estyle { border-style: solid; }
+
+
+/* shadow box (x, y, blur, spread, color) */
+.shadow-box-x6px-y6px-b0px-s0px-2d2d2d { box-shadow: var(--shadow); }
+
+
+
+
+/*			 	  Margin
+* 
+*				   Top
+*				   
+*		  ^			^	      ^
+*		   \        |        /
+*			*---------------*
+*			|				|
+*	Left <- |				| -> Right 
+*			|				|
+*			*---------------*
+*		   /		|		 \
+*		  v         v         v
+*				 
+*				  Buttom
+*/
+
+.margin-1rem {
+
+}
+
+
+/*			 	   Top
+*
+*		    		^
+*					|
+*		  *-------------------*
+*		  |	   ^         ^    |
+*		  |		\		/	  |
+* Left <- |   <- Padding ->   | -> Right 
+*		  |		/		\	  |
+*		  |	   v		 v	  |
+*		  *-------------------*
+*		    		|
+*		            v 
+*				 
+*				  Buttom
+*/
+
+.padding-0-5rem { padding: 0.5rem; }
+
+
+.text-align-center {
+	text-align: center;
+}
