@@ -1,0 +1,25 @@
+:root {
+	/* Colores principales */
+	--color-bg: #f5e6d3; /* Fondo beige */
+	--color-primary: #2d2d2d; /* Negro/Gris oscuro */
+	--color-accent: #ffcc00; /* Amarillo Pokémon */
+	--color-secondary: #ff6b6b; /* Rojo coral */
+
+	/* Colores de estado */
+	--color-success: #4ecdc4; /* Verde agua */
+	--color-error: #ff6b6b; /* Rojo */
+	--color-warning: #ffa500; /* Naranja */
+
+	/* Badges de origen */
+	--color-api: #4ecdc4; /* Verde agua - datos de API */
+	--color-cache: #ffcc00; /* Amarillo - datos cacheados */
+	--color-expired: #ffa500; /* Naranja - caché expirado */
+
+	/* Bordes y sombras */
+	--border-width: 4px;
+	--border-color: #2d2d2d;
+	--shadow: 6px 6px 0px #2d2d2d;
+
+	/* Tipografía */
+	--font-family: "Courier New", monospace;
+}
