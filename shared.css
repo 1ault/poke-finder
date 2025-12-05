@@ -23,7 +23,14 @@
 	/* Tipografía */
 	--font-family: "Courier New", monospace;
 
-	--poke-ball-white: #FCFCFC;
+
+	/* Custom */
+	--poke-white: #FCFCFC;
+
+	--background-dotted: radial-gradient(circle at 1px 1px, var(--color-primary) 1px, transparent 0);
+
+	--sprite-gradient-white-1: #EDEDED;
+	--sprite-gradient-white-2: #E7E7E7; 
 }
 
 * {
@@ -36,21 +43,20 @@ html, body {
 	height: 100%;
 	width: 100%;
 	
-	font-family: var(--font-family);
-	color: var(--color-primary);
 	font-size: 16px;
+	color: var(--color-primary);
+	font-family: var(--font-family);
 	
 	background: var(--color-bg);
-	background-image: radial-gradient(circle at 1px 1px, var(--color-primary) 1px, transparent 0);
+	background-image: var(--dotted-background);
   	background-size: 20px 20px;
-
 }
 
 
 
 .background-transparent { background: transparent; }
 .background-color-4ecdc4 { background-color: var(--color-api);	}
-.background-color-FCFCFC { background-color: #FCFCFC; }
+.background-color-FCFCFC { background-color: var(--poke-white); }
 .background-color-2d2d2d { background-color: var(--color-primary); }
 
 .background-linear-gradiant-poke-ball {
@@ -60,29 +66,28 @@ html, body {
 		var(--color-secondary) 45.1%,
 		var(--color-primary) 45.1%,
 		var(--color-primary) 55.5%,
-		var(--poke-ball-white) 55.5%,
-		var(--poke-ball-white) 100%
+		var(--poke-white) 55.5%,
+		var(--poke-white) 100%
 	);
-	background-color: #2d2d2d;
+	/* background-color: #2d2d2d; */
 }
 
-.background-linear-gradient {
+.background-linear-gradient-sprite {	
 	background: repeating-linear-gradient(
 		to bottom left,
-		  #EDEDED 0px,
-		#EDEDED 20px,
-		#E7E7E7 20px,
-		#E7E7E7 40px
+		var(--sprite-gradient-white-1)   0px,
+		var(--sprite-gradient-white-1) 20px,
+		var(--sprite-gradient-white-2) 20px,
+		var(--sprite-gradient-white-2) 40px
 	);
-	background-color: #2d2d2d;
+	background-color: var(--poke-white);
 }
-
 
 
 .overflow-hidden { overflow: hidden; }
 
-
-
+.overflow-hidden-y { overflow-y: hidden; }
+.overflow-hidden-x { overflow-x: hidden; }
 
 
 
@@ -91,54 +96,19 @@ html, body {
 .width-50percent  { width: 50%; }
 .width-30percent  { width: 30%; }
 
-
 .width-1rem { width: 1rem; }
+.width-10rem { width: 10rem; }
 .width-20rem { width: 20rem; }
 
+
+.height-10rem { height: 10rem; }
 .height-20rem { height: 20rem; }
 
-.height-10rem      { height: 10rem; }
 .height-100percent { height: 100%; }
+.height-50percent { height: 50%; }
 
 
 .grid { display: grid; }
-
-.stats {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-	align-items: center;
-}
-
-.bar {
-	--value: 50;
-
-	position: relative;
-	width: 100%;
-	height: 1rem;
-	background: transparent;
-	border-style: solid;
-	border-width: var(--border-width);
-	border-color: var(--border-color);
-
-	overflow: hidden;
-}
-
-.bar::before {
-	content: "";
-	position: absolute;
-
-	/* inset: 0; */
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-
-	width: calc(var(--value) * 1%);
-	background: var(--color-api);
-
-}
 
 
 .flex { display: flex; }
@@ -256,6 +226,8 @@ html, body {
 
 .text-align-center { text-align: center; }
 
+.text-color-white { color: var(--poke-white);}
+
 
 
 
@@ -325,3 +297,52 @@ html, body {
 	bottom: 0;
 	left: 0;
 }
+
+
+
+/* Temporal Test */
+
+
+
+.stats {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+	align-items: center;
+}
+
+.bar {
+	--value: 50;
+
+	position: relative;
+	width: 100%;
+	height: 1rem;
+	background: transparent;
+	border-style: solid;
+	border-width: var(--border-width);
+	border-color: var(--border-color);
+
+	overflow: hidden;
+}
+
+.bar::before {
+	content: "";
+	position: absolute;
+
+	/* inset: 0; */
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	width: calc(var(--value) * 1%);
+	background: var(--color-api);
+
+}
+
+img {
+	background-size: cover;
+	width: 100%;
+}
+

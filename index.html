@@ -6,85 +6,63 @@
 		<title>Poke-Finder</title>
 		<link rel="stylesheet" href="shared.css" />
 	</head>
-	<body class="flex flex-column margin-y-0-75rem">
-
-		<div data-name="container-pokeball" class="position-bg pointer-events-none">
-			<div data-name="pokeball"
-				class="
-				shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5
-				background-color-rgba45-45-45-0-5 
-				pointer-events-none 
-				transform-rotate--15deg 
-				overflow-hidden 
-				background-linear-gradiant-poke-ball 
-				flex 
-				flex-justify-center 
-				flex-align-center 
-				border-radius-circle 
-				border-color-2d2d2d 
-				border-width-20px
-				border-estyle-solid
-				"
+	<body class="flex flex-column margin-y-0-75rem flex-gap-1rem">
+		<div data-name="bg-pokeball" class="position-bg pointer-events-none">
+			<div
+				data-name="pokeball"
+				class="shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5 background-color-rgba45-45-45-0-5 pointer-events-none transform-rotate--15deg overflow-hidden background-linear-gradiant-poke-ball flex flex-justify-center flex-align-center border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
 			>
-				<div data-name="pokeball-ball"
-					class="
-					background-color-FCFCFC 
-					padding-3rem border-radius-circle 
-					border-color-2d2d2d 
-					border-width-20px 
-					border-estyle-solid
-					"
+				<div
+					data-name="pokeball-ball"
+					class="background-color-FCFCFC padding-3rem border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
 				></div>
 			</div>
 		</div>
 
-		<div data-name="container-header" class="z-index-2">
-			<header
-			class="
-			z-index-2 
-			background-transparent 
-			margin-x-0-49rem
-			flex 
-			flex-column 
-			flex-gap-0-5rem
-			"
+		<header
+			data-name="header"
+			class="z-index-2 background-transparent margin-x-0-49rem flex flex-column flex-gap-0-5rem"
 		>
-			<div data-name="container-poke-title"
-				class="
-				shadow-box-x6px-y6px-b0px-s0px-2d2d2d 
-				font-size-1-25rem 
-				transform-rotate--3deg 
-				margin-y-0-75rem 
-				padding-y-0-75rem 
-				background-color-4ecdc4 
-				text-align-center 
-				border-width-4px 
-				border-estyle-solid 
-				">
+			<div
+				data-name="container-poke-title"
+				class="shadow-box-x6px-y6px-b0px-s0px-2d2d2d font-size-1-25rem transform-rotate--3deg margin-y-0-75rem padding-y-0-75rem background-color-4ecdc4 text-align-center border-width-4px border-estyle-solid"
+			>
 				<h1 data-name="poke-title">POKÉMON FINDER</h1>
 			</div>
 
-			<form name="form" action="" class="flex flex-gap-0-5rem flex-column">
-				<div class="flex flex-gap-0-5rem ">
-					<button type="submit"
+			<form
+				data-name="form-main"
+				action=""
+				class="flex flex-gap-0-5rem flex-column"
+			>
+				<div class="flex flex-gap-0-5rem">
+					<button
+						data-name="nav-buscar"
+						type="submit"
 						class="anim-popup background-color-4ecdc4 font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						🔍 Buscar
 					</button>
 
-					<button type="submit"
+					<button
+						data-name="nav-historico"
+						type="submit"
 						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						📜 Histórico
 					</button>
 
-					<button type="submit"
+					<button
+						data-name="nav-vs"
+						type="submit"
 						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						⚔️ VS
 					</button>
 
-					<button type="submit"
+					<button
+						data-name="nav-favoritos"
+						type="submit"
 						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						❤️ Favoritos
@@ -95,45 +73,20 @@
 					<select
 						name=""
 						id=""
-						class="
-						anim-popup
-						font-size-0-9rem 
-						padding-0-5rem 
-						border-color-2d2d2d 
-						border-width-4px 
-						border-estyle-solid 
-						shadow-box-x6px-y6px-b0px-s0px-2d2d2d
-						"
+						class="anim-popup font-size-0-9rem padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
 					>
 						<option value="Pokémon">Pokémon</option>
 					</select>
 					<input
+						data-name="finder-search"
 						type="search"
-						name=""
-						id=""
 						placeholder="NOMBRE O ID..."
-						class="
-						anim-active-popup
-						font-size-0-9rem 
-						padding-0-5rem  
-						border-color-2d2d2d 
-						border-width-4px 
-						border-estyle-solid 
-						shadow-box-x6px-y6px-b0px-s0px-2d2d2d
-						"
+						class="anim-active-popup font-size-0-9rem padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
 					/>
 					<button
-						data-name="button-buscar"
+						data-name="finder-buscar"
 						type="submit"
-						class="
-						anim-popup
-						font-size-0-9rem 
-						padding-0-5rem 
-						border-width-4px 
-						border-color-2d2d2d 
-						border-estyle-solid 
-						shadow-box-x6px-y6px-b0px-s0px-2d2d2d
-						"
+						class="anim-popup font-size-0-9rem padding-0-5rem border-width-4px border-color-2d2d2d border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
 					>
 						Buscar
 					</button>
@@ -141,83 +94,12 @@
 			</form>
 		</header>
 
-			<main class="flex flex-column flex-align-center background-color-FCFCFC">
-				<div class="">
-					<div data-name="container-data" 
-					class="
-					flex 
-					flex-align-center 
-					flex-justify-space-between
-					">
-						<span data-name="pokemon-data">Pokemon Data</span>
-						<span data-name="api-or-cache">api-or-cache</span>
-					</div>
+		<main data-name="main" class="z-index-2 flex flex-column flex-align-center">
+			
+		</main>
 
-					<div data-name="container-sprite">
-						<div 
-						data-name="bg-sprite" 
-						class="
-						flex 
-						flex-align-center
-						flex-justify-center 
-						background-linear-gradient 
-						width-20rem 
-						height-20rem">
-						</div>
+		<footer></footer>
 
-						<img src="" alt="">
-					</div>
-
-					<div class="poke-name">
-						<h2>#1 Bulbasaur</h2>
-						<hr>
-					</div>
-
-					<div data-name="poke-type">
-						<span>Grass</span>
-					</div>
-
-					<div data-name="poke-habilidades">
-
-					</div>
-
-					<div class="stats">
-
-						<span>HP</span>
-						<div data-name="hp-bar" data-value="75" class="bar"><span>HP</span></div>
-
-						<span>ATTACK</span>
-						<div data-name="hp-attack" data-value="75" class="bar"></div>
-						
-						<span>DEFENCE:</span>
-						<div data-name="hp-defence" data-value="75" class="bar"></div>
-						
-						<span>SPECIAL-ATTACK:</span>
-						<div data-name="hp-attack" data-value="75" class="bar"></div>
-
-						<span>SPEED:</span>
-						<div data-name="hp-speed" data-value="75" class="bar"></div>
-					
-					</div>
-
-					<div>
-						<button type="submit" data-name="favorito">❤️</button>
-					</div>
-
-					<hr>
-					<span>CADENA DE EVOLUCIÓN</span>
-
-					<div>
-						<button></button>
-					</div>
-				</div>
-			</main>
-		</div>
-		
-
-		<footer>
-
-		</footer>
 		<script type="" src="shared.js"></script>
 	</body>
 </html>

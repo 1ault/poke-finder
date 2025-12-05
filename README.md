@@ -6,6 +6,11 @@
 
 https://gist.github.com/ErickAgrazal/93abdea87c98063df4bb3f8f3be66728
 
+## JS
+
+[Consumo de API Pokémon (Estilo Brutalista)](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/10.%20Explicaci%C3%B3n%20sobre%20Consumo%20de%20API%20Pok%C3%A9mon)
+
+[LocalStorage](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/9.%20Explicaci%C3%B3n%20sobre%20Edici%C3%B3n%20con%20LocalStorage)
 
 ## CSS
 
@@ -31,7 +36,7 @@ https://gist.github.com/ErickAgrazal/93abdea87c98063df4bb3f8f3be66728
 
 ### Todo
 
-[Consumo de API Pokémon (Estilo Brutalista)](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/10.%20Explicaci%C3%B3n%20sobre%20Consumo%20de%20API%20Pok%C3%A9mon)
+
 
 [w3schools css3_variables](https://www.w3schools.com/css/css3_variables.asp)
 
