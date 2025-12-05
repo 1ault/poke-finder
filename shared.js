@@ -5,27 +5,37 @@
 	 * @return {object} init()
 	 */
 	const App = (() => {
-		const htmlElemnts = {};
+		const htmlElemnts = {
+			form : document.querySelector('form[name="loginForm"]'),
+
+		};
 
 		const templates = {};
 
 		const utils = {
-			fetch: {
-				async pokeApiV2() {
-					const response = await fetch(`https://pokeapi.co/api/v2/pokemon/1`, {
-						method: "GET",
-					});
+			// fetch: {
+			// 	async pokeApiV2() {
+			// 		// const response = await fetch(`https://pokeapi.co/api/v2/pokemon/1`, {
+			// 			method: "GET",
+			// 		});
 
-					console.log(await response.json());
-				},
-			},
+			// 		console.log(await response.json());
+			// 	},
+			// },
 		};
 
-		const handlers = {};
+		const handlers = {
+			onFormSubmit(e) { 
+				e.preventDefault();
+			}
+		};
 
 		return {
 			init() {
-				utils.fetch.pokeApiV2();
+				htmlElemnts.form.addEventListener(
+					"submit",
+					handlers.onFormSubmit,
+				);
 			},
 		};
 	})();

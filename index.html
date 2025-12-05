@@ -8,8 +8,8 @@
 	</head>
 	<body class="flex flex-column margin-y-0-75rem">
 
-		<div class="position-bg pointer-events-none">
-			<div
+		<div data-name="container-pokeball" class="position-bg pointer-events-none">
+			<div data-name="pokeball"
 				class="
 				shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5
 				background-color-rgba45-45-45-0-5 
@@ -26,7 +26,7 @@
 				border-estyle-solid
 				"
 			>
-				<div
+				<div data-name="pokeball-ball"
 					class="
 					background-color-FCFCFC 
 					padding-3rem border-radius-circle 
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 
-		<div class="z-index-2">
+		<div data-name="container-header" class="z-index-2">
 			<header
 			class="
 			z-index-2 
@@ -49,7 +49,7 @@
 			flex-gap-0-5rem
 			"
 		>
-			<div
+			<div data-name="container-poke-title"
 				class="
 				shadow-box-x6px-y6px-b0px-s0px-2d2d2d 
 				font-size-1-25rem 
@@ -61,30 +61,30 @@
 				border-width-4px 
 				border-estyle-solid 
 				">
-				<h1>POKÉMON FINDER</h1>
+				<h1 data-name="poke-title">POKÉMON FINDER</h1>
 			</div>
 
-			<form action="" class="flex flex-gap-0-5rem flex-column">
+			<form name="form" action="" class="flex flex-gap-0-5rem flex-column">
 				<div class="flex flex-gap-0-5rem ">
-					<button
+					<button type="submit"
 						class="anim-popup background-color-4ecdc4 font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						🔍 Buscar
 					</button>
 
-					<button
+					<button type="submit"
 						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						📜 Histórico
 					</button>
 
-					<button
+					<button type="submit"
 						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						⚔️ VS
 					</button>
 
-					<button
+					<button type="submit"
 						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
 					>
 						❤️ Favoritos
@@ -123,6 +123,8 @@
 						"
 					/>
 					<button
+						data-name="button-buscar"
+						type="submit"
 						class="
 						anim-popup
 						font-size-0-9rem 
@@ -139,42 +141,75 @@
 			</form>
 		</header>
 
-			<main class="flex flex-column background-color-4ecdc4">
+			<main class="flex flex-column flex-align-center background-color-FCFCFC">
 				<div class="">
-					<div>
-						<p>Pokemon Data</p>
-						<p>Pokemon Data</p>
+					<div data-name="container-data" 
+					class="
+					flex 
+					flex-align-center 
+					flex-justify-space-between
+					">
+						<span data-name="pokemon-data">Pokemon Data</span>
+						<span data-name="api-or-cache">api-or-cache</span>
 					</div>
 
-					<div>
-						<div class="background-linear-gradient width-1rem">
-							<img src="" alt="">
+					<div data-name="container-sprite">
+						<div 
+						data-name="bg-sprite" 
+						class="
+						flex 
+						flex-align-center
+						flex-justify-center 
+						background-linear-gradient 
+						width-20rem 
+						height-20rem">
 						</div>
+
+						<img src="" alt="">
 					</div>
 
-					<div>
-						<p>Text</p>
+					<div class="poke-name">
+						<h2>#1 Bulbasaur</h2>
 						<hr>
 					</div>
 
-					<div>
+					<div data-name="poke-type">
+						<span>Grass</span>
+					</div>
+
+					<div data-name="poke-habilidades">
 
 					</div>
 
-					<div>
+					<div class="stats">
 
+						<span>HP</span>
+						<div data-name="hp-bar" data-value="75" class="bar"><span>HP</span></div>
+
+						<span>ATTACK</span>
+						<div data-name="hp-attack" data-value="75" class="bar"></div>
+						
+						<span>DEFENCE:</span>
+						<div data-name="hp-defence" data-value="75" class="bar"></div>
+						
+						<span>SPECIAL-ATTACK:</span>
+						<div data-name="hp-attack" data-value="75" class="bar"></div>
+
+						<span>SPEED:</span>
+						<div data-name="hp-speed" data-value="75" class="bar"></div>
+					
 					</div>
 
 					<div>
-
+						<button type="submit" data-name="favorito">❤️</button>
 					</div>
+
+					<hr>
+					<span>CADENA DE EVOLUCIÓN</span>
 
 					<div>
-
-
+						<button></button>
 					</div>
-
-					<div></div>
 				</div>
 			</main>
 		</div>
