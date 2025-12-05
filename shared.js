@@ -246,36 +246,64 @@
 					e.submitter.dataset.name ===
 					htmlElemnts.form.finder.button.buscar.dataset.name
 				) {
-					if (!utils.storageLocal.exist("poke_data_array")) {
-						json = await utils.fetch.pokeApiSearch(
-							htmlElemnts.form.finder.input.search.value,
-						);
+					const busqueda = htmlElemnts.form.finder.input.search.value.trim();
+					if (!busqueda) return;
 
-						const pokeDataArray = [];
+					let cachePokemon = JSON.parse(localStorage.getItem("pokemon_cache") || "[]");
 
-						pokeDataArray.push({
-							id: json.id,
-							name: json.name,
-							obj: json,
-						});
-
-						utils.storageLocal.save("poke_data_array", pokeDataArray);
-
-						htmlElemnts.main.innerHTML = templates.search.pokemonDataCard(json);
-
-						htmlElemnts.formMain.reset();
-						return;
-					}
-
-					json = await utils.fetch.pokeApiSearch(
-						htmlElemnts.form.finder.input.search.value,
+					let enCache = cachePokemon.find(p => 
+						p.name.toLowerCase() === busqueda.toLowerCase() || 
+						String(p.id) === busqueda
 					);
 
-					htmlElemnts.main.innerHTML = templates.search.pokemonDataCard(json);
+					let datosPokemon;
+					let fuente = "cache";
+
+					if (enCache) {
+						datosPokemon = enCache.obj;
+						fuente = "cache";
+					} else {
+						try {
+							const datosCompletos = await utils.fetch.pokeApiSearch(busqueda);
+							fuente = "api";
+							datosPokemon = {
+								id: datosCompletos.id,
+								name: datosCompletos.name,
+								sprites: {
+									front_default: datosCompletos.sprites.front_default
+								},
+								stats: datosCompletos.stats.map(stat => ({
+									name: stat.stat.name,
+									base_stat: stat.base_stat
+								})),
+								types: datosCompletos.types.map(type => ({
+									name: type.type.name
+								})),
+								abilities: datosCompletos.abilities.map(ability => ({
+									name: ability.ability.name
+								})),
+								moves: datosCompletos.moves.map(move => ({
+									name: move.move.name
+								}))
+							};
+							
+							cachePokemon.push({
+								id: datosPokemon.id,
+								name: datosPokemon.name,
+								obj: datosPokemon,
+								fecha: new Date().toISOString()
+							});
+							
+							localStorage.setItem("pokemon_cache", JSON.stringify(cachePokemon));
+						} catch (error) {
+							console.error("Error buscando:", error);
+							return;
+						}
+					}
+
+					htmlElemnts.main.innerHTML = templates.search.pokemonDataCard(datosPokemon);
 
 					htmlElemnts.formMain.reset();
-
-					console.log(utils.storageLocal.get("poke_data_array"));
 				}
 			},
 		};
