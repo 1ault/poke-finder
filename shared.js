@@ -11,13 +11,9 @@
 			form: {
 				nav: {
 					button: {
-						historico: document.querySelector(
-							'button[data-name="nav-historico"]',
-						),
+						historico: document.querySelector('button[data-name="nav-historico"]'),
 						vs: document.querySelector('button[data-name="nav-vs"]'),
-						favoritos: document.querySelector(
-							'button[data-name="nav-favoritos"]',
-						),
+						favoritos: document.querySelector('button[data-name="nav-favoritos"]'),
 						buscar: document.querySelector('button[data-name="nav-buscar"]'),
 					},
 				},
@@ -33,100 +29,170 @@
 			tmp: {
 				img: document.querySelector('img[data-name="img-poke-sprite"]'),
 			},
-			// form: document.querySelector('form[name="loginForm"]'),
-			// formFinderBuscar: document.querySelector(""),
+			pokeCard: {
+				stats: {
+					get hp() { return document.querySelector('div[data-name="stats-hp"]'); },
+					get attack() { return document.querySelector('div[data-name="stats-attack"]'); }, 
+					get defense() { return document.querySelector('div[data-name="stats-defense"]'); }, 
+					get specialAttack() { return  document.querySelector('div[data-name="stats-special-attack"]'); }, 
+					get specialDefense() { return document.querySelector('div[data-name="stats-special-defense"]'); }, 
+					get speed() { return document.querySelector('div[data-name="stats-speed"]'); },
+				},
+			},
 		};
 
 		const templates = {
 			search: {
 				// poke-name, poke-type, poke-habilidades, stats
-				pokemonDataCard: (json) => `
+				
+// 📦 DESDE_CACHÉ 
+				pokemonDataCard: (datosPokemon) => 
+`
 <div data-name="poke-info"
 	class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid"
 >
 	<div data-name="container-data"
-		class="flex flex-align-center flex-justify-space-between"
+		class="flex flex-column flex-justify-center"
 	>
-		<span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
-		<span data-name="api-or-cache" class="background-color-4ecdc4">api-or-cache</span>
-
+		<div data-name="container-poke-data-center"
+			class="flex flex-justify-space-between"
+		>
+			<span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
+			<span data-name="api-or-cache" class="background-color-4ecdc4">🌐 DESDE_API</span>
 		</div>
-				<div class="padding-0-5rem">
-					<div
-						data-name="container-sprite"
-						class="flex flex-align-center flex-justify-center"
-					>
-						<div
-							data-name="bg-sprite"
-							class="width-10rem height-10rem background-linear-gradient-sprite"
-						>
-							<img data-name="img-poke-sprite" src="${json.sprites.front_default}" alt="" />
-						</div>
-					</div>
 
-					<div class="poke-name">
-						<h2>#${json.id} ${json.name}</h2>
-						<hr />
-					</div>
 
-					<div data-name="poke-type">
-						<span>Grass</span>
-					</div>
-
-					<div data-name="poke-habilidades"></div>
-
-					<div class="stats">
-						<span>HP</span>
-						<div data-name="hp-bar" data-value="75" class="bar">
-							<span>HP</span>
-						</div>
-
-						<span>ATTACK</span>
-						<div
-							data-name="hp-attack"
-							data-value="75"
-							class="bar"
-						></div>
-
-						<span>DEFENCE:</span>
-						<div
-							data-name="hp-defence"
-							data-value="75"
-							class="bar"
-						></div>
-
-						<span>SPECIAL-ATTACK:</span>
-						<div
-							data-name="hp-attack"
-							data-value="75"
-							class="bar"
-						></div>
-
-						<span>SPEED:</span>
-						<div
-							data-name="hp-speed"
-							data-value="75"
-							class="bar"
-						></div>
-					</div>
-
-					<div>
-						<button type="submit" data-name="favorito">❤️</button>
-					</div>
-
-					<hr />
-					<span>CADENA DE EVOLUCIÓN</span>
-
-					<div>
-						<button></button>
-					</div>
+		<div data-name="container-poke-show" 
+			class="padding-0-5rem"
+		>
+			<div data-name="container-sprite"
+				class="flex flex-align-center flex-justify-center"
+			>
+				<div data-name="bg-sprite"
+					class="width-10rem height-10rem background-linear-gradient-sprite border-width-4px border-color-2d2d2d border-estyle-solid"
+				>
+					<img data-name="img-poke-sprite" src="${datosPokemon.sprites.front_default}" alt="" />
 				</div>
 			</div>
-			`,
+		</div>
+
+
+		<div data-name="container-poke-name" 
+			class="padding-0-5rem"
+		>
+			<h2>#${datosPokemon.id} ${String(datosPokemon.name).toUpperCase()}</h2>
+			<hr />
+		</div>
+		
+		<div data-name="poke-type"
+			class="padding-0-5rem"
+		>
+			<span class="poke-type">Grass</span>
+		</div>
+
+		<div data-name="poke-habilidades"
+			class="padding-0-5rem"
+		>
+		</div>
+
+		<div class="stats padding-0-5rem"
+		>
+			<span>HP:</span>
+			<div data-name="stats-hp" data-value="${datosPokemon.stats.find(st => st.name === "hp").base_stat}" class="bar"
+			>
+			</div>
+
+			<span>ATTACK:</span>
+			<div
+				data-name="stats-attack"
+				data-value="${datosPokemon.stats.find(st => st.name === "attack").base_stat}"
+				data-max="100"
+				class="bar"
+			>
+			</div>
+
+			<span>DEFENSE:</span>
+			<div
+				data-name="stats-defense"
+				data-value="${datosPokemon.stats.find(st => st.name === "defense").base_stat}"
+				data-max="100"
+				class="bar"
+			>
+			</div>
+
+			<span>SPECIAL-ATTACK:</span>
+			<div
+				data-name="stats-special-attack"
+				data-value="${datosPokemon.stats.find(st => st.name === "special-attack").base_stat}"
+				data-max="100"
+				class="bar"
+			>
+			</div>
+
+			<span>SPECIAL-DEFENSE:</span>
+			<div
+				data-name="stats-special-defense"
+				data-value="${datosPokemon.stats.find(st => st.name === "special-defense").base_stat}"
+				data-max="100"
+				class="bar"
+			>
+			</div>
+
+			<span>SPEED:</span>
+			<div
+				data-name="stats-speed"
+				data-value="${datosPokemon.stats.find(st => st.name === "speed").base_stat}"
+				data-max="100"
+				class="bar"
+			>
+			</div>
+		</div>
+
+		<div>
+			<button type="submit" data-name="favorito">❤️</button>
+				</div>
+
+				<hr />
+				<span>CADENA DE EVOLUCIÓN</span>
+
+				<button></button>
+			</div>
+		</div>
+	<div>
+</div>
+`,
 			},
 		};
 
 		const utils = {
+			gui: {
+				setPokemonDataCardStats() {
+
+					console.log(htmlElemnts.pokeCard.stats.hp.dataset.value);
+					const valHp = htmlElemnts.pokeCard.stats.hp.dataset.value;
+					htmlElemnts.pokeCard.stats.hp.style.setProperty("--value", (valHp * 1));
+
+
+					const valAttack = htmlElemnts.pokeCard.stats.attack.dataset.value;
+					htmlElemnts.pokeCard.stats.attack.style.setProperty("--value", (valAttack * 1));
+
+					
+					const valDefense = htmlElemnts.pokeCard.stats.defense.dataset.value;
+					htmlElemnts.pokeCard.stats.defense.style.setProperty("--value", (valDefense * 1));
+					
+
+					const valSpecialAttack = htmlElemnts.pokeCard.stats.specialAttack.dataset.value;
+					htmlElemnts.pokeCard.stats.specialAttack.style.setProperty("--value", (valSpecialAttack * 1));
+					
+					const valSpecialDefense = htmlElemnts.pokeCard.stats.specialDefense.dataset.value;
+					htmlElemnts.pokeCard.stats.specialDefense.style.setProperty("--value", (valSpecialDefense * 1));
+					
+
+					const valSpeed = htmlElemnts.pokeCard.stats.speed.dataset.value;
+					htmlElemnts.pokeCard.stats.speed.style.setProperty("--value", (valSpeed * 1));
+					
+				},
+			},
 			storageLocal: {
 				save(key, obj) {
 					localStorage.setItem(`${key}`, JSON.stringify(obj));
@@ -211,15 +277,15 @@
 			async onFormSubmit(e) {
 				e.preventDefault();
 
+				console.log(e);
+
 				// console.log(e.submitter.dataset.name);
 
 				// Routers
 				if (
 					e.submitter.dataset.name ===
 					htmlElemnts.form.nav.button.historico.dataset.name
-				) {
-					window.location.href = "historico.html";
-				}
+				) { window.location.href = "historico.html";}
 
 				if (
 					e.submitter.dataset.name ===
@@ -241,6 +307,12 @@
 				) {
 					window.location.href = "vs.html";
 				}
+
+
+
+
+
+				// Search
 
 				if (
 					e.submitter.dataset.name ===
@@ -301,8 +373,10 @@
 						}
 					}
 
+					
 					htmlElemnts.main.innerHTML = templates.search.pokemonDataCard(datosPokemon);
-
+					utils.gui.setPokemonDataCardStats();
+					
 					htmlElemnts.formMain.reset();
 				}
 			},
