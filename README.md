@@ -36,14 +36,9 @@ https://gist.github.com/ErickAgrazal/93abdea87c98063df4bb3f8f3be66728
 
 ### Todo
 
-
-
 [w3schools css3_variables](https://www.w3schools.com/css/css3_variables.asp)
 
 [w3schools css3_gradients](https://www.w3schools.com/css/css3_gradients.asp)
-
-
-
 
 [ErickAgrazal](https://gist.github.com/ErickAgrazal/93abdea87c98063df4bb3f8f3be66728)
 
