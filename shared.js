@@ -35,172 +35,216 @@
       },
       pokeCard: {
         stats: {
-          get hp() {
+          hp: () => {
             return document.querySelector('div[data-name="stats-hp"]');
           },
-          get attack() {
+          attack: () => {
             return document.querySelector('div[data-name="stats-attack"]');
           },
-          get defense() {
+          defense: () => {
             return document.querySelector('div[data-name="stats-defense"]');
           },
-          get specialAttack() {
+          specialAttack: () => {
             return document.querySelector(
               'div[data-name="stats-special-attack"]'
             );
           },
-          get specialDefense() {
+          specialDefense: () => {
             return document.querySelector(
               'div[data-name="stats-special-defense"]'
             );
           },
-          get speed() {
+          speed: () => {
             return document.querySelector('div[data-name="stats-speed"]');
           },
+        },
+        types: () => {
+          return document.querySelector('div[data-name="poke-types"]');
+        },
+        habilidades: () => {
+          return document.querySelector('div[data-name="poke-habilidades"]');
         },
       },
     };
 
     const templates = {
-      search: {
-        // poke-name, poke-type, poke-habilidades, stats
-
-        // 📦 DESDE_CACHÉ
-        pokemonDataCard: (datosPokemon) =>
-          `
-        <div data-name="poke-info"
-          class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid"
-        >
-          <div data-name="container-data"
-            class="flex flex-column flex-justify-center"
-          >
-            <div data-name="container-poke-data-center"
-              class="flex flex-justify-space-between"
-            >
-              <span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
-              <span data-name="api-or-cache" class="background-color-4ecdc4">🌐 DESDE_API</span>
-            </div>
-
-
-          <div data-name="container-poke-show" 
-            class="padding-0-5rem"
-          >
-            <div data-name="container-sprite"
-              class="flex flex-align-center flex-justify-center"
-            >
-              <div data-name="bg-sprite"
-                class="width-10rem height-10rem background-linear-gradient-sprite border-width-4px border-color-2d2d2d border-estyle-solid"
-              >
-                <img data-name="img-poke-sprite" src="${
-                  datosPokemon.sprites.front_default
-                }" alt="" />
-              </div>
-            </div>
-          </div>
-
-
-            <div data-name="container-poke-name" 
-              class="padding-0-5rem"
-            >
-              <h2>#${datosPokemon.id} ${String(
-            datosPokemon.name
-          ).toUpperCase()}</h2>
-              <hr />
-            </div>
-            
-            <div data-name="poke-type"
-              class="padding-0-5rem"
-            >
-              <span class="poke-type">Grass</span>
-            </div>
-
-            <div data-name="poke-habilidades"
-              class="padding-0-5rem"
-            >
-            </div>
-
-            <div class="stats padding-0-5rem"
-            >
-              <span>HP:</span>
-              <div data-name="stats-hp" data-value="${
+      empty: () => {
+        return "";
+      },
+      pokemon: {
+        card: {
+          generate: {
+            types: (text) => {
+              return `<span class="poke-type">${text}</span>`;
+            },
+            abilities: {
+              visible: (text) => {
+                return `<span class="poke-abilitie visible order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d">${text}</span>`;
+              },
+              oculta: (text) => {
+                return `<span class="poke-abilitie oculta order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d font-style">${text}</span>`;
+              },
+            },
+          },
+          init: () => {
+            return `
+						<div data-name="poke-info"
+							class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid"
+						>
+							<div data-name="container-data"
+								class="flex flex-column flex-justify-center"
+							>
+						`;
+          },
+          dataCenter: () => {
+            // // 📦 DESDE_CACHÉ
+            return `
+						<div data-name="container-poke-data-center"
+							class="flex flex-justify-space-between"
+						>
+							<span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
+							<span data-name="api-or-cache" class="background-color-4ecdc4">🌐 DESDE_API</span>
+						</div>
+						`;
+          },
+          initPokeShow: () => {
+            return `
+						<div data-name="container-poke-show" 
+							class="padding-0-5rem"
+						>
+						`;
+          },
+          pokeShowSprite: (datosPokemon) => {
+            return `
+						<div data-name="container-sprite"
+							class="flex flex-align-center flex-justify-center"
+						>
+							<div data-name="bg-sprite"
+								class="width-10rem height-10rem background-linear-gradient-sprite border-width-4px border-color-2d2d2d border-estyle-solid"
+							>
+								<img data-name="img-poke-sprite" src="${datosPokemon.sprites.front_default}" alt="${datosPokemon.name}" />
+							</div>
+						</div>
+						`;
+          },
+          pokeShowName: (datosPokemon) => {
+            return `
+						<div data-name="container-poke-name" 
+							class="padding-0-5rem"
+						>
+							<h2>#${datosPokemon.id} ${String(datosPokemon.name).toUpperCase()}</h2>
+							<div class="tmp-divide2">
+						</div>
+						`;
+          },
+          pokeShowType: () => {
+            return `
+						<div data-name="poke-types"
+							class="padding-0-5rem flex flex-gap-0-5rem"
+						>
+						</div>
+						`;
+          },
+          pokeShowHabilidades: () => {
+            return `
+						<div>
+							<span class="font-weight-bold">HABILIDADES</span>
+						</div>
+						<div data-name="poke-habilidades"
+							class="padding-0-5rem flex flex-gap-0-5rem"
+						>
+							
+						</div>
+						`;
+          },
+          pokeShowStats: (datosPokemon) => {
+            return `
+						<div class="stats padding-0-5rem"
+						>
+							<span>HP:</span>
+							<div data-name="stats-hp" data-value="${
                 datosPokemon.stats.find((st) => st.name === "hp").base_stat
               }" class="bar"
-              >
-              </div>
+							>
+							</div>
 
-              <span>ATTACK:</span>
-              <div
-                data-name="stats-attack"
-                data-value="${
-                  datosPokemon.stats.find((st) => st.name === "attack")
-                    .base_stat
-                }"
-                data-max="100"
-                class="bar"
-              >
-              </div>
+							<span>ATTACK:</span>
+							<div
+								data-name="stats-attack"
+								data-value="${datosPokemon.stats.find((st) => st.name === "attack").base_stat}"
+								data-max="100"
+								class="bar"
+							>
+							</div>
 
-              <span>DEFENSE:</span>
-              <div
-                data-name="stats-defense"
-                data-value="${
-                  datosPokemon.stats.find((st) => st.name === "defense")
-                    .base_stat
-                }"
-                data-max="100"
-                class="bar"
-              >
-              </div>
+							<span>DEFENSE:</span>
+							<div
+								data-name="stats-defense"
+								data-value="${datosPokemon.stats.find((st) => st.name === "defense").base_stat}"
+								data-max="100"
+								class="bar"
+							>
+							</div>
 
-              <span>SPECIAL-ATTACK:</span>
-              <div
-                data-name="stats-special-attack"
-                data-value="${
+							<span>SPECIAL-ATTACK:</span>
+							<div
+								data-name="stats-special-attack"
+								data-value="${
                   datosPokemon.stats.find((st) => st.name === "special-attack")
                     .base_stat
                 }"
-                data-max="100"
-                class="bar"
-              >
-              </div>
+								data-max="100"
+								class="bar"
+							>
+							</div>
 
-              <span>SPECIAL-DEFENSE:</span>
-              <div
-                data-name="stats-special-defense"
-                data-value="${
+							<span>SPECIAL-DEFENSE:</span>
+							<div
+								data-name="stats-special-defense"
+								data-value="${
                   datosPokemon.stats.find((st) => st.name === "special-defense")
                     .base_stat
                 }"
-                data-max="100"
-                class="bar"
-              >
-              </div>
+								data-max="100"
+								class="bar"
+							>
+							</div>
 
-              <span>SPEED:</span>
-              <div
-                data-name="stats-speed"
-                data-value="${
-                  datosPokemon.stats.find((st) => st.name === "speed").base_stat
-                }"
-                data-max="100"
-                class="bar"
-              >
-              </div>
-            </div>
+							<span>SPEED:</span>
+							<div
+								data-name="stats-speed"
+								data-value="${datosPokemon.stats.find((st) => st.name === "speed").base_stat}"
+								data-max="100"
+								class="bar"
+							>
+							</div>
+						</div>
 
-            <div>
-              <button type="submit" data-name="favorito">❤️</button>
-                </div>
-
-                <hr />
-                <span>CADENA DE EVOLUCIÓN</span>
-
-                <button></button>
-              </div>
-            </div>
-          <div>
-        </div>
-        `,
+						`;
+          },
+          pokeShowFavorito: () => {
+            return `
+						<div>
+							<button type="submit" data-name="favorito">❤️</button>
+						</div>
+						`;
+          },
+          pokeShowCadenaDeEvolucion: (datosPokemon) => {
+            return `
+						<div class="tmp-divide"></div>
+						<div>
+							<span>CADENA DE EVOLUCIÓN</span>
+							<button></button>
+						</div>
+						`;
+          },
+          endPokeShow: () => {
+            return `</div>`;
+          },
+          end: () => {
+            return `</div>`;
+          },
+        },
       },
 
       history: {
@@ -247,45 +291,127 @@
     };
 
     const utils = {
-      gui: {
-        setPokemonDataCardStats() {
-          console.log(htmlElemnts.pokeCard.stats.hp.dataset.value);
-          const valHp = htmlElemnts.pokeCard.stats.hp.dataset.value;
-          htmlElemnts.pokeCard.stats.hp.style.setProperty("--value", valHp * 1);
-
-          const valAttack = htmlElemnts.pokeCard.stats.attack.dataset.value;
-          htmlElemnts.pokeCard.stats.attack.style.setProperty(
-            "--value",
-            valAttack * 1
-          );
-
-          const valDefense = htmlElemnts.pokeCard.stats.defense.dataset.value;
-          htmlElemnts.pokeCard.stats.defense.style.setProperty(
-            "--value",
-            valDefense * 1
-          );
-
-          const valSpecialAttack =
-            htmlElemnts.pokeCard.stats.specialAttack.dataset.value;
-          htmlElemnts.pokeCard.stats.specialAttack.style.setProperty(
-            "--value",
-            valSpecialAttack * 1
-          );
-
-          const valSpecialDefense =
-            htmlElemnts.pokeCard.stats.specialDefense.dataset.value;
-          htmlElemnts.pokeCard.stats.specialDefense.style.setProperty(
-            "--value",
-            valSpecialDefense * 1
-          );
-
-          const valSpeed = htmlElemnts.pokeCard.stats.speed.dataset.value;
-          htmlElemnts.pokeCard.stats.speed.style.setProperty(
-            "--value",
-            valSpeed * 1
-          );
+      string: {
+        capitalizeFirstLetter: (val) => {
+          return `${String(val).charAt(0).toUpperCase()}${String(val).slice(
+            1
+          )}`;
         },
       },
+      gui: {
+        newPokemonDataCard: (datosPokemon) => {
+          let html = templates.empty();
+
+          {
+            html += templates.pokemon.card.init();
+
+            {
+              html += templates.pokemon.card.dataCenter();
+
+              html += templates.pokemon.card.initPokeShow();
+
+              {
+                html += templates.pokemon.card.pokeShowSprite(datosPokemon);
+
+                html += templates.pokemon.card.pokeShowName(datosPokemon);
+
+                html += templates.pokemon.card.pokeShowType();
+
+                html += templates.pokemon.card.pokeShowHabilidades();
+
+                html += templates.pokemon.card.pokeShowStats(datosPokemon);
+
+                html += templates.pokemon.card.pokeShowFavorito();
+
+                html += templates.pokemon.card.pokeShowCadenaDeEvolucion();
+              }
+
+              html += templates.pokemon.card.endPokeShow();
+            }
+
+            html += templates.pokemon.card.end();
+          }
+
+          console.log(datosPokemon);
+          htmlElemnts.main.innerHTML = html;
+          utils.gui.setPokemonDataCardHabilidades(datosPokemon);
+          utils.gui.setPokemonDataCardTypes(datosPokemon);
+          utils.gui.setPokemonDataCardStats();
+          utils.gui.setPokemonDataCardCadenaDeEvolucion();
+        },
+        setPokemonDataCardTypes(datosPokemon) {
+          let elementTypes = htmlElemnts.pokeCard.types();
+          let html = "";
+
+          datosPokemon.types.forEach((val) => {
+            html += templates.pokemon.card.generate.types(
+              String(val.name).toUpperCase()
+            );
+          });
+
+          elementTypes.innerHTML += html;
+        },
+        setPokemonDataCardHabilidades(datosPokemon) {
+          let elementHabilidades = htmlElemnts.pokeCard.habilidades();
+          let html = "";
+
+          datosPokemon.abilities.forEach((val) => {
+            console.log(val);
+            if (val.hidden) {
+              html += templates.pokemon.card.generate.abilities.oculta(
+                `${utils.string.capitalizeFirstLetter(
+                  String(val.name)
+                )} (Oculta)`
+              );
+              return;
+            }
+
+            html += templates.pokemon.card.generate.abilities.visible(
+              utils.string.capitalizeFirstLetter(String(val.name))
+            );
+          });
+
+          elementHabilidades.innerHTML += html;
+        },
+
+        setPokemonDataCardCadenaDeEvolucion() {},
+
+        setPokemonDataCardStats() {
+          const valHp = htmlElemnts.pokeCard.stats.hp().dataset.value;
+          console.log(valHp);
+          htmlElemnts.pokeCard.stats
+            .hp()
+            .style.setProperty("--value", valHp * 1);
+
+          const valAttack = htmlElemnts.pokeCard.stats.attack().dataset.value;
+          htmlElemnts.pokeCard.stats
+            .attack()
+            .style.setProperty("--value", valAttack * 1);
+
+          const valDefense = htmlElemnts.pokeCard.stats.defense().dataset.value;
+          htmlElemnts.pokeCard.stats
+            .defense()
+            .style.setProperty("--value", valDefense * 1);
+
+          const valSpecialAttack =
+            htmlElemnts.pokeCard.stats.specialAttack().dataset.value;
+          htmlElemnts.pokeCard.stats
+            .specialAttack()
+            .style.setProperty("--value", valSpecialAttack * 1);
+
+          const valSpecialDefense =
+            htmlElemnts.pokeCard.stats.specialDefense().dataset.value;
+          htmlElemnts.pokeCard.stats
+            .specialDefense()
+            .style.setProperty("--value", valSpecialDefense * 1);
+
+          const valSpeed = htmlElemnts.pokeCard.stats.speed().dataset.value;
+          htmlElemnts.pokeCard.stats
+            .speed()
+            .style.setProperty("--value", valSpeed * 1);
+        },
+      },
+
       storageLocal: {
         save(key, obj) {
           localStorage.setItem(`${key}`, JSON.stringify(obj));
@@ -557,9 +683,7 @@
             }
           }
 
-          htmlElemnts.main.innerHTML =
-            templates.search.pokemonDataCard(datosPokemon);
-          utils.gui.setPokemonDataCardStats();
+          utils.gui.newPokemonDataCard(datosPokemon);
 
           htmlElemnts.formMain.reset();
 

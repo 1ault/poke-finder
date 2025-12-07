@@ -34,6 +34,9 @@
 
   --sprite-gradient-white-1: #ededed;
   --sprite-gradient-white-2: #e7e7e7;
+
+  --color-habilidad-oculta: #fee160;
+  --color-habilidad-visible: #6ffd5d;
 }
 
 * {
@@ -242,6 +245,9 @@ body {
 .shadow-box-x6px-y6px-b0px-s0px-2d2d2d {
   box-shadow: var(--shadow);
 }
+.shadow-box-x4px-y4px-b0px-s0px-2d2d2d {
+  box-shadow: 4px 4px 0px #2d2d2d;
+}
 .shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5 {
   box-shadow: 16px 16px 0px rgba(45, 45, 45, 0.2);
 }
@@ -290,6 +296,9 @@ body {
 *				  Buttom
 */
 
+.padding-0-3rem {
+  padding: 0.3rem;
+}
 .padding-0-5rem {
   padding: 0.5rem;
 }
@@ -329,6 +338,9 @@ body {
   transform: rotate(-15deg);
 }
 
+.font-size-0-8rem {
+  font-size: 0.8rem;
+}
 .font-size-0-9rem {
   font-size: 0.9rem;
 }
@@ -485,6 +497,30 @@ hr {
 
 h1 {
   display: inline;
+}
+
+.tmp-divide2 {
+  border-bottom: 0.3rem solid var(--border-color);
+  /* padding: 0.5rem; */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  height: 0;
+}
+
+.tmp-divide {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 0.3rem dashed var(--border-color);
+}
+
+.oculta {
+  background-color: var(--color-habilidad-oculta);
+}
+
+.visible {
+  background-color: var(--color-habilidad-visible);
 }
 
 .margin-y-0-5rem {
