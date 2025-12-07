@@ -1,5 +1,7 @@
 # Ref
 
+Pokemones max: 1025
+
 ## Doc
 
 [JsDoc](http://jsdoc.app/)
@@ -8,7 +10,28 @@ https://gist.github.com/ErickAgrazal/93abdea87c98063df4bb3f8f3be66728
 
 ## JS
 
+### Fn util
+
+[capitalizeFirstLetter](https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript)
+
+### Api
+
 [Consumo de API Pokémon (Estilo Brutalista)](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/10.%20Explicaci%C3%B3n%20sobre%20Consumo%20de%20API%20Pok%C3%A9mon)
+
+#### Endpoints Requeridos:
+
+| Endpoint | Uso | Ejemplo |
+|----------|-----|---------|
+| `/pokemon/{name or id}` | Datos básicos del Pokémon | `/pokemon/pikachu` o `/pokemon/25` |
+| `/pokemon-species/{name or id}` | Datos de especie (evolución) | `/pokemon-species/pikachu` |
+| `/evolution-chain/{id}` | Cadena evolutiva completa | `/evolution-chain/10` |
+| `/ability/{name or id}` | Información de habilidad | `/ability/static` |
+
+
+
+### Cadena de evolución
+
+### Cache
 
 [LocalStorage](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/9.%20Explicaci%C3%B3n%20sobre%20Edici%C3%B3n%20con%20LocalStorage)
 
