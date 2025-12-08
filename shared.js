@@ -1,121 +1,160 @@
 (() => {
-  /**
-   * App
-   * @param {void} void
-   * @return {object} init()
-   */
-  const App = (() => {
-    const htmlElemnts = {
-      formMain: document.querySelector('form[data-name="form-main"]'),
-      main: document.querySelector('main[data-name="main"]'),
-      form: {
-        nav: {
-          button: {
-            historico: document.querySelector(
-              'button[data-name="nav-historico"]'
-            ),
-            vs: document.querySelector('button[data-name="nav-vs"]'),
-            favoritos: document.querySelector(
-              'button[data-name="nav-favoritos"]'
-            ),
-            buscar: document.querySelector('button[data-name="nav-buscar"]'),
-          },
-        },
-        finder: {
-          input: {
-            search: document.querySelector('input[data-name="finder-search"]'),
-          },
-          button: {
-            buscar: document.querySelector('button[data-name="finder-buscar"]'),
-          },
-        },
-      },
-      tmp: {
-        img: document.querySelector('img[data-name="img-poke-sprite"]'),
-      },
-      pokeCard: {
-        stats: {
-          hp: () => {
-            return document.querySelector('div[data-name="stats-hp"]');
-          },
-          attack: () => {
-            return document.querySelector('div[data-name="stats-attack"]');
-          },
-          defense: () => {
-            return document.querySelector('div[data-name="stats-defense"]');
-          },
-          specialAttack: () => {
-            return document.querySelector(
-              'div[data-name="stats-special-attack"]'
-            );
-          },
-          specialDefense: () => {
-            return document.querySelector(
-              'div[data-name="stats-special-defense"]'
-            );
-          },
-          speed: () => {
-            return document.querySelector('div[data-name="stats-speed"]');
-          },
-        },
-        types: () => {
-          return document.querySelector('div[data-name="poke-types"]');
-        },
-        habilidades: () => {
-          return document.querySelector('div[data-name="poke-habilidades"]');
-        },
-      },
-    };
+	/**
+	 * App
+	 * @param {void} void
+	 * @return {object} init()
+	 */
+	const App = (() => {
+		const htmlElemnts = {
+			formMain: document.querySelector('form[data-name="form-main"]'),
+			main: document.querySelector('main[data-name="main"]'),
+			form: {
+				nav: {
+					button: {
+						historico: document.querySelector(
+							'button[data-name="nav-historico"]',
+						),
+						vs: document.querySelector('button[data-name="nav-vs"]'),
+						favoritos: document.querySelector(
+							'button[data-name="nav-favoritos"]',
+						),
+						buscar: document.querySelector('button[data-name="nav-buscar"]'),
+					},
+				},
+				finder: {
+					input: {
+						search: document.querySelector('input[data-name="finder-search"]'),
+					},
+					button: {
+						buscar: document.querySelector('button[data-name="finder-buscar"]'),
+					},
+				},
+			},
+			tmp: {
+				img: document.querySelector('img[data-name="img-poke-sprite"]'),
+			},
+			pokeCard: {
+				stats: {
+					hp: () => {
+						return document.querySelector('div[data-name="stats-hp"]');
+					},
+					attack: () => {
+						return document.querySelector('div[data-name="stats-attack"]');
+					},
+					defense: () => {
+						return document.querySelector('div[data-name="stats-defense"]');
+					},
+					specialAttack: () => {
+						return document.querySelector(
+							'div[data-name="stats-special-attack"]',
+						);
+					},
+					specialDefense: () => {
+						return document.querySelector(
+							'div[data-name="stats-special-defense"]',
+						);
+					},
+					speed: () => {
+						return document.querySelector('div[data-name="stats-speed"]');
+					},
+				},
+				types: () => {
+					return document.querySelector('div[data-name="poke-types"]');
+				},
+				habilidades: () => {
+					return document.querySelector('div[data-name="poke-habilidades"]');
+				},
+				evolucion: () => {
+					return document.querySelector('div[data-name="poke-evolucion"]');
+				},
+			},
+		};
 
-    const templates = {
-      empty: () => {
-        return "";
-      },
-      pokemon: {
-        card: {
-          generate: {
-            types: (text) => {
-              return `<span class="poke-type">${text}</span>`;
-            },
-            abilities: {
-              visible: (text) => {
-                return `<span class="poke-abilitie visible order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d">${text}</span>`;
+		const templates = {
+			empty: () => {
+				return "";
+			},
+			pokemon: {
+				card: {
+					generate: {
+						types: (text) => {
+							return `<span class="poke-type">${text}</span>`;
+						},
+						abilities: {
+							visible: (text) => {
+								return `<span class="poke-abilitie visible order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d">${text}</span>`;
+							},
+							oculta: (text) => {
+								return `<span class="poke-abilitie oculta order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d font-style">${text}</span>`;
+							},
+						},
+						evolucion: {
+							root: (sprite, name) => {
+								// return `
+                //   <img src="${sprite}" alt="${name}" class="sprite-historial" />
+                //   <span>${name}</span>
+                //   `;
+                return `
+                  <div 
+                    data-name="poke-evo-root"
+                  class="tmpevohover flex flex-align-center text-align-center flex-column flex-justify-center background-color-DBDBDB border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+                  >
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${sprite}.png" alt="${name}" class="sprite-historial" />
+                    <span>${name}</span>
+                  </div>
+                `;
+							},
+              sibling: (sprite, name) => {
+                return `
+                    ➜<button class="tmpevohover padding-0-3rem" data-name="button-cadena-evolutiva-${data}">
+
+                      <img src="${sprite}" alt="${name}" class="sprite-historial" />
+                    </button>
+                  `;
               },
-              oculta: (text) => {
-                return `<span class="poke-abilitie oculta order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d font-style">${text}</span>`;
-              },
-            },
-          },
-          init: () => {
-            return `
-						<div data-name="poke-info"
-							class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid"
-						>
-							<div data-name="container-data"
-								class="flex flex-column flex-justify-center"
-							>
-						`;
-          },
-          dataCenter: () => {
-            // // 📦 DESDE_CACHÉ
-            return `
-						<div data-name="container-poke-data-center"
-							class="flex flex-justify-space-between"
-						>
-							<span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
-							<span data-name="api-or-cache" class="background-color-4ecdc4">🌐 DESDE_API</span>
-						</div>
-						`;
-          },
-          initPokeShow: () => {
-            return `
-						<div data-name="container-poke-show" 
+							child: (sprite, name) => {
+								return `
+                    ➜<button class="padding-0-3rem" data-name="button-cadena-evolutiva-${data}">
+                    ${data}
+                    '
+                      <img src="${sprite}" alt="${name}" class="sprite-historial" />
+                    </button>
+                  `;
+							},
+						},
+					},
+
+					init: () => {
+						return `
+                <div data-name="poke-info"
+                    class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid flex-wrap"
+                >
+                    <div class="" data-name="container-data"
+                        class="flex flex-column flex-justify-center"
+                    >
+                `;
+					},
+
+					dataCenter: () => {
+						// // 📦 DESDE_CACHÉ
+						return `
+                <div data-name="container-poke-data-center"
+                    class="flex flex-justify-space-between"
+                >
+                    <span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
+                    <span data-name="api-or-cache" class="background-color-4ecdc4">🌐 DESDE_API</span>
+                </div>
+                `;
+					},
+					initPokeShow: () => {
+						return `
+						<div data-name="container-poke-show"
 							class="padding-0-5rem"
 						>
 						`;
-          },
-          pokeShowSprite: (datosPokemon) => {
-            return `
+					},
+					pokeShowSprite: (datosPokemon) => {
+						return `
 						<div data-name="container-sprite"
 							class="flex flex-align-center flex-justify-center"
 						>
@@ -126,45 +165,45 @@
 							</div>
 						</div>
 						`;
-          },
-          pokeShowName: (datosPokemon) => {
-            return `
-						<div data-name="container-poke-name" 
+					},
+					pokeShowName: (datosPokemon) => {
+						return `
+						<div data-name="container-poke-name"
 							class="padding-0-5rem"
 						>
 							<h2>#${datosPokemon.id} ${String(datosPokemon.name).toUpperCase()}</h2>
 							<div class="tmp-divide2">
 						</div>
 						`;
-          },
-          pokeShowType: () => {
-            return `
+					},
+					pokeShowType: () => {
+						return `
 						<div data-name="poke-types"
 							class="padding-0-5rem flex flex-gap-0-5rem"
 						>
 						</div>
 						`;
-          },
-          pokeShowHabilidades: () => {
-            return `
+					},
+					pokeShowHabilidades: () => {
+						return `
 						<div>
 							<span class="font-weight-bold">HABILIDADES</span>
 						</div>
 						<div data-name="poke-habilidades"
 							class="padding-0-5rem flex flex-gap-0-5rem"
 						>
-							
+
 						</div>
 						`;
-          },
-          pokeShowStats: (datosPokemon) => {
-            return `
+					},
+					pokeShowStats: (datosPokemon) => {
+						return `
 						<div class="stats padding-0-5rem"
 						>
 							<span>HP:</span>
 							<div data-name="stats-hp" data-value="${
-                datosPokemon.stats.find((st) => st.name === "hp").base_stat
-              }" class="bar"
+								datosPokemon.stats.find((st) => st.name === "hp").base_stat
+							}" class="bar"
 							>
 							</div>
 
@@ -190,9 +229,9 @@
 							<div
 								data-name="stats-special-attack"
 								data-value="${
-                  datosPokemon.stats.find((st) => st.name === "special-attack")
-                    .base_stat
-                }"
+									datosPokemon.stats.find((st) => st.name === "special-attack")
+										.base_stat
+								}"
 								data-max="100"
 								class="bar"
 							>
@@ -202,9 +241,9 @@
 							<div
 								data-name="stats-special-defense"
 								data-value="${
-                  datosPokemon.stats.find((st) => st.name === "special-defense")
-                    .base_stat
-                }"
+									datosPokemon.stats.find((st) => st.name === "special-defense")
+										.base_stat
+								}"
 								data-max="100"
 								class="bar"
 							>
@@ -221,489 +260,829 @@
 						</div>
 
 						`;
-          },
-          pokeShowFavorito: () => {
-            return `
-						<div>
+					},
+					pokeShowFavorito: () => {
+						return `
+						<div class="flex flex-justify-center">
 							<button type="submit" data-name="favorito">❤️</button>
 						</div>
 						`;
-          },
-          pokeShowCadenaDeEvolucion: (datosPokemon) => {
-            return `
+					},
+					pokeShowCadenaDeEvolucion: () => {
+						return `
 						<div class="tmp-divide"></div>
-						<div>
-							<span>CADENA DE EVOLUCIÓN</span>
-							<button></button>
+            <div class="flex flex-justify-center"><span>CADENA DE EVOLUCIÓN</span></div>
+						<div data-name="poke-evolucion"
+                class="tmpgrid grid grid-template-columns-repeat-3-1fr "
+            >
+
 						</div>
 						`;
-          },
-          endPokeShow: () => {
-            return `</div>`;
-          },
-          end: () => {
-            return `</div>`;
-          },
-        },
-      },
+					},
+					endPokeShow: () => {
+						return `</div>`;
+					},
+					end: () => {
+						return `</div>`;
+					},
+				},
+			},
 
-      history: {
-        itemHistorial: (item) => {
-          const { id, name, sprite, tipos = [], historyId } = item;
-          const tiposHTML = tipos
-            .map(
-              (t) =>
-                `<span class="tipo-pokemon">${String(t).toUpperCase()}</span>`
-            )
-            .join("");
+			history: {
+				itemHistorial: (item) => {
+					const { id, name, sprite, tipos = [], historyId } = item;
+					const tiposHTML = tipos
+						.map(
+							(t) =>
+								`<span class="tipo-pokemon">${String(t).toUpperCase()}</span>`,
+						)
+						.join("");
 
-          return `
-        <div data-history-id="${historyId}" class="item-historial">
-            <div class="contenedor-item-historial">
-                <div class="info-historial">
-                    <div class="contenedor-sprite-historial">
-                        <img src="${sprite}" alt="${name}" class="sprite-historial" />
-                    </div>
+					return `
+          <div data-history-id="${historyId}" class="item-historial">
+              <div class="contenedor-item-historial">
+                  <div class="info-historial">
+                      <div class="contenedor-sprite-historial">
+                          <img src="${sprite}" alt="${name}" class="sprite-historial" />
+                      </div>
 
-                    <div class="contenedor-nombre-historial">
-                        <h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
-                        <div class="tipos-historial">${tiposHTML}</div>
-                    </div>
-                </div>
+                      <div class="contenedor-nombre-historial">
+                          <h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
+                          <div class="tipos-historial">${tiposHTML}</div>
+                      </div>
+                  </div>
 
-                <div class="acciones-historial">
-                    <button
-                        data-action="favorito"
-                        data-pokemon="${name}"
-                        class="boton-historial"
-                    >❤️</button>
+                  <div class="acciones-historial">
+                      <button
+                          data-action="favorito"
+                          data-pokemon="${name}"
+                          class="boton-historial"
+                      >❤️</button>
 
-                    <button
-                        data-action="eliminar-item"
-                        data-history-id="${historyId}"
-                        class="boton-historial"
-                    >🗑️</button>
-                </div>
-            </div>
-        </div>`;
-        },
-      },
-    };
+                      <button
+                          data-action="eliminar-item"
+                          data-history-id="${historyId}"
+                          class="boton-historial"
+                      >🗑️</button>
+                  </div>
+              </div>
+          </div>`;
+				},
+			},
+		};
 
-    const utils = {
-      string: {
-        capitalizeFirstLetter: (val) => {
-          return `${String(val).charAt(0).toUpperCase()}${String(val).slice(
-            1
-          )}`;
-        },
-      },
-      gui: {
-        newPokemonDataCard: (datosPokemon) => {
-          let html = templates.empty();
+		const utils = {
+			struct: {
+				node: {
+					tree: {
+						rooted:  {
+              init: (KeyID, KeyName, keyVal, keyP, keyLeft, keyRight) => { return { KeyID: KeyID, KeyName: KeyName, keyVal: keyVal, keyP: keyP, keyLeft: keyLeft, keyRight: keyRight }; },
+              push: (array, node) => { array.push(node); },
+              pokeChineToRooted: async (array, evolution_chain) => {
+                if (!evolution_chain) return;
+                
 
-          {
-            html += templates.pokemon.card.init();
+                const children = evolution_chain.evolves_to ?? [];
+                // console.log("///////////////////////");
+                // console.log(evolution_chain);
+                // console.log(evolution_chain?.evolves_to?.length ?? "32");
+                for (let i = 0; i < children.length; i++) {
+                  const val = children[i];
+                  
+                  const dataPokemonSpecie = await utils.fetch.pokeApiPokemonSpecieFull(val.species.url);
 
-            {
-              html += templates.pokemon.card.dataCenter();
+                  const node = {
+                    KeyID: dataPokemonSpecie?.id ?? null,
+                    KeyName: dataPokemonSpecie?.name ?? null,
+                    KeyVal: dataPokemonSpecie ?? null,
+                    KeyP: dataPokemonSpecie?.evolves_from_species ?? null,
+                    keyLeft: val?.evolves_to[0]?.species?.name ?? null,
+                    keyRight: children?.[i + 1]?.species?.name ?? null,
+                  };
+                  
+                  utils.struct.node.tree.rooted.push(array, node);
+                  
+                  // console.log("Karth");
+                  // console.log(val.evolves_to.length);
+                  // console.log(val.evolves_to);
 
-              html += templates.pokemon.card.initPokeShow();
+                  if (val.evolves_to.length != 0) {
+                    await utils.struct.node.tree.rooted.pokeChineToRooted(array, val);
+                  }
 
-              {
-                html += templates.pokemon.card.pokeShowSprite(datosPokemon);
+                  
+                  // utils.struct.node.tree.rooted.pokeChineToRooted(array, val.evolves_to);
+                }
+              },
+            },
+					},
+				},
+			},
+			string: {
+				capitalizeFirstLetter: (val) => {
+					return `${String(val).charAt(0).toUpperCase()}${String(val).slice(
+						1,
+					)}`;
+				},
+			},
+			gui: {
+				newPokemonDataCard: (datosPokemon) => {
+					let html = templates.empty();
 
-                html += templates.pokemon.card.pokeShowName(datosPokemon);
+					{
+						html += templates.pokemon.card.init();
 
-                html += templates.pokemon.card.pokeShowType();
+						{
+							html += templates.pokemon.card.dataCenter();
 
-                html += templates.pokemon.card.pokeShowHabilidades();
+							html += templates.pokemon.card.initPokeShow();
 
-                html += templates.pokemon.card.pokeShowStats(datosPokemon);
+							{
+								html += templates.pokemon.card.pokeShowSprite(datosPokemon);
 
-                html += templates.pokemon.card.pokeShowFavorito();
+								html += templates.pokemon.card.pokeShowName(datosPokemon);
 
-                html += templates.pokemon.card.pokeShowCadenaDeEvolucion();
-              }
+								html += templates.pokemon.card.pokeShowType();
 
-              html += templates.pokemon.card.endPokeShow();
-            }
+								html += templates.pokemon.card.pokeShowHabilidades();
 
-            html += templates.pokemon.card.end();
-          }
+								html += templates.pokemon.card.pokeShowStats(datosPokemon);
 
-          console.log(datosPokemon);
-          htmlElemnts.main.innerHTML = html;
-          utils.gui.setPokemonDataCardHabilidades(datosPokemon);
-          utils.gui.setPokemonDataCardTypes(datosPokemon);
-          utils.gui.setPokemonDataCardStats();
-          utils.gui.setPokemonDataCardCadenaDeEvolucion();
-        },
-        setPokemonDataCardTypes(datosPokemon) {
-          let elementTypes = htmlElemnts.pokeCard.types();
-          let html = "";
+								html += templates.pokemon.card.pokeShowFavorito();
 
-          datosPokemon.types.forEach((val) => {
-            html += templates.pokemon.card.generate.types(
-              String(val.name).toUpperCase()
-            );
-          });
+								html += templates.pokemon.card.pokeShowCadenaDeEvolucion();
+							}
 
-          elementTypes.innerHTML += html;
-        },
-        setPokemonDataCardHabilidades(datosPokemon) {
-          let elementHabilidades = htmlElemnts.pokeCard.habilidades();
-          let html = "";
+							html += templates.pokemon.card.endPokeShow();
+						}
 
-          datosPokemon.abilities.forEach((val) => {
-            console.log(val);
-            if (val.hidden) {
-              html += templates.pokemon.card.generate.abilities.oculta(
-                `${utils.string.capitalizeFirstLetter(
-                  String(val.name)
-                )} (Oculta)`
-              );
-              return;
-            }
+						html += templates.pokemon.card.end();
+					}
 
-            html += templates.pokemon.card.generate.abilities.visible(
-              utils.string.capitalizeFirstLetter(String(val.name))
-            );
-          });
+					htmlElemnts.main.innerHTML = html;
+					utils.gui.setPokemonDataCardHabilidades(datosPokemon);
+					utils.gui.setPokemonDataCardTypes(datosPokemon);
+					utils.gui.setPokemonDataCardStats();
+					utils.gui.setPokemonDataCardCadenaDeEvolucion(datosPokemon);
+				},
+				setPokemonDataCardTypes(datosPokemon) {
+					let elementTypes = htmlElemnts.pokeCard.types();
+					let html = "";
 
-          elementHabilidades.innerHTML += html;
-        },
+					datosPokemon.types.forEach((val) => {
+						html += templates.pokemon.card.generate.types(
+							String(val.name).toUpperCase(),
+						);
+					});
 
-        setPokemonDataCardCadenaDeEvolucion() {},
+					elementTypes.innerHTML += html;
+				},
+				setPokemonDataCardHabilidades(datosPokemon) {
+					let elementHabilidades = htmlElemnts.pokeCard.habilidades();
+					let html = "";
 
-        setPokemonDataCardStats() {
-          const valHp = htmlElemnts.pokeCard.stats.hp().dataset.value;
-          console.log(valHp);
-          htmlElemnts.pokeCard.stats
-            .hp()
-            .style.setProperty("--value", valHp * 1);
+					datosPokemon.abilities.forEach((val) => {
+						if (val.hidden) {
+							html += templates.pokemon.card.generate.abilities.oculta(
+								`${utils.string.capitalizeFirstLetter(
+									String(val.name),
+								)} (Oculta)`,
+							);
+							return;
+						}
 
-          const valAttack = htmlElemnts.pokeCard.stats.attack().dataset.value;
-          htmlElemnts.pokeCard.stats
-            .attack()
-            .style.setProperty("--value", valAttack * 1);
+						html += templates.pokemon.card.generate.abilities.visible(
+							utils.string.capitalizeFirstLetter(String(val.name)),
+						);
+					});
 
-          const valDefense = htmlElemnts.pokeCard.stats.defense().dataset.value;
-          htmlElemnts.pokeCard.stats
-            .defense()
-            .style.setProperty("--value", valDefense * 1);
+					elementHabilidades.innerHTML += html;
+				},
 
-          const valSpecialAttack =
-            htmlElemnts.pokeCard.stats.specialAttack().dataset.value;
-          htmlElemnts.pokeCard.stats
-            .specialAttack()
-            .style.setProperty("--value", valSpecialAttack * 1);
+        chain: (arrayRoot, evolvet_to) => {
 
-          const valSpecialDefense =
-            htmlElemnts.pokeCard.stats.specialDefense().dataset.value;
-          htmlElemnts.pokeCard.stats
-            .specialDefense()
-            .style.setProperty("--value", valSpecialDefense * 1);
-
-          const valSpeed = htmlElemnts.pokeCard.stats.speed().dataset.value;
-          htmlElemnts.pokeCard.stats
-            .speed()
-            .style.setProperty("--value", valSpeed * 1);
-        },
-      },
-
-      storageLocal: {
-        save(key, obj) {
-          localStorage.setItem(`${key}`, JSON.stringify(obj));
-        },
-
-        get(key) {
-          const obj = localStorage.getItem(`${key}`);
-          return obj ? JSON.parse(obj) : [];
-        },
-
-        getAll() {
-          // ! TODO
+          val.species
+          arrayRoot.push();
         },
 
-        remove(key) {
-          localStorage.removeItem(`${key}`);
-        },
+				async setPokemonDataCardCadenaDeEvolucion(datosPokemon) {
+          // ! Dato
+          let elementEvolucion = htmlElemnts.pokeCard.evolucion();
+					let html = "";
+          
+          const chainEvo = [];
 
-        removeAll() {
-          // ! TODO
-        },
-
-        find(objs, key) {
-          const keyVal = String(key).trim().toLowerCase();
-          return objs.find(
-            (obj) =>
-              String(obj.id) === keyVal || obj.name.toLowerCase() === keyVal
-          );
-        },
-
-        filter(objs, key) {
-          const keyVal = String(key).trim().toLowerCase();
-          return objs.filter(
-            (obj) =>
-              String(obj.id).includes(keyVal) || obj.name.includes(keyVal)
-          );
-        },
-        /**
-         * Storage.local.exist ?
-         * @param {string} key
-         * @return {boolean}
-         */
-        exist(key) {
-          const val = localStorage.getItem(`${key}`);
-
-          if (val === null || val === "") {
-            return false;
-          }
-          return true;
-        },
-
-        guardarEnHistorial(pokemonData) {
-          const historial = this.get("historial") || [];
-          const ahora = Date.now();
-
-          const entrada = {
-            historyId: ahora,
-            id: pokemonData.id,
-            name: pokemonData.name,
-            tipos: pokemonData.types,
-            sprite: pokemonData.sprites?.front_default,
-            fechaBusqueda: ahora,
+          const pokeSpecie = await utils.fetch.pokeApiPokemonSpecieFull(datosPokemon?.evolution_chain?.chain?.species?.url)
+          
+          // console.log(datosPokemon);
+          // console.log(datosPokemon.evolution_chain.chain);
+          // console.log(data_root);
+        
+          const node = {
+            KeyID: pokeSpecie?.id ?? null,
+            KeyName: datosPokemon?.evolution_chain?.chain?.species?.name ?? null,
+            KeyVal: pokeSpecie,
+            KeyP: null,
+            keyLeft: datosPokemon?.evolution_chain?.chain?.evolves_to[0]?.species?.name ?? null,
+            keyRight: null,
           };
 
-          historial.unshift(entrada);
+          utils.struct.node.tree.rooted.push(chainEvo, node);
+          
 
-          // Luego se nos llena el localstorage
-          if (historial.length > 50) historial.length = 50;
+          await utils.struct.node.tree.rooted.pokeChineToRooted(chainEvo, datosPokemon.evolution_chain.chain);
 
-          this.save("historial", historial);
-        },
 
-        obtenerHistorial() {
-          return this.get("historial") || [];
-        },
 
-        eliminarDelHistorial(idHistorial) {
-          const historial = this.get("historial") || [];
-          const idNum = Number(idHistorial); // Convertir a número
-          const nuevo = historial.filter((item) => item.historyId !== idNum);
-          this.save("historial", nuevo);
-        },
+          html = await new Promise(async (resolve, reject) => {
+                try {
+                    let result = "";
+                    for (const val of chainEvo) {
+                        // ! No borrar
+                        // const poke = await utils.fetch.pokeApiSearch(val.KeyName);
+                        // const sprite = poke?.sprites?.front_default ?? null;
+                        // result += templates.pokemon.card.generate.evolucion.root(sprite, val.KeyName);
 
-        limpiarHistorial() {
-          localStorage.removeItem("historial");
-        },
-      },
+                        // const poke = await utils.fetch.pokeApiSearch(val.KeyName);
+                        // const sprite = poke?.sprites?.front_default ?? null;
+                        // ! No borrar
 
-      fetch: {
-        /**
-         * pokeApiSearch
-         * @param {string} input
-         * @return {object} data
-         */
-        async pokeApiSearch(input) {
-          try {
-            const response = await fetch(
-              `https://pokeapi.co/api/v2/pokemon/${input}`,
-              {
-                method: "GET",
-              }
-            );
+                        result += templates.pokemon.card.generate.evolucion.root(val.KeyID, val.KeyName);
+                    }
 
-            if (!response.ok) {
-              throw new Error(`Error: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            return data;
-          } catch (error) {
-            console.error("Hubo un problema:", error);
-          }
-        },
-      },
-    };
-
-    const historyModule = {
-      renderHistorial() {
-        const historyList = document.getElementById("history-list");
-        if (!historyList) return;
-
-        const historial = utils.storageLocal.obtenerHistorial();
-
-        historyList.innerHTML = historial
-          .map((item) => templates.history.itemHistorial(item))
-          .join("");
-      },
-
-      setupHistorialListeners() {
-        const historyList = document.getElementById("history-list");
-        const clearHistoryBtn = document.getElementById("clear-history-btn");
-
-        if (!historyList || !clearHistoryBtn) return;
-
-        historyList.addEventListener("click", (e) => {
-          const button = e.target.closest("button");
-          if (!button) return;
-
-          const action = button.dataset.action;
-          const pokemonName = button.dataset.pokemon;
-          const idHistorial = button.dataset.historyId;
-
-          if (action === "favorito" && pokemonName) {
-            //TODO: fav
-          }
-
-          if (action === "eliminar-item" && idHistorial) {
-            utils.storageLocal.eliminarDelHistorial(idHistorial);
-            this.renderHistorial();
-          }
-        });
-
-        clearHistoryBtn.addEventListener("click", () => {
-          utils.storageLocal.limpiarHistorial();
-          this.renderHistorial();
-        });
-      },
-
-      init() {
-        if (window.location.pathname.includes("historico.html")) {
-          this.renderHistorial();
-          this.setupHistorialListeners();
-        }
-      },
-    };
-
-    const handlers = {
-      async onFormSubmit(e) {
-        e.preventDefault();
-
-        console.log(e);
-
-        // console.log(e.submitter.dataset.name);
-
-        // Routers
-        if (
-          e.submitter.dataset.name ===
-          htmlElemnts.form.nav.button.historico.dataset.name
-        ) {
-          window.location.href = "historico.html";
-        }
-
-        if (
-          e.submitter.dataset.name ===
-          htmlElemnts.form.nav.button.favoritos.dataset.name
-        ) {
-          window.location.href = "favoritos.html";
-        }
-
-        if (
-          e.submitter.dataset.name ===
-          htmlElemnts.form.nav.button.buscar.dataset.name
-        ) {
-          window.location.href = "index.html";
-        }
-
-        if (
-          e.submitter.dataset.name ===
-          htmlElemnts.form.nav.button.vs.dataset.name
-        ) {
-          window.location.href = "vs.html";
-        }
-
-        // Search
-
-        if (
-          e.submitter.dataset.name ===
-          htmlElemnts.form.finder.button.buscar.dataset.name
-        ) {
-          const busqueda = htmlElemnts.form.finder.input.search.value.trim();
-          if (!busqueda) return;
-
-          let cachePokemon = JSON.parse(
-            localStorage.getItem("pokemon_cache") || "[]"
-          );
-
-          let enCache = cachePokemon.find(
-            (p) =>
-              p.name.toLowerCase() === busqueda.toLowerCase() ||
-              String(p.id) === busqueda
-          );
-
-          let datosPokemon;
-          let fuente = "cache";
-
-          if (enCache) {
-            datosPokemon = enCache.obj;
-            fuente = "cache";
-          } else {
-            try {
-              const datosCompletos = await utils.fetch.pokeApiSearch(busqueda);
-              fuente = "api";
-              datosPokemon = {
-                id: datosCompletos.id,
-                name: datosCompletos.name,
-                sprites: {
-                  front_default: datosCompletos.sprites.front_default,
-                },
-                stats: datosCompletos.stats.map((stat) => ({
-                  name: stat.stat.name,
-                  base_stat: stat.base_stat,
-                })),
-                types: datosCompletos.types.map((type) => ({
-                  name: type.type.name,
-                })),
-                abilities: datosCompletos.abilities.map((ability) => ({
-                  name: ability.ability.name,
-                })),
-                moves: datosCompletos.moves.map((move) => ({
-                  name: move.move.name,
-                })),
-              };
-
-              cachePokemon.push({
-                id: datosPokemon.id,
-                name: datosPokemon.name,
-                obj: datosPokemon,
-                fecha: new Date().toISOString(),
-              });
-
-              localStorage.setItem(
-                "pokemon_cache",
-                JSON.stringify(cachePokemon)
-              );
-            } catch (error) {
-              console.error("Error buscando:", error);
-              return;
-            }
-          }
-
-          utils.gui.newPokemonDataCard(datosPokemon);
-
-          htmlElemnts.formMain.reset();
-
-          utils.storageLocal.guardarEnHistorial({
-            id: datosPokemon.id,
-            name: datosPokemon.name,
-            types: datosPokemon.types.map((t) => t.name),
-            sprites: datosPokemon.sprites,
-            fechaBusqueda: Date.now(),
+                    resolve(result);
+                } catch (e) {
+                    reject(e);
+                }
           });
-        }
-      },
-    };
+          console.log(html);
 
-    return {
-      init() {
-        htmlElemnts.formMain.addEventListener("submit", handlers.onFormSubmit);
-        historyModule.init();
-      },
-    };
-  })();
-  App.init();
+          
+          elementEvolucion.innerHTML += html;
+          return;
+          
+
+          
+          // chain.evolves_to.forEach(val => {
+            
+          //   utils.gui.chain(chainEvo, chain);
+          // });
+
+			
+
+					// html += templates.pokemon.card.generate.evolucion.root();
+
+					// elementEvolucion.innerHTML += html;
+
+					// console.log(datosPokemon.apiEvolutionChain.chain.selfSpecies);
+					// console.log(datosPokemon.apiEvolutionChain.chain.evolvesToArray);
+
+					// console.log("---------------------");
+					// console.log("---------------------");
+					// console.log("Dato pokemon");
+					// console.log(datosPokemon.apiEvolutionChain.chain);
+
+					// console.log("---------------------");
+					// console.log("---------------------");
+					// console.log("---------------------");
+					// console.log("---------------------");
+					// console.log("---------------------");
+					// console.log("---------------------");
+					{
+						const KeyId = datosPokemon.name;
+						const KeyVal = datosPokemon;
+						const KeyP = datosPokemon.apiEvolutionChain.parent;
+						// const keyLeft = datosPokemon.apiEvolutionChain.chain.evolves_to[0];
+						// const keyRight = datosPokemon.apiEvolutionChain;
+						// console.log(keyRight);
+
+						// cadenaDeEvolucion.push(utils.struct.node.tree.rooted(KeyId, KeyVal, KeyP, null, null));
+						// // const KeyP = await utils.fetch.pokeApiPokemonSpecieFull(val.species.url);
+						// const KeyP = P?.evolves_from_species?.name ?? null;
+						// // const KeyP = datosPokemon.name;
+						// let keyLeft = null;
+
+						// if (val.evolves_to.length != 0) {
+						//   keyLeft = val?.evolves_to[0]?.species?.name ?? null;
+						// }
+
+						// const keyRight = sibling?.species?.name ?? null;
+					}
+					const pokeCadenaEvolucion =
+						datosPokemon.apiEvolutionChain.chain.evolvesToArray;
+
+					for (let i = 0; i < pokeCadenaEvolucion.length; i++) {
+
+						// let sibling = null;
+						// if (array[i + 1] !== undefined) {
+						//     sibling = array[i + 1];
+						// }
+						// let sibling = pokeCadenaEvolucion[i + 1]
+
+						// if (array[i] === something) break;
+
+						// const numbers = [];
+						// utils.struct.node.tree.rooted.
+						// Name
+						// console.log(val.evolves_to);
+
+						// evolves_from_species
+						// console.log(val);
+
+						// console.log(val);
+						// console.log(val.species.name);
+						// console.log(val.species.url);
+						// console.log(val.evolves_to);
+
+						// const pokeObj = {
+						//   name: val.species.name,
+						//   url: val.species.url,
+						//   child: val.evolves_to
+						// }
+
+						// console.log("---------------------ddddddddddddddddd-----------------------");
+						// console.log(parent);
+						// console.log(parent.evolves_from_species);
+						// console.log("--------------------------------------------");
+
+						const KeyId = val.species.name;
+						const KeyVal = val;
+						// const KeyP = await utils.fetch.pokeApiPokemonSpecieFull(val.species.url);
+						const P = await utils.fetch.pokeApiPokemonSpecieFull(
+							val.species.url,
+						);
+						const KeyP = P?.evolves_from_species?.name ?? null;
+						// const KeyP = datosPokemon.name;
+						let keyLeft = null;
+
+						if (val.evolves_to.length != 0) {
+							keyLeft = val?.evolves_to[0]?.species?.name ?? null;
+						}
+
+						const keyRight = sibling?.species?.name ?? null;
+
+						cadenaDeEvolucion.push(
+							utils.struct.node.tree.rooted(
+								KeyId,
+								KeyVal,
+								KeyP,
+								keyLeft,
+								keyRight,
+							),
+						);
+						// console.log(pokeObj);
+
+						// console.log(val.species.name);
+						// console.log(evolition.species.name);
+
+						// // Main Id
+						// console.log(evolition.species.url);
+					}
+
+
+
+					cadenaDeEvolucion.forEach((val) => {
+						// console.log(val);
+						html += templates.pokemon.card.generate.evolucion.root(
+							datosPokemon.sprites.front_default,
+							datosPokemon.name,
+						);
+						// console.log(val.keyID);
+						// console.log(val.obj);
+					});
+
+					elementEvolucion.innerHTML += html;
+				},
+
+				setPokemonDataCardStats() {
+					const valHp = htmlElemnts.pokeCard.stats.hp().dataset.value;
+					htmlElemnts.pokeCard.stats
+						.hp()
+						.style.setProperty("--value", valHp * 1);
+
+					const valAttack = htmlElemnts.pokeCard.stats.attack().dataset.value;
+					htmlElemnts.pokeCard.stats
+						.attack()
+						.style.setProperty("--value", valAttack * 1);
+
+					const valDefense = htmlElemnts.pokeCard.stats.defense().dataset.value;
+					htmlElemnts.pokeCard.stats
+						.defense()
+						.style.setProperty("--value", valDefense * 1);
+
+					const valSpecialAttack =
+						htmlElemnts.pokeCard.stats.specialAttack().dataset.value;
+					htmlElemnts.pokeCard.stats
+						.specialAttack()
+						.style.setProperty("--value", valSpecialAttack * 1);
+
+					const valSpecialDefense =
+						htmlElemnts.pokeCard.stats.specialDefense().dataset.value;
+					htmlElemnts.pokeCard.stats
+						.specialDefense()
+						.style.setProperty("--value", valSpecialDefense * 1);
+
+					const valSpeed = htmlElemnts.pokeCard.stats.speed().dataset.value;
+					htmlElemnts.pokeCard.stats
+						.speed()
+						.style.setProperty("--value", valSpeed * 1);
+				},
+			},
+
+			storageLocal: {
+				save(key, obj) {
+					localStorage.setItem(`${key}`, JSON.stringify(obj));
+				},
+
+				get(key) {
+					const obj = localStorage.getItem(`${key}`);
+					return obj ? JSON.parse(obj) : [];
+				},
+
+				getAll() {
+					// ! TODO
+				},
+
+				remove(key) {
+					localStorage.removeItem(`${key}`);
+				},
+
+				removeAll() {
+					// ! TODO
+				},
+
+				find(objs, key) {
+					const keyVal = String(key).trim().toLowerCase();
+					return objs.find(
+						(obj) =>
+							String(obj.id) === keyVal || obj.name.toLowerCase() === keyVal,
+					);
+				},
+
+				filter(objs, key) {
+					const keyVal = String(key).trim().toLowerCase();
+					return objs.filter(
+						(obj) =>
+							String(obj.id).includes(keyVal) || obj.name.includes(keyVal),
+					);
+				},
+				/**
+				 * Storage.local.exist ?
+				 * @param {string} key
+				 * @return {boolean}
+				 */
+				exist(key) {
+					const val = localStorage.getItem(`${key}`);
+
+					if (val === null || val === "") {
+						return false;
+					}
+					return true;
+				},
+
+				guardarEnHistorial(pokemonData) {
+					const historial = this.get("historial") || [];
+					const ahora = Date.now();
+
+					const entrada = {
+						historyId: ahora,
+						id: pokemonData.id,
+						name: pokemonData.name,
+						tipos: pokemonData.types,
+						sprite: pokemonData.sprites?.front_default,
+						fechaBusqueda: ahora,
+					};
+
+					historial.unshift(entrada);
+
+					// Luego se nos llena el localstorage
+					if (historial.length > 50) historial.length = 50;
+
+					this.save("historial", historial);
+				},
+
+				obtenerHistorial() {
+					return this.get("historial") || [];
+				},
+
+				eliminarDelHistorial(idHistorial) {
+					const historial = this.get("historial") || [];
+					const idNum = Number(idHistorial); // Convertir a número
+					const nuevo = historial.filter((item) => item.historyId !== idNum);
+					this.save("historial", nuevo);
+				},
+
+				limpiarHistorial() {
+					localStorage.removeItem("historial");
+				},
+			},
+			fetch: {
+				/**
+				 * pokeApiSearch
+				 * @param {string} input
+				 * @return {object} data
+				 */
+				async pokeApiSearch(input) {
+					try {
+						const response = await fetch(
+							`https://pokeapi.co/api/v2/pokemon/${input}`,
+							{
+								method: "GET",
+							},
+						);
+
+						if (!response.ok) {
+							throw new Error(`Error: ${response.status}`);
+						}
+
+						const data = await response.json();
+
+						return data;
+					} catch (error) {
+						console.error("Hubo un problema:", error);
+					}
+				},
+
+				/**
+				 * pokeApiPokemonSpecies
+				 * @param {string} input
+				 * @return {object} data
+				 */
+				async pokeApiPokemonSpecies(input) {
+					try {
+						const response = await fetch(
+							`https://pokeapi.co/api/v2/pokemon-species/${input}`,
+							{
+								method: "GET",
+							},
+						);
+
+						if (!response.ok) {
+							throw new Error(`Error: ${response.status}`);
+						}
+
+						const data = await response.json();
+
+						return data;
+					} catch (error) {
+						console.error("Hubo un problema:", error);
+					}
+				},
+
+				async pokeApiPokemonSpecieFull(input) {
+					try {
+						const response = await fetch(`${input}`, {
+							method: "GET",
+						});
+
+						if (!response.ok) {
+							throw new Error(`Error: ${response.status}`);
+						}
+
+						const data = await response.json();
+
+						return data;
+					} catch (error) {
+						console.error("Hubo un problema:", error);
+					}
+				},
+
+				/**
+				 * pokeApiEvolutionChain
+				 * @param {string} input
+				 * @return {object} data
+				 */
+				async pokeApiEvolutionChain(input) {
+					try {
+						const response = await fetch(
+							// `https://pokeapi.co/api/v2/evolution-chain/${input}`,
+							`${input}`,
+							{
+								method: "GET",
+							},
+						);
+
+						if (!response.ok) {
+							throw new Error(`Error: ${response.status}`);
+						}
+
+						const data = await response.json();
+
+						return data;
+					} catch (error) {
+						console.error("Hubo un problema:", error);
+					}
+				},
+			},
+		};
+
+		const historyModule = {
+			renderHistorial() {
+				const historyList = document.getElementById("history-list");
+				if (!historyList) return;
+
+				const historial = utils.storageLocal.obtenerHistorial();
+
+				historyList.innerHTML = historial
+					.map((item) => templates.history.itemHistorial(item))
+					.join("");
+			},
+
+			setupHistorialListeners() {
+				const historyList = document.getElementById("history-list");
+				const clearHistoryBtn = document.getElementById("clear-history-btn");
+
+				if (!historyList || !clearHistoryBtn) return;
+
+				historyList.addEventListener("click", (e) => {
+					const button = e.target.closest("button");
+					if (!button) return;
+
+					const action = button.dataset.action;
+					const pokemonName = button.dataset.pokemon;
+					const idHistorial = button.dataset.historyId;
+
+					if (action === "favorito" && pokemonName) {
+						//TODO: fav
+					}
+
+					if (action === "eliminar-item" && idHistorial) {
+						utils.storageLocal.eliminarDelHistorial(idHistorial);
+						this.renderHistorial();
+					}
+				});
+
+				clearHistoryBtn.addEventListener("click", () => {
+					utils.storageLocal.limpiarHistorial();
+					this.renderHistorial();
+				});
+			},
+
+			init() {
+				if (window.location.pathname.includes("historico.html")) {
+					this.renderHistorial();
+					this.setupHistorialListeners();
+				}
+			},
+		};
+
+		const handlers = {
+			search: async (e) => {
+				if (
+					e.submitter.dataset.name ===
+					htmlElemnts.form.finder.button.buscar.dataset.name
+				) {
+					const busqueda = htmlElemnts.form.finder.input.search.value.trim();
+					if (!busqueda) return;
+
+					let cachePokemon = JSON.parse(
+						localStorage.getItem("pokemon_cache") || "[]",
+					);
+
+					let enCache = cachePokemon.find(
+						(p) =>
+							p.name.toLowerCase() === busqueda.toLowerCase() ||
+							String(p.id) === busqueda,
+					);
+
+					let datosPokemon;
+					let fuente = "cache";
+
+					if (enCache) {
+						datosPokemon = enCache.obj;
+						fuente = "cache";
+					} else {
+						try {
+							const datosCompletos = await utils.fetch.pokeApiSearch(busqueda);
+
+							const datosCompletosSpecies = await utils.fetch.pokeApiPokemonSpecies(busqueda);
+              
+
+							const datosCompletosEvolution = await utils.fetch.pokeApiEvolutionChain(datosCompletosSpecies.evolution_chain.url);
+
+							fuente = "api";
+							datosPokemon = {
+								id: datosCompletos.id,
+								name: datosCompletos.name,
+								sprites: {
+									front_default: datosCompletos.sprites.front_default,
+								},
+								stats: datosCompletos.stats.map((stat) => ({
+									name: stat.stat.name,
+									base_stat: stat.base_stat,
+								})),
+								types: datosCompletos.types.map((type) => ({
+									name: type.type.name,
+								})),
+								abilities: datosCompletos.abilities.map((ability) => ({
+									name: ability.ability.name,
+									hidden: ability.is_hidden,
+								})),
+								moves: datosCompletos.moves.map((move) => ({
+									name: move.move.name,
+								})),
+
+                species: datosCompletosSpecies,
+                evolution_chain: datosCompletosEvolution,
+
+								// species: datosCompletosSpecies.map((val) => ({
+								// 	chain: {
+								// 		url: val.evolution_chain.url,
+								// 	},
+								// 	parent: {
+								// 		name: val?.evolves_from_species?.name ?? null,
+								// 		url: val?.evolves_from_species?.url ?? null,
+								// 	},
+								// })),
+
+
+								// chain: datosCompletosEvolution.main((val) => ({
+								// 	species: {
+								// 		name: val.chain.species.name,
+								// 		url: val.chain.species.url,
+								// 	},
+								// 	evolves_to: datosCompletosEvolution.evolves_to
+								// })),
+							};
+
+							cachePokemon.push({
+								id: datosPokemon.id,
+								name: datosPokemon.name,
+								obj: datosPokemon,
+								fecha: new Date().toISOString(),
+							});
+
+							localStorage.setItem(
+								"pokemon_cache",
+								JSON.stringify(cachePokemon),
+							);
+						} catch (error) {
+							console.error("Error buscando:", error);
+							return;
+						}
+					}
+
+					utils.gui.newPokemonDataCard(datosPokemon);
+
+					htmlElemnts.formMain.reset();
+
+					utils.storageLocal.guardarEnHistorial({
+						id: datosPokemon.id,
+						name: datosPokemon.name,
+						types: datosPokemon.types.map((t) => t.name),
+						sprites: datosPokemon.sprites,
+						fechaBusqueda: Date.now(),
+					});
+				}
+			},
+			onFormSubmit(e) {
+				e.preventDefault();
+
+				// console.log(e);
+
+				// console.log(e.submitter.dataset.name);
+
+				handlers.routers(e);
+
+				handlers.search(e);
+			},
+			routers: (e) => {
+				if (
+					e.submitter.dataset.name ===
+					htmlElemnts.form.nav.button.historico.dataset.name
+				) {
+					window.location.href = "historico.html";
+				}
+
+				if (
+					e.submitter.dataset.name ===
+					htmlElemnts.form.nav.button.favoritos.dataset.name
+				) {
+					window.location.href = "favoritos.html";
+				}
+
+				if (
+					e.submitter.dataset.name ===
+					htmlElemnts.form.nav.button.buscar.dataset.name
+				) {
+					window.location.href = "index.html";
+				}
+
+				if (
+					e.submitter.dataset.name ===
+					htmlElemnts.form.nav.button.vs.dataset.name
+				) {
+					window.location.href = "vs.html";
+				}
+			},
+		};
+
+		return {
+			init() {
+				htmlElemnts.formMain.addEventListener("submit", handlers.onFormSubmit);
+				historyModule.init();
+			},
+		};
+	})();
+	App.init();
 })();

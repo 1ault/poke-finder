@@ -1,0 +1,230 @@
+    const templates = {
+      empty: () => {
+        return "";
+      },
+      pokemon: {
+        card: {
+            generate: {
+                types: (text) => {
+                return `<span class="poke-type">${text}</span>`;
+              },
+              abilities: {
+                visible: (text) => {
+                  return `<span class="poke-abilitie visible order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d">${text}</span>`;
+                },
+                oculta: (text) => {
+                  return `<span class="poke-abilitie oculta order-width-4px border-color-2d2d2d border-estyle-solid padding-0-3rem font-weight-bold font-size-0-9rem shadow-box-x4px-y4px-b0px-s0px-2d2d2d font-style">${text}</span>`;
+                },
+              },
+              evolucion: {
+                root: () => { return `<button>Root</button>` },
+                child: () => {return '➜<button>Child</button>`'},
+              },
+            },
+
+
+            init: () => {
+                return `
+                <div data-name="poke-info"
+                    class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid"
+                >
+                    <div data-name="container-data"
+                        class="flex flex-column flex-justify-center"
+                    >
+                `;
+            },
+
+                      dataCenter: () => {
+            // // 📦 DESDE_CACHÉ
+            return `
+                <div data-name="container-poke-data-center"
+                    class="flex flex-justify-space-between"
+                >
+                    <span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
+                    <span data-name="api-or-cache" class="background-color-4ecdc4">🌐 DESDE_API</span>
+                </div>
+                `;
+          },
+          initPokeShow: () => {
+            return `
+						<div data-name="container-poke-show" 
+							class="padding-0-5rem"
+						>
+						`;
+          },
+          pokeShowSprite: (datosPokemon) => {
+            return `
+						<div data-name="container-sprite"
+							class="flex flex-align-center flex-justify-center"
+						>
+							<div data-name="bg-sprite"
+								class="width-10rem height-10rem background-linear-gradient-sprite border-width-4px border-color-2d2d2d border-estyle-solid"
+							>
+								<img data-name="img-poke-sprite" src="${datosPokemon.sprites.front_default}" alt="${datosPokemon.name}" />
+							</div>
+						</div>
+						`;
+          },
+          pokeShowName: (datosPokemon) => {
+            return `
+						<div data-name="container-poke-name" 
+							class="padding-0-5rem"
+						>
+							<h2>#${datosPokemon.id} ${String(datosPokemon.name).toUpperCase()}</h2>
+							<div class="tmp-divide2">
+						</div>
+						`;
+          },
+          pokeShowType: () => {
+            return `
+						<div data-name="poke-types"
+							class="padding-0-5rem flex flex-gap-0-5rem"
+						>
+						</div>
+						`;
+          },
+          pokeShowHabilidades: () => {
+            return `
+						<div>
+							<span class="font-weight-bold">HABILIDADES</span>
+						</div>
+						<div data-name="poke-habilidades"
+							class="padding-0-5rem flex flex-gap-0-5rem"
+						>
+							
+						</div>
+						`;
+          },
+                    pokeShowStats: (datosPokemon) => {
+            return `
+						<div class="stats padding-0-5rem"
+						>
+							<span>HP:</span>
+							<div data-name="stats-hp" data-value="${
+                datosPokemon.stats.find((st) => st.name === "hp").base_stat
+              }" class="bar"
+							>
+							</div>
+
+							<span>ATTACK:</span>
+							<div
+								data-name="stats-attack"
+								data-value="${datosPokemon.stats.find((st) => st.name === "attack").base_stat}"
+								data-max="100"
+								class="bar"
+							>
+							</div>
+
+							<span>DEFENSE:</span>
+							<div
+								data-name="stats-defense"
+								data-value="${datosPokemon.stats.find((st) => st.name === "defense").base_stat}"
+								data-max="100"
+								class="bar"
+							>
+							</div>
+
+							<span>SPECIAL-ATTACK:</span>
+							<div
+								data-name="stats-special-attack"
+								data-value="${
+                  datosPokemon.stats.find((st) => st.name === "special-attack")
+                    .base_stat
+                }"
+								data-max="100"
+								class="bar"
+							>
+							</div>
+
+							<span>SPECIAL-DEFENSE:</span>
+							<div
+								data-name="stats-special-defense"
+								data-value="${
+                  datosPokemon.stats.find((st) => st.name === "special-defense")
+                    .base_stat
+                }"
+								data-max="100"
+								class="bar"
+							>
+							</div>
+
+							<span>SPEED:</span>
+							<div
+								data-name="stats-speed"
+								data-value="${datosPokemon.stats.find((st) => st.name === "speed").base_stat}"
+								data-max="100"
+								class="bar"
+							>
+							</div>
+						</div>
+
+						`;
+          },
+                    pokeShowFavorito: () => {
+            return `
+						<div class="flex flex-justify-center">
+							<button type="submit" data-name="favorito">❤️</button>
+						</div>
+						`;
+          },
+          pokeShowCadenaDeEvolucion: () => {
+            return `
+						<div class="tmp-divide"></div>
+            <div class="flex flex-justify-center"><span>CADENA DE EVOLUCIÓN</span></div>
+						<div data-name="poke-evolucion"
+            >
+							
+						</div>
+						`;
+          },
+        endPokeShow: () => {
+            return `</div>`;
+          },
+          end: () => {
+            return `</div>`;
+          },
+        },
+      },
+
+          history: {
+        itemHistorial: (item) => {
+          const { id, name, sprite, tipos = [], historyId } = item;
+          const tiposHTML = tipos
+            .map(
+              (t) =>
+                `<span class="tipo-pokemon">${String(t).toUpperCase()}</span>`
+            )
+            .join("");
+
+          return `
+          <div data-history-id="${historyId}" class="item-historial">
+              <div class="contenedor-item-historial">
+                  <div class="info-historial">
+                      <div class="contenedor-sprite-historial">
+                          <img src="${sprite}" alt="${name}" class="sprite-historial" />
+                      </div>
+
+                      <div class="contenedor-nombre-historial">
+                          <h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
+                          <div class="tipos-historial">${tiposHTML}</div>
+                      </div>
+                  </div>
+
+                  <div class="acciones-historial">
+                      <button
+                          data-action="favorito"
+                          data-pokemon="${name}"
+                          class="boton-historial"
+                      >❤️</button>
+
+                      <button
+                          data-action="eliminar-item"
+                          data-history-id="${historyId}"
+                          class="boton-historial"
+                      >🗑️</button>
+                  </div>
+              </div>
+          </div>`;
+        },
+      },
+    };
