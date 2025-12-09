@@ -12,21 +12,29 @@
 				nav: {
 					button: {
 						historico: document.querySelector(
-							'button[data-name="nav-historico"]',
+							'button[data-name="nav-historico"]'
 						),
-						vs: document.querySelector('button[data-name="nav-vs"]'),
+						vs: document.querySelector(
+							'button[data-name="nav-vs"]'
+						),
 						favoritos: document.querySelector(
-							'button[data-name="nav-favoritos"]',
+							'button[data-name="nav-favoritos"]'
 						),
-						buscar: document.querySelector('button[data-name="nav-buscar"]'),
+						buscar: document.querySelector(
+							'button[data-name="nav-buscar"]'
+						),
 					},
 				},
 				finder: {
 					input: {
-						search: document.querySelector('input[data-name="finder-search"]'),
+						search: document.querySelector(
+							'input[data-name="finder-search"]'
+						),
 					},
 					button: {
-						buscar: document.querySelector('button[data-name="finder-buscar"]'),
+						buscar: document.querySelector(
+							'button[data-name="finder-buscar"]'
+						),
 					},
 				},
 			},
@@ -36,36 +44,50 @@
 			pokeCard: {
 				stats: {
 					hp: () => {
-						return document.querySelector('div[data-name="stats-hp"]');
+						return document.querySelector(
+							'div[data-name="stats-hp"]'
+						);
 					},
 					attack: () => {
-						return document.querySelector('div[data-name="stats-attack"]');
+						return document.querySelector(
+							'div[data-name="stats-attack"]'
+						);
 					},
 					defense: () => {
-						return document.querySelector('div[data-name="stats-defense"]');
+						return document.querySelector(
+							'div[data-name="stats-defense"]'
+						);
 					},
 					specialAttack: () => {
 						return document.querySelector(
-							'div[data-name="stats-special-attack"]',
+							'div[data-name="stats-special-attack"]'
 						);
 					},
 					specialDefense: () => {
 						return document.querySelector(
-							'div[data-name="stats-special-defense"]',
+							'div[data-name="stats-special-defense"]'
 						);
 					},
 					speed: () => {
-						return document.querySelector('div[data-name="stats-speed"]');
+						return document.querySelector(
+							'div[data-name="stats-speed"]'
+						);
 					},
 				},
 				types: () => {
-					return document.querySelector('div[data-name="poke-types"]');
+					return document.querySelector(
+						'div[data-name="poke-types"]'
+					);
 				},
 				habilidades: () => {
-					return document.querySelector('div[data-name="poke-habilidades"]');
+					return document.querySelector(
+						'div[data-name="poke-habilidades"]'
+					);
 				},
 				evolucion: () => {
-					return document.querySelector('div[data-name="poke-evolucion"]');
+					return document.querySelector(
+						'div[data-name="poke-evolucion"]'
+					);
 				},
 			},
 		};
@@ -91,10 +113,10 @@
 						evolucion: {
 							root: (sprite, name) => {
 								// return `
-                //   <img src="${sprite}" alt="${name}" class="sprite-historial" />
-                //   <span>${name}</span>
-                //   `;
-                return `
+								//   <img src="${sprite}" alt="${name}" class="sprite-historial" />
+								//   <span>${name}</span>
+								//   `;
+								return `
                   <div 
                     data-name="poke-evo-root"
                   class="tmpevohover flex flex-align-center text-align-center flex-column flex-justify-center background-color-DBDBDB border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
@@ -104,14 +126,14 @@
                   </div>
                 `;
 							},
-              sibling: (sprite, name) => {
-                return `
+							sibling: (sprite, name) => {
+								return `
                     ➜<button class="tmpevohover padding-0-3rem" data-name="button-cadena-evolutiva-${data}">
 
                       <img src="${sprite}" alt="${name}" class="sprite-historial" />
                     </button>
                   `;
-              },
+							},
 							child: (sprite, name) => {
 								return `
                     ➜<button class="padding-0-3rem" data-name="button-cadena-evolutiva-${data}">
@@ -202,7 +224,9 @@
 						>
 							<span>HP:</span>
 							<div data-name="stats-hp" data-value="${
-								datosPokemon.stats.find((st) => st.name === "hp").base_stat
+								datosPokemon.stats.find(
+									(st) => st.name === "hp"
+								).base_stat
 							}" class="bar"
 							>
 							</div>
@@ -229,8 +253,9 @@
 							<div
 								data-name="stats-special-attack"
 								data-value="${
-									datosPokemon.stats.find((st) => st.name === "special-attack")
-										.base_stat
+									datosPokemon.stats.find(
+										(st) => st.name === "special-attack"
+									).base_stat
 								}"
 								data-max="100"
 								class="bar"
@@ -241,8 +266,9 @@
 							<div
 								data-name="stats-special-defense"
 								data-value="${
-									datosPokemon.stats.find((st) => st.name === "special-defense")
-										.base_stat
+									datosPokemon.stats.find(
+										(st) => st.name === "special-defense"
+									).base_stat
 								}"
 								data-max="100"
 								class="bar"
@@ -264,7 +290,7 @@
 					pokeShowFavorito: () => {
 						return `
 						<div class="flex flex-justify-center">
-							<button type="submit" data-name="favorito">❤️</button>
+							<button type="submit" data-action="favorito" data-name="favorito">❤️</button>
 						</div>
 						`;
 					},
@@ -290,11 +316,13 @@
 
 			history: {
 				itemHistorial: (item) => {
-					const { id, name, sprite, tipos = [], historyId } = item;
-					const tiposHTML = tipos
+					const { id, name, sprite, types = [], historyId } = item;
+					const tiposHTML = types
 						.map(
 							(t) =>
-								`<span class="tipo-pokemon">${String(t).toUpperCase()}</span>`,
+								`<span class="tipo-pokemon">${String(
+									t
+								).toUpperCase()}</span>`
 						)
 						.join("");
 
@@ -329,60 +357,130 @@
           </div>`;
 				},
 			},
+
+			favorites: {
+				itemFavorito: (item) => {
+					const { id, name, sprite, types = [] } = item;
+					const tiposHTML = types
+						.map(
+							(t) =>
+								`<span class="tipo-pokemon">${String(
+									t
+								).toUpperCase()}</span>`
+						)
+						.join("");
+
+					return `
+      <div data-favorite-id="${id}" class="item-historial">
+        <div class="contenedor-item-historial">
+          <div class="info-historial">
+            <div class="contenedor-sprite-historial">
+              <img src="${sprite}" alt="${name}" class="sprite-historial" />
+            </div>
+            <div class="contenedor-nombre-historial">
+              <h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
+              <div class="tipos-historial">${tiposHTML}</div>
+            </div>
+          </div>
+          <button
+            data-action="eliminar-favorito"
+            data-favorite-id="${id}"
+            class="boton-historial"
+          >🗑️</button>
+        </div>
+      </div>`;
+				},
+			},
 		};
 
 		const utils = {
 			struct: {
 				node: {
 					tree: {
-						rooted:  {
-              init: (KeyID, KeyName, keyVal, keyP, keyLeft, keyRight) => { return { KeyID: KeyID, KeyName: KeyName, keyVal: keyVal, keyP: keyP, keyLeft: keyLeft, keyRight: keyRight }; },
-              push: (array, node) => { array.push(node); },
-              pokeChineToRooted: async (array, evolution_chain) => {
-                if (!evolution_chain) return;
-                
+						rooted: {
+							init: (
+								KeyID,
+								KeyName,
+								keyVal,
+								keyP,
+								keyLeft,
+								keyRight
+							) => {
+								return {
+									KeyID: KeyID,
+									KeyName: KeyName,
+									keyVal: keyVal,
+									keyP: keyP,
+									keyLeft: keyLeft,
+									keyRight: keyRight,
+								};
+							},
+							push: (array, node) => {
+								array.push(node);
+							},
+							pokeChineToRooted: async (
+								array,
+								evolution_chain
+							) => {
+								if (!evolution_chain) return;
 
-                const children = evolution_chain.evolves_to ?? [];
-                // console.log("///////////////////////");
-                // console.log(evolution_chain);
-                // console.log(evolution_chain?.evolves_to?.length ?? "32");
-                for (let i = 0; i < children.length; i++) {
-                  const val = children[i];
-                  
-                  const dataPokemonSpecie = await utils.fetch.pokeApiPokemonSpecieFull(val.species.url);
+								const children =
+									evolution_chain.evolves_to ?? [];
+								// console.log("///////////////////////");
+								// console.log(evolution_chain);
+								// console.log(evolution_chain?.evolves_to?.length ?? "32");
+								for (let i = 0; i < children.length; i++) {
+									const val = children[i];
 
-                  const node = {
-                    KeyID: dataPokemonSpecie?.id ?? null,
-                    KeyName: dataPokemonSpecie?.name ?? null,
-                    KeyVal: dataPokemonSpecie ?? null,
-                    KeyP: dataPokemonSpecie?.evolves_from_species ?? null,
-                    keyLeft: val?.evolves_to[0]?.species?.name ?? null,
-                    keyRight: children?.[i + 1]?.species?.name ?? null,
-                  };
-                  
-                  utils.struct.node.tree.rooted.push(array, node);
-                  
-                  // console.log("Karth");
-                  // console.log(val.evolves_to.length);
-                  // console.log(val.evolves_to);
+									const dataPokemonSpecie =
+										await utils.fetch.pokeApiPokemonSpecieFull(
+											val.species.url
+										);
 
-                  if (val.evolves_to.length != 0) {
-                    await utils.struct.node.tree.rooted.pokeChineToRooted(array, val);
-                  }
+									const node = {
+										KeyID: dataPokemonSpecie?.id ?? null,
+										KeyName:
+											dataPokemonSpecie?.name ?? null,
+										KeyVal: dataPokemonSpecie ?? null,
+										KeyP:
+											dataPokemonSpecie?.evolves_from_species ??
+											null,
+										keyLeft:
+											val?.evolves_to[0]?.species?.name ??
+											null,
+										keyRight:
+											children?.[i + 1]?.species?.name ??
+											null,
+									};
 
-                  
-                  // utils.struct.node.tree.rooted.pokeChineToRooted(array, val.evolves_to);
-                }
-              },
-            },
+									utils.struct.node.tree.rooted.push(
+										array,
+										node
+									);
+
+									// console.log("Karth");
+									// console.log(val.evolves_to.length);
+									// console.log(val.evolves_to);
+
+									if (val.evolves_to.length != 0) {
+										await utils.struct.node.tree.rooted.pokeChineToRooted(
+											array,
+											val
+										);
+									}
+
+									// utils.struct.node.tree.rooted.pokeChineToRooted(array, val.evolves_to);
+								}
+							},
+						},
 					},
 				},
 			},
 			string: {
 				capitalizeFirstLetter: (val) => {
-					return `${String(val).charAt(0).toUpperCase()}${String(val).slice(
-						1,
-					)}`;
+					return `${String(val).charAt(0).toUpperCase()}${String(
+						val
+					).slice(1)}`;
 				},
 			},
 			gui: {
@@ -398,19 +496,31 @@
 							html += templates.pokemon.card.initPokeShow();
 
 							{
-								html += templates.pokemon.card.pokeShowSprite(datosPokemon);
+								html +=
+									templates.pokemon.card.pokeShowSprite(
+										datosPokemon
+									);
 
-								html += templates.pokemon.card.pokeShowName(datosPokemon);
+								html +=
+									templates.pokemon.card.pokeShowName(
+										datosPokemon
+									);
 
 								html += templates.pokemon.card.pokeShowType();
 
-								html += templates.pokemon.card.pokeShowHabilidades();
+								html +=
+									templates.pokemon.card.pokeShowHabilidades();
 
-								html += templates.pokemon.card.pokeShowStats(datosPokemon);
+								html +=
+									templates.pokemon.card.pokeShowStats(
+										datosPokemon
+									);
 
-								html += templates.pokemon.card.pokeShowFavorito();
+								html +=
+									templates.pokemon.card.pokeShowFavorito();
 
-								html += templates.pokemon.card.pokeShowCadenaDeEvolucion();
+								html +=
+									templates.pokemon.card.pokeShowCadenaDeEvolucion();
 							}
 
 							html += templates.pokemon.card.endPokeShow();
@@ -431,104 +541,114 @@
 
 					datosPokemon.types.forEach((val) => {
 						html += templates.pokemon.card.generate.types(
-							String(val.name).toUpperCase(),
+							String(val.name).toUpperCase()
 						);
 					});
 
 					elementTypes.innerHTML += html;
 				},
+
 				setPokemonDataCardHabilidades(datosPokemon) {
 					let elementHabilidades = htmlElemnts.pokeCard.habilidades();
 					let html = "";
 
 					datosPokemon.abilities.forEach((val) => {
 						if (val.hidden) {
-							html += templates.pokemon.card.generate.abilities.oculta(
-								`${utils.string.capitalizeFirstLetter(
-									String(val.name),
-								)} (Oculta)`,
-							);
+							html +=
+								templates.pokemon.card.generate.abilities.oculta(
+									`${utils.string.capitalizeFirstLetter(
+										String(val.name)
+									)} (Oculta)`
+								);
 							return;
 						}
 
-						html += templates.pokemon.card.generate.abilities.visible(
-							utils.string.capitalizeFirstLetter(String(val.name)),
-						);
+						html +=
+							templates.pokemon.card.generate.abilities.visible(
+								utils.string.capitalizeFirstLetter(
+									String(val.name)
+								)
+							);
 					});
 
 					elementHabilidades.innerHTML += html;
 				},
 
-        chain: (arrayRoot, evolvet_to) => {
-
-          val.species
-          arrayRoot.push();
-        },
+				chain: (arrayRoot, evolvet_to) => {
+					val.species;
+					arrayRoot.push();
+				},
 
 				async setPokemonDataCardCadenaDeEvolucion(datosPokemon) {
-          // ! Dato
-          let elementEvolucion = htmlElemnts.pokeCard.evolucion();
+					// ! Dato
+					let elementEvolucion = htmlElemnts.pokeCard.evolucion();
 					let html = "";
-          
-          const chainEvo = [];
 
-          const pokeSpecie = await utils.fetch.pokeApiPokemonSpecieFull(datosPokemon?.evolution_chain?.chain?.species?.url)
-          
-          // console.log(datosPokemon);
-          // console.log(datosPokemon.evolution_chain.chain);
-          // console.log(data_root);
-        
-          const node = {
-            KeyID: pokeSpecie?.id ?? null,
-            KeyName: datosPokemon?.evolution_chain?.chain?.species?.name ?? null,
-            KeyVal: pokeSpecie,
-            KeyP: null,
-            keyLeft: datosPokemon?.evolution_chain?.chain?.evolves_to[0]?.species?.name ?? null,
-            keyRight: null,
-          };
+					const chainEvo = [];
 
-          utils.struct.node.tree.rooted.push(chainEvo, node);
-          
+					const pokeSpecie =
+						await utils.fetch.pokeApiPokemonSpecieFull(
+							datosPokemon?.evolution_chain?.chain?.species?.url
+						);
 
-          await utils.struct.node.tree.rooted.pokeChineToRooted(chainEvo, datosPokemon.evolution_chain.chain);
+					// console.log(datosPokemon);
+					// console.log(datosPokemon.evolution_chain.chain);
+					// console.log(data_root);
 
+					const node = {
+						KeyID: pokeSpecie?.id ?? null,
+						KeyName:
+							datosPokemon?.evolution_chain?.chain?.species
+								?.name ?? null,
+						KeyVal: pokeSpecie,
+						KeyP: null,
+						keyLeft:
+							datosPokemon?.evolution_chain?.chain?.evolves_to[0]
+								?.species?.name ?? null,
+						keyRight: null,
+					};
 
+					utils.struct.node.tree.rooted.push(chainEvo, node);
 
-          html = await new Promise(async (resolve, reject) => {
-                try {
-                    let result = "";
-                    for (const val of chainEvo) {
-                        // ! No borrar
-                        // const poke = await utils.fetch.pokeApiSearch(val.KeyName);
-                        // const sprite = poke?.sprites?.front_default ?? null;
-                        // result += templates.pokemon.card.generate.evolucion.root(sprite, val.KeyName);
+					await utils.struct.node.tree.rooted.pokeChineToRooted(
+						chainEvo,
+						datosPokemon.evolution_chain.chain
+					);
 
-                        // const poke = await utils.fetch.pokeApiSearch(val.KeyName);
-                        // const sprite = poke?.sprites?.front_default ?? null;
-                        // ! No borrar
+					html = await new Promise(async (resolve, reject) => {
+						try {
+							let result = "";
+							for (const val of chainEvo) {
+								// ! No borrar
+								// const poke = await utils.fetch.pokeApiSearch(val.KeyName);
+								// const sprite = poke?.sprites?.front_default ?? null;
+								// result += templates.pokemon.card.generate.evolucion.root(sprite, val.KeyName);
 
-                        result += templates.pokemon.card.generate.evolucion.root(val.KeyID, val.KeyName);
-                    }
+								// const poke = await utils.fetch.pokeApiSearch(val.KeyName);
+								// const sprite = poke?.sprites?.front_default ?? null;
+								// ! No borrar
 
-                    resolve(result);
-                } catch (e) {
-                    reject(e);
-                }
-          });
-          console.log(html);
+								result +=
+									templates.pokemon.card.generate.evolucion.root(
+										val.KeyID,
+										val.KeyName
+									);
+							}
 
-          
-          elementEvolucion.innerHTML += html;
-          return;
-          
+							resolve(result);
+						} catch (e) {
+							reject(e);
+						}
+					});
+					console.log(html);
 
-          
-          // chain.evolves_to.forEach(val => {
-            
-          //   utils.gui.chain(chainEvo, chain);
-          // });
+					elementEvolucion.innerHTML += html;
+					return;
 
-			
+					// chain.evolves_to.forEach(val => {
+
+					//   utils.gui.chain(chainEvo, chain);
+					// });
 
 					// html += templates.pokemon.card.generate.evolucion.root();
 
@@ -572,7 +692,6 @@
 						datosPokemon.apiEvolutionChain.chain.evolvesToArray;
 
 					for (let i = 0; i < pokeCadenaEvolucion.length; i++) {
-
 						// let sibling = null;
 						// if (array[i + 1] !== undefined) {
 						//     sibling = array[i + 1];
@@ -609,7 +728,7 @@
 						const KeyVal = val;
 						// const KeyP = await utils.fetch.pokeApiPokemonSpecieFull(val.species.url);
 						const P = await utils.fetch.pokeApiPokemonSpecieFull(
-							val.species.url,
+							val.species.url
 						);
 						const KeyP = P?.evolves_from_species?.name ?? null;
 						// const KeyP = datosPokemon.name;
@@ -627,8 +746,8 @@
 								KeyVal,
 								KeyP,
 								keyLeft,
-								keyRight,
-							),
+								keyRight
+							)
 						);
 						// console.log(pokeObj);
 
@@ -639,13 +758,11 @@
 						// console.log(evolition.species.url);
 					}
 
-
-
 					cadenaDeEvolucion.forEach((val) => {
 						// console.log(val);
 						html += templates.pokemon.card.generate.evolucion.root(
 							datosPokemon.sprites.front_default,
-							datosPokemon.name,
+							datosPokemon.name
 						);
 						// console.log(val.keyID);
 						// console.log(val.obj);
@@ -660,29 +777,34 @@
 						.hp()
 						.style.setProperty("--value", valHp * 1);
 
-					const valAttack = htmlElemnts.pokeCard.stats.attack().dataset.value;
+					const valAttack =
+						htmlElemnts.pokeCard.stats.attack().dataset.value;
 					htmlElemnts.pokeCard.stats
 						.attack()
 						.style.setProperty("--value", valAttack * 1);
 
-					const valDefense = htmlElemnts.pokeCard.stats.defense().dataset.value;
+					const valDefense =
+						htmlElemnts.pokeCard.stats.defense().dataset.value;
 					htmlElemnts.pokeCard.stats
 						.defense()
 						.style.setProperty("--value", valDefense * 1);
 
 					const valSpecialAttack =
-						htmlElemnts.pokeCard.stats.specialAttack().dataset.value;
+						htmlElemnts.pokeCard.stats.specialAttack().dataset
+							.value;
 					htmlElemnts.pokeCard.stats
 						.specialAttack()
 						.style.setProperty("--value", valSpecialAttack * 1);
 
 					const valSpecialDefense =
-						htmlElemnts.pokeCard.stats.specialDefense().dataset.value;
+						htmlElemnts.pokeCard.stats.specialDefense().dataset
+							.value;
 					htmlElemnts.pokeCard.stats
 						.specialDefense()
 						.style.setProperty("--value", valSpecialDefense * 1);
 
-					const valSpeed = htmlElemnts.pokeCard.stats.speed().dataset.value;
+					const valSpeed =
+						htmlElemnts.pokeCard.stats.speed().dataset.value;
 					htmlElemnts.pokeCard.stats
 						.speed()
 						.style.setProperty("--value", valSpeed * 1);
@@ -715,7 +837,8 @@
 					const keyVal = String(key).trim().toLowerCase();
 					return objs.find(
 						(obj) =>
-							String(obj.id) === keyVal || obj.name.toLowerCase() === keyVal,
+							String(obj.id) === keyVal ||
+							obj.name.toLowerCase() === keyVal
 					);
 				},
 
@@ -723,7 +846,8 @@
 					const keyVal = String(key).trim().toLowerCase();
 					return objs.filter(
 						(obj) =>
-							String(obj.id).includes(keyVal) || obj.name.includes(keyVal),
+							String(obj.id).includes(keyVal) ||
+							obj.name.includes(keyVal)
 					);
 				},
 				/**
@@ -740,40 +864,79 @@
 					return true;
 				},
 
+				limpiarFavoritos() {
+					localStorage.removeItem("favoritos");
+				},
+
+				limpiarHistorial() {
+					localStorage.removeItem("historial");
+				},
 				guardarEnHistorial(pokemonData) {
 					const historial = this.get("historial") || [];
-					const ahora = Date.now();
+					const historyId = Date.now();
 
-					const entrada = {
-						historyId: ahora,
+					historial.unshift({
+						historyId: historyId,
 						id: pokemonData.id,
 						name: pokemonData.name,
-						tipos: pokemonData.types,
+						types: pokemonData.types,
 						sprite: pokemonData.sprites?.front_default,
-						fechaBusqueda: ahora,
-					};
+					});
 
-					historial.unshift(entrada);
-
-					// Luego se nos llena el localstorage
-					if (historial.length > 50) historial.length = 50;
+					if (historial.length > 50) {
+						historial.length = 50;
+					}
 
 					this.save("historial", historial);
+				},
+
+				guardarEnFavoritos(pokemonData) {
+					const favoritos = this.get("favoritos") || [];
+
+					if (favoritos.some((fav) => fav.id === pokemonData.id)) {
+						return false;
+					}
+
+					favoritos.unshift({
+						id: pokemonData.id,
+						name: pokemonData.name,
+						types: pokemonData.types,
+						sprite:
+							pokemonData.sprites?.front_default ||
+							pokemonData.sprite,
+					});
+
+					this.save("favoritos", favoritos);
+					return true;
 				},
 
 				obtenerHistorial() {
 					return this.get("historial") || [];
 				},
 
-				eliminarDelHistorial(idHistorial) {
+				eliminarDelHistorial(historyId) {
 					const historial = this.get("historial") || [];
-					const idNum = Number(idHistorial); // Convertir a número
-					const nuevo = historial.filter((item) => item.historyId !== idNum);
+					const nuevo = historial.filter(
+						(item) => item.historyId !== Number(historyId)
+					);
 					this.save("historial", nuevo);
 				},
 
-				limpiarHistorial() {
-					localStorage.removeItem("historial");
+				obtenerFavoritos() {
+					return this.get("favoritos") || [];
+				},
+
+				eliminarDeFavoritos(pokemonId) {
+					const favoritos = this.get("favoritos") || [];
+					const nuevos = favoritos.filter(
+						(item) => item.id !== pokemonId
+					);
+					this.save("favoritos", nuevos);
+				},
+
+				esFavorito(pokemonId) {
+					const favoritos = this.get("favoritos") || [];
+					return favoritos.some((fav) => fav.id === pokemonId);
 				},
 			},
 			fetch: {
@@ -788,7 +951,7 @@
 							`https://pokeapi.co/api/v2/pokemon/${input}`,
 							{
 								method: "GET",
-							},
+							}
 						);
 
 						if (!response.ok) {
@@ -814,7 +977,7 @@
 							`https://pokeapi.co/api/v2/pokemon-species/${input}`,
 							{
 								method: "GET",
-							},
+							}
 						);
 
 						if (!response.ok) {
@@ -859,7 +1022,7 @@
 							`${input}`,
 							{
 								method: "GET",
-							},
+							}
 						);
 
 						if (!response.ok) {
@@ -876,43 +1039,54 @@
 			},
 		};
 
-		const historyModule = {
+		const historicoModule = {
 			renderHistorial() {
-				const historyList = document.getElementById("history-list");
-				if (!historyList) return;
-
+				const listaHistorial = document.getElementById("history-list");
 				const historial = utils.storageLocal.obtenerHistorial();
 
-				historyList.innerHTML = historial
-					.map((item) => templates.history.itemHistorial(item))
-					.join("");
+				listaHistorial.innerHTML =
+					historial.length === 0
+						? `<div class="item-historial text-align-center"><p>No hay búsquedas en el historial.</p></div>`
+						: historial
+								.map((item) =>
+									templates.history.itemHistorial(item)
+								)
+								.join("");
 			},
 
 			setupHistorialListeners() {
-				const historyList = document.getElementById("history-list");
-				const clearHistoryBtn = document.getElementById("clear-history-btn");
+				const listaHistorial = document.getElementById("history-list");
+				const botonLimpiarHistorial =
+					document.getElementById("clear-history-btn");
 
-				if (!historyList || !clearHistoryBtn) return;
+				listaHistorial.addEventListener("click", (e) => {
+					const boton = e.target.closest("button");
+					const accion = boton.dataset.action;
+					const nombrePokemon = boton.dataset.pokemon;
+					const idHistorial = boton.dataset.historyId;
 
-				historyList.addEventListener("click", (e) => {
-					const button = e.target.closest("button");
-					if (!button) return;
+					if (accion === "favorito") {
+						const item = utils.storageLocal
+							.obtenerHistorial()
+							.find((item) => item.name === nombrePokemon);
 
-					const action = button.dataset.action;
-					const pokemonName = button.dataset.pokemon;
-					const idHistorial = button.dataset.historyId;
-
-					if (action === "favorito" && pokemonName) {
-						//TODO: fav
+						utils.storageLocal.guardarEnFavoritos({
+							id: item.id,
+							name: item.name,
+							types: item.types,
+							sprites: { front_default: item.sprite },
+						});
 					}
 
-					if (action === "eliminar-item" && idHistorial) {
-						utils.storageLocal.eliminarDelHistorial(idHistorial);
+					if (accion === "eliminar-item") {
+						utils.storageLocal.eliminarDelHistorial(
+							Number(idHistorial)
+						);
 						this.renderHistorial();
 					}
 				});
 
-				clearHistoryBtn.addEventListener("click", () => {
+				botonLimpiarHistorial.addEventListener("click", () => {
 					utils.storageLocal.limpiarHistorial();
 					this.renderHistorial();
 				});
@@ -926,23 +1100,69 @@
 			},
 		};
 
+		const favoritosModule = {
+			renderFavoritos() {
+				const listaFavoritos =
+					document.getElementById("favorites-list");
+				const favoritos = utils.storageLocal.obtenerFavoritos();
+
+				listaFavoritos.innerHTML =
+					favoritos.length === 0
+						? `<div class="item-historial text-align-center"><p>No tienes Pokémon favoritos aún.</p></div>`
+						: favoritos
+								.map((item) =>
+									templates.favorites.itemFavorito(item)
+								)
+								.join("");
+			},
+
+			setupFavoritosListeners() {
+				const listaFavoritos =
+					document.getElementById("favorites-list");
+				const botonLimpiarFavoritos = document.getElementById(
+					"clear-favorites-btn"
+				);
+
+				listaFavoritos.addEventListener("click", (e) => {
+					const boton = e.target.closest("button");
+					const pokemonId = Number(boton.dataset.favoriteId);
+
+					utils.storageLocal.eliminarDeFavoritos(pokemonId);
+					this.renderFavoritos();
+				});
+
+				botonLimpiarFavoritos.addEventListener("click", () => {
+					utils.storageLocal.limpiarFavoritos();
+					this.renderFavoritos();
+				});
+			},
+
+			init() {
+				if (window.location.pathname.includes("favoritos.html")) {
+					this.renderFavoritos();
+					this.setupFavoritosListeners();
+				}
+			},
+		};
+
 		const handlers = {
 			search: async (e) => {
 				if (
 					e.submitter.dataset.name ===
 					htmlElemnts.form.finder.button.buscar.dataset.name
 				) {
-					const busqueda = htmlElemnts.form.finder.input.search.value.trim();
+					const busqueda =
+						htmlElemnts.form.finder.input.search.value.trim();
 					if (!busqueda) return;
 
 					let cachePokemon = JSON.parse(
-						localStorage.getItem("pokemon_cache") || "[]",
+						localStorage.getItem("pokemon_cache") || "[]"
 					);
 
 					let enCache = cachePokemon.find(
 						(p) =>
 							p.name.toLowerCase() === busqueda.toLowerCase() ||
-							String(p.id) === busqueda,
+							String(p.id) === busqueda
 					);
 
 					let datosPokemon;
@@ -953,19 +1173,26 @@
 						fuente = "cache";
 					} else {
 						try {
-							const datosCompletos = await utils.fetch.pokeApiSearch(busqueda);
+							const datosCompletos =
+								await utils.fetch.pokeApiSearch(busqueda);
 
-							const datosCompletosSpecies = await utils.fetch.pokeApiPokemonSpecies(busqueda);
-              
+							const datosCompletosSpecies =
+								await utils.fetch.pokeApiPokemonSpecies(
+									busqueda
+								);
 
-							const datosCompletosEvolution = await utils.fetch.pokeApiEvolutionChain(datosCompletosSpecies.evolution_chain.url);
+							const datosCompletosEvolution =
+								await utils.fetch.pokeApiEvolutionChain(
+									datosCompletosSpecies.evolution_chain.url
+								);
 
 							fuente = "api";
 							datosPokemon = {
 								id: datosCompletos.id,
 								name: datosCompletos.name,
 								sprites: {
-									front_default: datosCompletos.sprites.front_default,
+									front_default:
+										datosCompletos.sprites.front_default,
 								},
 								stats: datosCompletos.stats.map((stat) => ({
 									name: stat.stat.name,
@@ -974,16 +1201,18 @@
 								types: datosCompletos.types.map((type) => ({
 									name: type.type.name,
 								})),
-								abilities: datosCompletos.abilities.map((ability) => ({
-									name: ability.ability.name,
-									hidden: ability.is_hidden,
-								})),
+								abilities: datosCompletos.abilities.map(
+									(ability) => ({
+										name: ability.ability.name,
+										hidden: ability.is_hidden,
+									})
+								),
 								moves: datosCompletos.moves.map((move) => ({
 									name: move.move.name,
 								})),
 
-                species: datosCompletosSpecies,
-                evolution_chain: datosCompletosEvolution,
+								species: datosCompletosSpecies,
+								evolution_chain: datosCompletosEvolution,
 
 								// species: datosCompletosSpecies.map((val) => ({
 								// 	chain: {
@@ -994,7 +1223,6 @@
 								// 		url: val?.evolves_from_species?.url ?? null,
 								// 	},
 								// })),
-
 
 								// chain: datosCompletosEvolution.main((val) => ({
 								// 	species: {
@@ -1014,7 +1242,7 @@
 
 							localStorage.setItem(
 								"pokemon_cache",
-								JSON.stringify(cachePokemon),
+								JSON.stringify(cachePokemon)
 							);
 						} catch (error) {
 							console.error("Error buscando:", error);
@@ -1031,8 +1259,24 @@
 						name: datosPokemon.name,
 						types: datosPokemon.types.map((t) => t.name),
 						sprites: datosPokemon.sprites,
-						fechaBusqueda: Date.now(),
 					});
+
+					const favoritoBtn = document.querySelector(
+						'button[data-name="favorito"]'
+					);
+					if (favoritoBtn) {
+						favoritoBtn.addEventListener("click", (e) => {
+							e.preventDefault();
+
+							if (
+								!utils.storageLocal.esFavorito(datosPokemon.id)
+							) {
+								utils.storageLocal.guardarEnFavoritos(
+									datosPokemon
+								);
+							}
+						});
+					}
 				}
 			},
 			onFormSubmit(e) {
@@ -1079,8 +1323,12 @@
 
 		return {
 			init() {
-				htmlElemnts.formMain.addEventListener("submit", handlers.onFormSubmit);
-				historyModule.init();
+				htmlElemnts.formMain.addEventListener(
+					"submit",
+					handlers.onFormSubmit
+				);
+				historicoModule.init();
+				favoritosModule.init();
 			},
 		};
 	})();
