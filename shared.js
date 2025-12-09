@@ -290,7 +290,7 @@
 					pokeShowFavorito: () => {
 						return `
 						<div class="flex flex-justify-center">
-							<button type="submit" data-action="favorito" data-name="favorito">❤️</button>
+							<button class="boton-historial" "type="submit" data-action="favorito" data-name="favorito">❤️</button>
 						</div>
 						`;
 					},
@@ -341,12 +341,7 @@
                   </div>
 
                   <div class="acciones-historial">
-                      <button
-                          data-action="favorito"
-                          data-pokemon="${name}"
-                          class="boton-historial"
-                      >❤️</button>
-
+						${templates.favoritoButton(name, id)}
                       <button
                           data-action="eliminar-item"
                           data-history-id="${historyId}"
@@ -390,6 +385,16 @@
         </div>
       </div>`;
 				},
+			},
+			favoritoButton: (pokemonName, pokemonId) => {
+				return `
+            <button
+                data-action="favorito"
+                data-pokemon="${pokemonName}"
+                data-pokemon-id="${pokemonId}"
+                class="boton-historial"
+            >❤️</button>
+        	`;
 			},
 		};
 
@@ -1066,16 +1071,8 @@
 					const idHistorial = boton.dataset.historyId;
 
 					if (accion === "favorito") {
-						const item = utils.storageLocal
-							.obtenerHistorial()
-							.find((item) => item.name === nombrePokemon);
-
-						utils.storageLocal.guardarEnFavoritos({
-							id: item.id,
-							name: item.name,
-							types: item.types,
-							sprites: { front_default: item.sprite },
-						});
+						handlers.favorito(e);
+						return;
 					}
 
 					if (accion === "eliminar-item") {
@@ -1265,16 +1262,19 @@
 						'button[data-name="favorito"]'
 					);
 					if (favoritoBtn) {
+						favoritoBtn.setAttribute("data-action", "favorito");
+						favoritoBtn.setAttribute(
+							"data-pokemon",
+							datosPokemon.name
+						);
+						favoritoBtn.setAttribute(
+							"data-pokemon-id",
+							datosPokemon.id
+						);
+
 						favoritoBtn.addEventListener("click", (e) => {
 							e.preventDefault();
-
-							if (
-								!utils.storageLocal.esFavorito(datosPokemon.id)
-							) {
-								utils.storageLocal.guardarEnFavoritos(
-									datosPokemon
-								);
-							}
+							handlers.favorito(e);
 						});
 					}
 				}
@@ -1317,6 +1317,32 @@
 					htmlElemnts.form.nav.button.vs.dataset.name
 				) {
 					window.location.href = "vs.html";
+				}
+			},
+			favorito: (e) => {
+				const boton = e.target.closest(
+					'button[data-action="favorito"]'
+				);
+				if (!boton) return;
+
+				const pokemonName = boton.dataset.pokemon;
+				const pokemonId = boton.dataset.pokemonId;
+
+				const historial = utils.storageLocal.obtenerHistorial();
+				const item = historial.find(
+					(item) =>
+						item.name === pokemonName ||
+						item.id.toString() === pokemonId
+				);
+
+				if (item) {
+					const favoritoExitoso =
+						utils.storageLocal.guardarEnFavoritos({
+							id: item.id,
+							name: item.name,
+							types: item.types,
+							sprites: { front_default: item.sprite },
+						});
 				}
 			},
 		};
