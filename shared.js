@@ -117,44 +117,51 @@
 								//   <span>${name}</span>
 								//   `;
 								return `
-                  <div 
-                    data-name="poke-evo-root"
-                  class="tmpevohover flex flex-align-center text-align-center flex-column flex-justify-center background-color-DBDBDB border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
-                  >
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${sprite}.png" alt="${name}" class="sprite-historial" />
-                    <span>${name}</span>
-                  </div>
-                `;
+									<div
+										data-name="poke-evo-root"
+										class="tmpevohover flex flex-align-center text-align-center flex-column flex-justify-center background-color-DBDBDB border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+									>
+										<img
+											src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${sprite}.png"
+											alt="${name}"
+											class="sprite-historial"
+										/>
+										<span>${name}</span>
+									</div>
+								`;
 							},
 							sibling: (sprite, name) => {
 								return `
-                    ➜<button class="tmpevohover padding-0-3rem" data-name="button-cadena-evolutiva-${data}">
-
-                      <img src="${sprite}" alt="${name}" class="sprite-historial" />
-                    </button>
-                  `;
+									➜<button
+										class="tmpevohover padding-0-3rem"
+										data-name="button-cadena-evolutiva-${data}"
+									>
+										<img src="${sprite}" alt="${name}" class="sprite-historial" />
+									</button>
+								`;
 							},
 							child: (sprite, name) => {
 								return `
-                    ➜<button class="padding-0-3rem" data-name="button-cadena-evolutiva-${data}">
-                    ${data}
-                    '
-                      <img src="${sprite}" alt="${name}" class="sprite-historial" />
-                    </button>
-                  `;
+									➜<button class="padding-0-3rem" data-name="button-cadena-evolutiva-${data}">
+										${data} '
+										<img src="${sprite}" alt="${name}" class="sprite-historial" />
+									</button>
+								`;
 							},
 						},
 					},
 
 					init: () => {
 						return `
-                <div data-name="poke-info"
-                    class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid flex-wrap"
-                >
-                    <div class="" data-name="container-data"
-                        class="flex flex-column flex-justify-center"
-                    >
-                `;
+							<div 
+								data-name="poke-info"
+								class="background-color-FCFCFC border-width-4px border-color-2d2d2d border-estyle-solid flex-wrap"
+							>
+								<div 
+									data-name="container-data"
+									class="flex flex-column flex-justify-center"
+								>
+						`;
 					},
 
 					dataCenter: (fuente = "api") => {
@@ -180,9 +187,9 @@
 					},
 					initPokeShow: () => {
 						return `
-						<div data-name="container-poke-show"
-							class="padding-0-5rem"
-						>
+							<div data-name="container-poke-show"
+								class="padding-0-5rem"
+							>
 						`;
 					},
 					pokeShowSprite: (datosPokemon) => {
@@ -224,7 +231,6 @@
 						<div data-name="poke-habilidades"
 							class="padding-0-5rem flex flex-gap-0-5rem"
 						>
-
 						</div>
 						`;
 					},
@@ -299,20 +305,19 @@
 					},
 					pokeShowFavorito: () => {
 						return `
-						<div class="flex flex-justify-center">
-							<button class="boton-historial" "type="submit" data-action="favorito" data-name="favorito">🤍</button>
-						</div>
+							<div class="flex flex-justify-center">
+								<button class="boton-historial" "type="submit" data-action="favorito" data-name="favorito">🤍</button>
+							</div>
 						`;
 					},
 					pokeShowCadenaDeEvolucion: () => {
 						return `
-						<div class="tmp-divide"></div>
-            <div class="flex flex-justify-center"><span>CADENA DE EVOLUCIÓN</span></div>
-						<div data-name="poke-evolucion"
-                class="tmpgrid grid grid-template-columns-repeat-3-1fr "
-            >
-
-						</div>
+							<div class="tmp-divide"></div>
+							<div class="flex flex-justify-center"><span>CADENA DE EVOLUCIÓN</span></div>
+							<div
+								data-name="poke-evolucion"
+								class="tmpgrid grid grid-template-columns-repeat-3-1fr"
+							></div>
 						`;
 					},
 					endPokeShow: () => {
@@ -337,29 +342,33 @@
 						.join("");
 
 					return `
-          <div data-history-index="${index}" class="item-historial anim-popup">
-              <div class="contenedor-item-historial">
-                  <div class="info-historial">
-                      <div class="contenedor-sprite-historial">
-                          <img src="${sprite}" alt="${name}" class="sprite-historial" />
-                      </div>
+						<div data-history-index="${index}" class="item-historial anim-popup">
+							<div class="contenedor-item-historial">
+								<div class="info-historial">
+									<div class="contenedor-sprite-historial">
+										<img src="${sprite}" alt="${name}" class="sprite-historial" />
+									</div>
 
-                      <div class="contenedor-nombre-historial">
-                          <h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
-                          <div class="tipos-historial">${tiposHTML}</div>
-                      </div>
-                  </div>
+									<div class="contenedor-nombre-historial">
+										<h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
+										<div class="tipos-historial">${tiposHTML}</div>
+									</div>
+								</div>
 
-                  <div class="acciones-historial">
-						${templates.favoritoButton(name, id)}
-                      <button
-                          data-action="eliminar-item"
-                          data-history-index="${index}"
-                          class="boton-historial"
-                      >🗑️</button>
-                  </div>
-              </div>
-          </div>`;
+								<div class="acciones-historial">
+									${templates.favoritoButton(name, id)}
+									<button
+										data-action="eliminar-item"
+										data-history-index="${index}"
+										data-pokemon-id="${id}"
+										class="boton-historial"
+									>
+										🗑️
+									</button>
+								</div>
+							</div>
+						</div>
+					`;
 				},
 			},
 
@@ -376,24 +385,27 @@
 						.join("");
 
 					return `
-      <div data-favorite-id="${id}" class="item-historial anim-popup">
-        <div class="contenedor-item-historial">
-          <div class="info-historial">
-            <div class="contenedor-sprite-historial">
-              <img src="${sprite}" alt="${name}" class="sprite-historial" />
-            </div>
-            <div class="contenedor-nombre-historial">
-              <h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
-              <div class="tipos-historial">${tiposHTML}</div>
-            </div>
-          </div>
-          <button
-            data-action="eliminar-favorito"
-            data-favorite-id="${id}"
-            class="boton-historial"
-          >🗑️</button>
-        </div>
-      </div>`;
+						<div data-favorite-id="${id}" class="item-historial anim-popup">
+							<div class="contenedor-item-historial">
+								<div class="info-historial">
+									<div class="contenedor-sprite-historial">
+										<img src="${sprite}" alt="${name}" class="sprite-historial" />
+									</div>
+									<div class="contenedor-nombre-historial">
+										<h3 class="nombre-historial">#${id} ${name.toUpperCase()}</h3>
+										<div class="tipos-historial">${tiposHTML}</div>
+									</div>
+								</div>
+								<button
+									data-action="eliminar-favorito"
+									data-favorite-id="${id}"
+									class="boton-historial"
+								>
+									🗑️
+								</button>
+							</div>
+						</div>
+					`;
 				},
 			},
 			favoritoButton: (pokemonName, pokemonId) => {
@@ -403,13 +415,15 @@
 					? "corazon-rojo"
 					: "corazon-blanco";
 				return `
-            <button
-                data-action="favorito"
-                data-pokemon="${pokemonName}"
-                data-pokemon-id="${pokemonId}"
-                class="boton-historial"
-            >❤️</button>
-        	`;
+					<button
+						data-action="favorito"
+						data-pokemon="${pokemonName}"
+						data-pokemon-id="${pokemonId}"
+						class="boton-historial"
+					>
+						❤️
+					</button>
+				`;
 			},
 		};
 
@@ -1072,16 +1086,17 @@
 
 				listaHistorial.addEventListener("click", (e) => {
 					const boton = e.target.closest("button");
+					if (!boton) return;
+
 					const accion = boton.dataset.action;
-					const nombrePokemon = boton.dataset.pokemon;
 					const historialIndex = boton.dataset.historyIndex;
+					const pokemonId = Number(boton.dataset.pokemonId);
 
 					if (accion === "favorito") {
 						handlers.favorito(e);
 
-						const esFavorito = utils.storageLocal.esFavorito(
-							Number(boton.dataset.pokemonId)
-						);
+						const esFavorito =
+							utils.storageLocal.esFavorito(pokemonId);
 						const corazon = esFavorito ? "❤️" : "🤍";
 						const claseColor = esFavorito
 							? "corazon-rojo"
@@ -1094,9 +1109,6 @@
 					}
 
 					if (accion === "eliminar-item") {
-						const itemDiv = boton.closest(".item-historial");
-						const pokemonId = Number(boton.dataset.pokemonId);
-
 						if (pokemonId) {
 							utils.storageLocal.eliminarDelCache(pokemonId);
 							this.renderHistorial();
