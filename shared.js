@@ -1066,17 +1066,34 @@
 		const historicoModule = {
 			renderHistorial() {
 				const listaHistorial = document.getElementById("history-list");
+				const botonLimpiarHistorial =
+					document.getElementById("clear-history-btn");
 				const historial =
 					utils.storageLocal.obtenerHistorialDesdeCache();
 
 				listaHistorial.innerHTML =
 					historial.length === 0
-						? `<div class="item-historial text-align-center"><p>No hay búsquedas en el historial.</p></div>`
+						? `
+						<div class="item-historial text-align-center shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+							style="padding: 24px; min-height: 200px; width: 100%;">
+							<p style="font-size: 300%;">📜</p>
+							<h3 style="padding: 12px;">NO TIENES POKÉMONES EN EL HISTÓRICO</h3>
+							<p></p>
+							<p>Busca un pokémon para agregarlo aquí</p>
+						</div>`
 						: historial
 								.map((item, index) =>
 									templates.history.itemHistorial(item, index)
 								)
 								.join("");
+
+				if (botonLimpiarHistorial) {
+					if (historial.length === 0) {
+						botonLimpiarHistorial.style.display = "none";
+					} else {
+						botonLimpiarHistorial.style.display = "";
+					}
+				}
 			},
 
 			setupHistorialListeners() {
@@ -1111,14 +1128,14 @@
 					if (accion === "eliminar-item") {
 						if (pokemonId) {
 							utils.storageLocal.eliminarDelCache(pokemonId);
-							this.renderHistorial();
+							this.renderHistorial(); // Esto actualizará automáticamente la visibilidad del botón
 						}
 					}
 				});
 
 				botonLimpiarHistorial.addEventListener("click", () => {
 					utils.storageLocal.limpiarCache();
-					this.renderHistorial();
+					this.renderHistorial(); // Esto actualizará automáticamente la visibilidad del botón
 				});
 			},
 
@@ -1134,16 +1151,34 @@
 			renderFavoritos() {
 				const listaFavoritos =
 					document.getElementById("favorites-list");
+				const botonLimpiarFavoritos = document.getElementById(
+					"clear-favorites-btn"
+				);
 				const favoritos = utils.storageLocal.obtenerFavoritos();
 
 				listaFavoritos.innerHTML =
 					favoritos.length === 0
-						? `<div class="item-historial text-align-center"><p>No tienes Pokémon favoritos aún.</p></div>`
+						? `
+						<div class="item-historial text-align-center shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+							style="padding: 24px; min-height: 200px; width: 100%;">
+							<p style="font-size: 300%;">❤️</p>
+							<h3 style="padding: 12px;">NO TIENES POKÉMONES FAVORITOS</h3>
+							<p></p>
+							<p>Busca un pokémon como favorito</p>
+						</div>`
 						: favoritos
 								.map((item) =>
 									templates.favorites.itemFavorito(item)
 								)
 								.join("");
+
+				if (botonLimpiarFavoritos) {
+					if (favoritos.length === 0) {
+						botonLimpiarFavoritos.style.display = "none";
+					} else {
+						botonLimpiarFavoritos.style.display = "";
+					}
+				}
 			},
 
 			setupFavoritosListeners() {
