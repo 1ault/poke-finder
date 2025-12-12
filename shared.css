@@ -38,11 +38,11 @@
 	--color-habilidad-oculta: #fee160;
 	--color-habilidad-visible: #6ffd5d;
 
-  --background-dotted: radial-gradient(
-    circle at 1px 1px,
-    var(--color-primary) 1px,
-    transparent 0
-  );
+	--background-dotted: radial-gradient(
+		circle at 1px 1px,
+		var(--color-primary) 1px,
+		transparent 0
+	);
 }
 
 * {
@@ -73,7 +73,7 @@ body {
 }
 
 .background-color-DBDBDB {
-  background-color: #DBDBDB;
+	background-color: #dbdbdb;
 }
 
 .background-color-4ecdc4 {
@@ -162,40 +162,35 @@ body {
 	display: grid;
 }
 
-
 .grid-template-columns-repeat-3-1fr {
-  grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 
-  grid-template-columns: repeat(auto-fit, minmax(70px, auto));
-  /* grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(70px, auto));
+	/* grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
 
   grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
   width: 100%;
   max-width: 100px; */
-  justify-items: center;
-  justify-content: center;
-  /* align-items: center; */
-  
+	justify-items: center;
+	justify-content: center;
+	/* align-items: center; */
 }
 
 .tmpgrid {
-  gap: 2rem;
+	gap: 2rem;
 }
 
 .tmpevohover {
-  padding: 0.4rem;
-  padding: 0.4;
+	padding: 0.4rem;
+	padding: 0.4;
 	transition: transform 0.5s ease;
 }
 
 .tmpevohover:hover {
-  transform: translateY(-2px) translateX(-2px) scale(1.02);
-  background-color: #FFE163;
+	transform: translateY(-2px) translateX(-2px) scale(1.02);
+	background-color: #ffe163;
 	cursor: pointer;
 }
-
-
-
 
 .flex {
 	display: flex;
@@ -584,25 +579,18 @@ h1 {
 }
 
 .evo {
-  flex: 1 1 250px;
-  justify-content: space-between;
+	flex: 1 1 250px;
+	justify-content: space-between;
 }
 
+/* 
 main {
   /* max-width: 50%; */
-  /* flex-wrap: wrap;
+/* flex-wrap: wrap;
   /* width: 100%;
-  margin: auto; */
-}
+  /* margin: auto; */
 
 /* Tempral */
-
-
-
-
-
-
-
 
 /* historial */
 .item-historial {
@@ -669,4 +657,14 @@ main {
 	padding: 0.25rem 0.5rem;
 	color: var(--poke-white);
 	font-size: 0.8rem;
+}
+
+.corazon-rojo {
+	background-color: #ff6b6b;
+	color: #ffffff;
+}
+
+.corazon-blanco {
+	background-color: #cccccc;
+	color: #666666;
 }

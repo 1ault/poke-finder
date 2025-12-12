@@ -1,94 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poke-Finder</title>
-    <link rel="stylesheet" href="shared.css" />
-  </head>
-  <body class="flex flex-column margin-y-0-75rem flex-gap-1rem">
-    <div data-name="bg-pokeball" class="position-bg pointer-events-none">
-      <div
-        data-name="pokeball"
-        class="shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5 background-color-rgba45-45-45-0-5 pointer-events-none transform-rotate--15deg overflow-hidden background-linear-gradiant-poke-ball flex flex-justify-center flex-align-center border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
-      >
-        <div
-          data-name="pokeball-ball"
-          class="background-color-FCFCFC padding-3rem border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
-        ></div>
-      </div>
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Poke-Finder</title>
+		<link rel="stylesheet" href="shared.css" />
+	</head>
+	<body class="flex flex-column margin-y-0-75rem flex-gap-1rem">
+		<div data-name="bg-pokeball" class="position-bg pointer-events-none">
+			<div
+				data-name="pokeball"
+				class="shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5 background-color-rgba45-45-45-0-5 pointer-events-none transform-rotate--15deg overflow-hidden background-linear-gradiant-poke-ball flex flex-justify-center flex-align-center border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
+			>
+				<div
+					data-name="pokeball-ball"
+					class="background-color-FCFCFC padding-3rem border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
+				></div>
+			</div>
+		</div>
 
-    <header
-      data-name="header"
-      class="z-index-2 background-transparent margin-x-0-49rem flex flex-align-center flex-column flex-gap-0-5rem"
-    >
-      <div
-        data-name="container-poke-title"
-        class="shadow-box-x6px-y6px-b0px-s0px-2d2d2d font-size-1-25rem transform-rotate--3deg margin-y-0-75rem padding-x-1rem padding-y-0-75rem background-color-4ecdc4 text-align-center border-width-4px border-estyle-solid"
-      >
-        <h1 data-name="poke-title">📜Histórico</h1>
-      </div>
+		<header
+			data-name="header"
+			class="z-index-2 background-transparent margin-x-0-49rem flex flex-align-center flex-column flex-gap-0-5rem"
+		>
+			<div
+				data-name="container-poke-title"
+				class="shadow-box-x6px-y6px-b0px-s0px-2d2d2d font-size-1-25rem transform-rotate--3deg margin-y-0-75rem padding-x-1rem padding-y-0-75rem background-color-4ecdc4 text-align-center border-width-4px border-estyle-solid"
+			>
+				<h1 data-name="poke-title">📜Histórico</h1>
+			</div>
 
-      <form
-        data-name="form-main"
-        action=""
-        class="flex flex-gap-0-5rem flex-column"
-      >
-        <div class="flex flex-gap-0-5rem">
-          <button
-            data-name="nav-buscar"
-            type="submit"
-            class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
-          >
-            🔍 Buscar
-          </button>
+			<form
+				data-name="form-main"
+				action=""
+				class="flex flex-gap-0-5rem flex-column"
+			>
+				<div class="flex flex-gap-0-5rem">
+					<button
+						data-name="nav-buscar"
+						type="submit"
+						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						🔍 Buscar
+					</button>
 
-          <button
-            data-name="nav-historico"
-            type="submit"
-            class="anim-popup background-color-4ecdc4 font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
-          >
-            📜 Histórico
-          </button>
+					<button
+						data-name="nav-historico"
+						type="submit"
+						class="anim-popup background-color-4ecdc4 font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						📜 Histórico
+					</button>
 
-          <button
-            data-name="nav-vs"
-            type="submit"
-            class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
-          >
-            ⚔️ VS
-          </button>
+					<button
+						data-name="nav-vs"
+						type="submit"
+						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						⚔️ VS
+					</button>
 
-          <button
-            data-name="nav-favoritos"
-            type="submit"
-            class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
-          >
-            ❤️ Favoritos
-          </button>
-        </div>
-      </form>
-    </header>
+					<button
+						data-name="nav-favoritos"
+						type="submit"
+						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						❤️ Favoritos
+					</button>
+				</div>
+			</form>
+		</header>
 
-    <main data-name="main" class="z-index-2 flex flex-column flex-align-center">
-      <div>
-        <div id="history-list" class="flex flex-column flex-gap-1rem"></div>
+		<main
+			data-name="main"
+			class="z-index-2 flex flex-column flex-align-center"
+		>
+			<div>
+				<div
+					id="history-list"
+					class="flex flex-column flex-gap-1rem"
+				></div>
 
-        <div class="flex flex-justify-center">
-          <button
-            id="clear-history-btn"
-            type="button"
-            class="flex-content-center font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid background-color-ff6b6b"
-          >
-            🗑️ Limpiar Todo
-          </button>
-        </div>
-      </div>
-    </main>
+				<div class="anim-popup flex flex-justify-center">
+					<button
+						id="clear-history-btn"
+						type="button"
+						class="flex-content-center font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid background-color-ff6b6b"
+					>
+						🗑️ Limpiar Todo
+					</button>
+				</div>
+			</div>
+		</main>
 
-    <footer></footer>
+		<footer></footer>
 
-    <script src="shared.js"></script>
-  </body>
+		<script src="shared.js"></script>
+	</body>
 </html>

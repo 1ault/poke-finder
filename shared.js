@@ -157,16 +157,26 @@
                 `;
 					},
 
-					dataCenter: () => {
-						// // 📦 DESDE_CACHÉ
+					dataCenter: (fuente = "api") => {
+						let color = "background-color-4ecdc4";
+						let texto = "🌐 DESDE API";
+
+						if (fuente === "cache") {
+							color = "background-color-ffcc00";
+							texto = "📦 DESDE CACHÉ";
+						} else if (fuente === "cache-expired") {
+							color = "background-color-ffa500";
+							texto = "CACHÉ EXPIRADO";
+						}
+
 						return `
-                <div data-name="container-poke-data-center"
-                    class="flex flex-justify-space-between"
-                >
-                    <span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
-                    <span data-name="api-or-cache" class="background-color-4ecdc4">🌐 DESDE_API</span>
-                </div>
-                `;
+							<div data-name="container-poke-data-center"
+								class="flex flex-justify-space-between"
+							>
+								<span class="background-color-2d2d2d text-color-white" data-name="pokemon-data">Pokemon Data</span>
+								<span data-name="api-or-cache" class="${color}">${texto}</span>
+							</div>
+						`;
 					},
 					initPokeShow: () => {
 						return `
@@ -290,7 +300,7 @@
 					pokeShowFavorito: () => {
 						return `
 						<div class="flex flex-justify-center">
-							<button class="boton-historial" "type="submit" data-action="favorito" data-name="favorito">❤️</button>
+							<button class="boton-historial" "type="submit" data-action="favorito" data-name="favorito">🤍</button>
 						</div>
 						`;
 					},
@@ -315,7 +325,7 @@
 			},
 
 			history: {
-				itemHistorial: (item) => {
+				itemHistorial: (item, index) => {
 					const { id, name, sprite, types = [], historyId } = item;
 					const tiposHTML = types
 						.map(
@@ -327,7 +337,7 @@
 						.join("");
 
 					return `
-          <div data-history-id="${historyId}" class="item-historial">
+          <div data-history-index="${index}" class="item-historial anim-popup">
               <div class="contenedor-item-historial">
                   <div class="info-historial">
                       <div class="contenedor-sprite-historial">
@@ -344,7 +354,7 @@
 						${templates.favoritoButton(name, id)}
                       <button
                           data-action="eliminar-item"
-                          data-history-id="${historyId}"
+                          data-history-index="${index}"
                           class="boton-historial"
                       >🗑️</button>
                   </div>
@@ -366,7 +376,7 @@
 						.join("");
 
 					return `
-      <div data-favorite-id="${id}" class="item-historial">
+      <div data-favorite-id="${id}" class="item-historial anim-popup">
         <div class="contenedor-item-historial">
           <div class="info-historial">
             <div class="contenedor-sprite-historial">
@@ -387,6 +397,11 @@
 				},
 			},
 			favoritoButton: (pokemonName, pokemonId) => {
+				const esFavorito = utils.storageLocal.esFavorito(pokemonId);
+				const corazon = esFavorito ? "❤️" : "🤍";
+				const claseColor = esFavorito
+					? "corazon-rojo"
+					: "corazon-blanco";
 				return `
             <button
                 data-action="favorito"
@@ -489,14 +504,14 @@
 				},
 			},
 			gui: {
-				newPokemonDataCard: (datosPokemon) => {
+				newPokemonDataCard: (datosPokemon, fuente = "api") => {
 					let html = templates.empty();
 
 					{
 						html += templates.pokemon.card.init();
 
 						{
-							html += templates.pokemon.card.dataCenter();
+							html += templates.pokemon.card.dataCenter(fuente);
 
 							html += templates.pokemon.card.initPokeShow();
 
@@ -505,25 +520,19 @@
 									templates.pokemon.card.pokeShowSprite(
 										datosPokemon
 									);
-
 								html +=
 									templates.pokemon.card.pokeShowName(
 										datosPokemon
 									);
-
 								html += templates.pokemon.card.pokeShowType();
-
 								html +=
 									templates.pokemon.card.pokeShowHabilidades();
-
 								html +=
 									templates.pokemon.card.pokeShowStats(
 										datosPokemon
 									);
-
 								html +=
 									templates.pokemon.card.pokeShowFavorito();
-
 								html +=
 									templates.pokemon.card.pokeShowCadenaDeEvolucion();
 							}
@@ -645,7 +654,7 @@
 							reject(e);
 						}
 					});
-					console.log(html);
+					// console.log(html);
 
 					elementEvolucion.innerHTML += html;
 					return;
@@ -821,83 +830,49 @@
 					localStorage.setItem(`${key}`, JSON.stringify(obj));
 				},
 
-				get(key) {
-					const obj = localStorage.getItem(`${key}`);
-					return obj ? JSON.parse(obj) : [];
+				get(key, defaultValue = null) {
+					const raw = localStorage.getItem(key);
+					return raw ? JSON.parse(raw) : defaultValue;
 				},
 
-				getAll() {
-					// ! TODO
+				exists(key) {
+					return localStorage.getItem(key) !== null;
 				},
 
 				remove(key) {
 					localStorage.removeItem(`${key}`);
 				},
 
-				removeAll() {
-					// ! TODO
+				obtenerHistorialDesdeCache() {
+					const cache = this.obtenerCachePokemon();
+					return cache.map((item) => ({
+						id: item.data?.id,
+						name: item.data?.name,
+						types: item.data?.types?.map((t) => t.name) || [],
+						sprite: item.data?.sprites?.front_default,
+					}));
 				},
 
-				find(objs, key) {
-					const keyVal = String(key).trim().toLowerCase();
-					return objs.find(
-						(obj) =>
-							String(obj.id) === keyVal ||
-							obj.name.toLowerCase() === keyVal
+				limpiarCache() {
+					this.save("pokemon_cache", []);
+				},
+
+				eliminarDelCache(pokemonId) {
+					const cache = this.obtenerCachePokemon();
+					const nuevoCache = cache.filter(
+						(item) => item.data?.id !== pokemonId
 					);
+					this.save("pokemon_cache", nuevoCache);
 				},
 
-				filter(objs, key) {
-					const keyVal = String(key).trim().toLowerCase();
-					return objs.filter(
-						(obj) =>
-							String(obj.id).includes(keyVal) ||
-							obj.name.includes(keyVal)
-					);
-				},
-				/**
-				 * Storage.local.exist ?
-				 * @param {string} key
-				 * @return {boolean}
-				 */
-				exist(key) {
-					const val = localStorage.getItem(`${key}`);
-
-					if (val === null || val === "") {
-						return false;
-					}
-					return true;
-				},
-
+				//fav
 				limpiarFavoritos() {
-					localStorage.removeItem("favoritos");
+					this.save("favoritos", []);
 				},
-
-				limpiarHistorial() {
-					localStorage.removeItem("historial");
-				},
-				guardarEnHistorial(pokemonData) {
-					const historial = this.get("historial") || [];
-					const historyId = Date.now();
-
-					historial.unshift({
-						historyId: historyId,
-						id: pokemonData.id,
-						name: pokemonData.name,
-						types: pokemonData.types,
-						sprite: pokemonData.sprites?.front_default,
-					});
-
-					if (historial.length > 50) {
-						historial.length = 50;
-					}
-
-					this.save("historial", historial);
-				},
-
 				guardarEnFavoritos(pokemonData) {
-					const favoritos = this.get("favoritos") || [];
+					const favoritos = this.get("favoritos", []);
 
+					// Evitar duplicados
 					if (favoritos.some((fav) => fav.id === pokemonData.id)) {
 						return false;
 					}
@@ -905,34 +880,24 @@
 					favoritos.unshift({
 						id: pokemonData.id,
 						name: pokemonData.name,
-						types: pokemonData.types,
-						sprite:
-							pokemonData.sprites?.front_default ||
-							pokemonData.sprite,
+						types: pokemonData.types || [],
+						sprite: pokemonData.sprites?.front_default,
 					});
 
 					this.save("favoritos", favoritos);
 					return true;
 				},
 
-				obtenerHistorial() {
-					return this.get("historial") || [];
-				},
-
-				eliminarDelHistorial(historyId) {
-					const historial = this.get("historial") || [];
-					const nuevo = historial.filter(
-						(item) => item.historyId !== Number(historyId)
-					);
-					this.save("historial", nuevo);
-				},
-
+				/**
+				 * Obtener todos los favoritos
+				 * @return {array} Lista de Pokémon favoritos
+				 */
 				obtenerFavoritos() {
-					return this.get("favoritos") || [];
+					return this.get("favoritos", []);
 				},
 
 				eliminarDeFavoritos(pokemonId) {
-					const favoritos = this.get("favoritos") || [];
+					const favoritos = this.obtenerFavoritos();
 					const nuevos = favoritos.filter(
 						(item) => item.id !== pokemonId
 					);
@@ -940,8 +905,48 @@
 				},
 
 				esFavorito(pokemonId) {
-					const favoritos = this.get("favoritos") || [];
+					const favoritos = this.obtenerFavoritos();
 					return favoritos.some((fav) => fav.id === pokemonId);
+				},
+
+				obtenerCachePokemon() {
+					const CincoMinutos = 5 * 60 * 1000;
+					const CincoSegundos = 5 * 1000;
+					const veinticuatroHoras = 24 * 60 * 60 * 1000;
+
+					const cache = this.get("pokemon_cache", []);
+					const ahora = Date.now();
+
+					return cache.filter(
+						(item) => ahora - item.timestamp < veinticuatroHoras
+					);
+				},
+
+				buscarEnCache(nombreOId) {
+					const cache = this.obtenerCachePokemon();
+					const busqueda = String(nombreOId).toLowerCase().trim();
+
+					return cache.find(
+						(item) =>
+							String(item.data?.id) === busqueda ||
+							item.data?.name?.toLowerCase() === busqueda
+					);
+				},
+
+				agregarAlCache(pokemonData) {
+					const cache = this.obtenerCachePokemon();
+
+					// Remover si existe
+					const nuevoCache = cache.filter(
+						(item) => item.data?.id !== pokemonData.id
+					);
+
+					nuevoCache.unshift({
+						data: pokemonData,
+						timestamp: Date.now(),
+					});
+
+					this.save("pokemon_cache", nuevoCache);
 				},
 			},
 			fetch: {
@@ -1047,14 +1052,15 @@
 		const historicoModule = {
 			renderHistorial() {
 				const listaHistorial = document.getElementById("history-list");
-				const historial = utils.storageLocal.obtenerHistorial();
+				const historial =
+					utils.storageLocal.obtenerHistorialDesdeCache();
 
 				listaHistorial.innerHTML =
 					historial.length === 0
 						? `<div class="item-historial text-align-center"><p>No hay búsquedas en el historial.</p></div>`
 						: historial
-								.map((item) =>
-									templates.history.itemHistorial(item)
+								.map((item, index) =>
+									templates.history.itemHistorial(item, index)
 								)
 								.join("");
 			},
@@ -1068,23 +1074,38 @@
 					const boton = e.target.closest("button");
 					const accion = boton.dataset.action;
 					const nombrePokemon = boton.dataset.pokemon;
-					const idHistorial = boton.dataset.historyId;
+					const historialIndex = boton.dataset.historyIndex;
 
 					if (accion === "favorito") {
 						handlers.favorito(e);
+
+						const esFavorito = utils.storageLocal.esFavorito(
+							Number(boton.dataset.pokemonId)
+						);
+						const corazon = esFavorito ? "❤️" : "🤍";
+						const claseColor = esFavorito
+							? "corazon-rojo"
+							: "corazon-blanco";
+
+						boton.innerHTML = corazon;
+						boton.className = "boton-historial " + claseColor;
+
 						return;
 					}
 
 					if (accion === "eliminar-item") {
-						utils.storageLocal.eliminarDelHistorial(
-							Number(idHistorial)
-						);
-						this.renderHistorial();
+						const itemDiv = boton.closest(".item-historial");
+						const pokemonId = Number(boton.dataset.pokemonId);
+
+						if (pokemonId) {
+							utils.storageLocal.eliminarDelCache(pokemonId);
+							this.renderHistorial();
+						}
 					}
 				});
 
 				botonLimpiarHistorial.addEventListener("click", () => {
-					utils.storageLocal.limpiarHistorial();
+					utils.storageLocal.limpiarCache();
 					this.renderHistorial();
 				});
 			},
@@ -1152,38 +1173,29 @@
 						htmlElemnts.form.finder.input.search.value.trim();
 					if (!busqueda) return;
 
-					let cachePokemon = JSON.parse(
-						localStorage.getItem("pokemon_cache") || "[]"
-					);
-
-					let enCache = cachePokemon.find(
-						(p) =>
-							p.name.toLowerCase() === busqueda.toLowerCase() ||
-							String(p.id) === busqueda
-					);
-
+					const cacheItem =
+						utils.storageLocal.buscarEnCache(busqueda);
 					let datosPokemon;
-					let fuente = "cache";
+					let fuente = "api";
 
-					if (enCache) {
-						datosPokemon = enCache.obj;
+					if (cacheItem) {
+						datosPokemon = cacheItem.data;
 						fuente = "cache";
-					} else {
+					}
+
+					if (!datosPokemon) {
 						try {
 							const datosCompletos =
 								await utils.fetch.pokeApiSearch(busqueda);
-
 							const datosCompletosSpecies =
 								await utils.fetch.pokeApiPokemonSpecies(
 									busqueda
 								);
-
 							const datosCompletosEvolution =
 								await utils.fetch.pokeApiEvolutionChain(
 									datosCompletosSpecies.evolution_chain.url
 								);
 
-							fuente = "api";
 							datosPokemon = {
 								id: datosCompletos.id,
 								name: datosCompletos.name,
@@ -1204,59 +1216,21 @@
 										hidden: ability.is_hidden,
 									})
 								),
-								moves: datosCompletos.moves.map((move) => ({
-									name: move.move.name,
-								})),
-
 								species: datosCompletosSpecies,
 								evolution_chain: datosCompletosEvolution,
-
-								// species: datosCompletosSpecies.map((val) => ({
-								// 	chain: {
-								// 		url: val.evolution_chain.url,
-								// 	},
-								// 	parent: {
-								// 		name: val?.evolves_from_species?.name ?? null,
-								// 		url: val?.evolves_from_species?.url ?? null,
-								// 	},
-								// })),
-
-								// chain: datosCompletosEvolution.main((val) => ({
-								// 	species: {
-								// 		name: val.chain.species.name,
-								// 		url: val.chain.species.url,
-								// 	},
-								// 	evolves_to: datosCompletosEvolution.evolves_to
-								// })),
 							};
 
-							cachePokemon.push({
-								id: datosPokemon.id,
-								name: datosPokemon.name,
-								obj: datosPokemon,
-								fecha: new Date().toISOString(),
-							});
-
-							localStorage.setItem(
-								"pokemon_cache",
-								JSON.stringify(cachePokemon)
-							);
+							utils.storageLocal.agregarAlCache(datosPokemon);
+							fuente = "api";
 						} catch (error) {
 							console.error("Error buscando:", error);
 							return;
 						}
 					}
 
-					utils.gui.newPokemonDataCard(datosPokemon);
+					utils.gui.newPokemonDataCard(datosPokemon, fuente);
 
 					htmlElemnts.formMain.reset();
-
-					utils.storageLocal.guardarEnHistorial({
-						id: datosPokemon.id,
-						name: datosPokemon.name,
-						types: datosPokemon.types.map((t) => t.name),
-						sprites: datosPokemon.sprites,
-					});
 
 					const favoritoBtn = document.querySelector(
 						'button[data-name="favorito"]'
@@ -1271,6 +1245,19 @@
 							"data-pokemon-id",
 							datosPokemon.id
 						);
+
+						const esFavorito = utils.storageLocal.esFavorito(
+							datosPokemon.id
+						);
+						if (esFavorito) {
+							favoritoBtn.classList.add("corazon-rojo");
+							favoritoBtn.classList.remove("corazon-blanco");
+							favoritoBtn.innerHTML = "❤️";
+						} else {
+							favoritoBtn.classList.add("corazon-blanco");
+							favoritoBtn.classList.remove("corazon-rojo");
+							favoritoBtn.innerHTML = "🤍";
+						}
 
 						favoritoBtn.addEventListener("click", (e) => {
 							e.preventDefault();
@@ -1319,30 +1306,52 @@
 					window.location.href = "vs.html";
 				}
 			},
+
 			favorito: (e) => {
+				e.preventDefault();
 				const boton = e.target.closest(
 					'button[data-action="favorito"]'
 				);
 				if (!boton) return;
 
 				const pokemonName = boton.dataset.pokemon;
-				const pokemonId = boton.dataset.pokemonId;
+				const pokemonId = Number(boton.dataset.pokemonId);
 
-				const historial = utils.storageLocal.obtenerHistorial();
-				const item = historial.find(
-					(item) =>
-						item.name === pokemonName ||
-						item.id.toString() === pokemonId
-				);
+				const esFavorito = utils.storageLocal.esFavorito(pokemonId);
 
-				if (item) {
-					const favoritoExitoso =
-						utils.storageLocal.guardarEnFavoritos({
-							id: item.id,
-							name: item.name,
-							types: item.types,
-							sprites: { front_default: item.sprite },
-						});
+				if (esFavorito) {
+					utils.storageLocal.eliminarDeFavoritos(pokemonId);
+					boton.classList.remove("corazon-rojo");
+					boton.classList.add("corazon-blanco");
+					boton.innerHTML = "🤍";
+				} else {
+					const cache = utils.storageLocal.obtenerCachePokemon();
+					const itemCache = cache.find(
+						(item) =>
+							item.data?.name === pokemonName ||
+							item.data?.id === pokemonId
+					);
+
+					if (itemCache && itemCache.data) {
+						const favoritoExitoso =
+							utils.storageLocal.guardarEnFavoritos({
+								id: itemCache.data.id,
+								name: itemCache.data.name,
+								types:
+									itemCache.data.types?.map((t) => t.name) ||
+									[],
+								sprites: {
+									front_default:
+										itemCache.data.sprites?.front_default,
+								},
+							});
+
+						if (favoritoExitoso) {
+							boton.classList.remove("corazon-blanco");
+							boton.classList.add("corazon-rojo");
+							boton.innerHTML = "❤️";
+						}
+					}
 				}
 			},
 		};
