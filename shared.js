@@ -419,9 +419,9 @@
 						data-action="favorito"
 						data-pokemon="${pokemonName}"
 						data-pokemon-id="${pokemonId}"
-						class="boton-historial"
+						class="boton-historial ${claseColor}"
 					>
-						❤️
+						${corazon}
 					</button>
 				`;
 			},
@@ -1102,7 +1102,26 @@
 					document.getElementById("clear-history-btn");
 
 				listaHistorial.addEventListener("click", (e) => {
+					const itemHistorial = e.target.closest(".item-historial");
 					const boton = e.target.closest("button");
+
+					if (itemHistorial && !boton) {
+						const pokemonId = itemHistorial.querySelector(
+							"button[data-pokemon-id]"
+						)?.dataset.pokemonId;
+						const pokemonName =
+							itemHistorial.querySelector(
+								".nombre-historial"
+							)?.textContent;
+
+						if (pokemonId || pokemonName) {
+							window.location.href = `index.html?search=${
+								pokemonId || pokemonName
+							}`;
+						}
+						return;
+					}
+
 					if (!boton) return;
 
 					const accion = boton.dataset.action;
@@ -1128,14 +1147,14 @@
 					if (accion === "eliminar-item") {
 						if (pokemonId) {
 							utils.storageLocal.eliminarDelCache(pokemonId);
-							this.renderHistorial(); // Esto actualizará automáticamente la visibilidad del botón
+							this.renderHistorial();
 						}
 					}
 				});
 
 				botonLimpiarHistorial.addEventListener("click", () => {
 					utils.storageLocal.limpiarCache();
-					this.renderHistorial(); // Esto actualizará automáticamente la visibilidad del botón
+					this.renderHistorial();
 				});
 			},
 
@@ -1411,6 +1430,23 @@
 				);
 				historicoModule.init();
 				favoritosModule.init();
+
+				this.procesarParametrosURL();
+			},
+
+			procesarParametrosURL() {
+				if (!window.location.pathname.includes("index.html")) return;
+
+				const buscaParam = new URLSearchParams(
+					window.location.search
+				).get("search");
+				if (!buscaParam) return;
+
+				htmlElemnts.form.finder.input.search.value = buscaParam;
+
+				setTimeout(() => {
+					htmlElemnts.form.finder.button.buscar.click();
+				}, 100);
 			},
 		};
 	})();
