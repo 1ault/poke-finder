@@ -26,8 +26,8 @@ Desarrollar una aplicación web llamada **"PokéFinder"** que permita buscar, ex
 
 #### 1. Búsqueda de Pokémon (15 pts)
 
-- [x] Campo de búsqueda por nombre o número
-- [x] Mostrar tarjeta con información del Pokémon:
+- [ ] Campo de búsqueda por nombre o número
+- [ ] Mostrar tarjeta con información del Pokémon:
   - Imagen (sprite)
   - Nombre y número
   - Tipos
@@ -52,10 +52,10 @@ Desarrollar una aplicación web llamada **"PokéFinder"** que permita buscar, ex
 
 #### 4. Sistema de Favoritos (15 pts)
 
-- [x] Botón para agregar/quitar de favoritos (usar ícono de corazón ❤️)
-- [x] Página separada para ver favoritos
+- [ ] Botón para agregar/quitar de favoritos (usar ícono de corazón ❤️)
+- [ ] Página separada para ver favoritos
 - [ ] Persistencia en `localStorage`
-- [x] Botón para limpiar todos los favoritos
+- [ ] Botón para limpiar todos los favoritos
 
 ### Nivel Intermedio (25 puntos)
 
