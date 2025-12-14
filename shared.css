@@ -176,6 +176,16 @@ body {
 	/* align-items: center; */
 }
 
+.tmp-evo-selected {
+	padding: 0.4rem;
+	padding: 0.4;
+	background-color: var(--color-api);
+}
+
+/* .tmp-evo-selected:hover {
+	cursor: pointer;
+} */
+
 .tmpgrid {
 	gap: 2rem;
 }

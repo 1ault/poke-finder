@@ -24,11 +24,32 @@
 
 Pokédex max: 1025
 
-#252 TREECKO
+#2 IVYSAUR
+
+#44 GLOOM
+
+#67 MACHOKE
 
 #133 EEVEE
 
 #132 DITTO
+
+#201 UNOWN
+
+#252 TREECKO
+
+#660 DIGGERSBY
+
+#777 TOGEDEMARU
+
+
+#### Chain
+
+#44 GLOOM
+
+#201 UNOWN
+
+#133 EEVEE
 
 ### Doc
 

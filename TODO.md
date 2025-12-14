@@ -44,11 +44,11 @@ Desarrollar una aplicación web llamada **"PokéFinder"** que permita buscar, ex
 
 #### 3. Histórico de Búsquedas (15 pts)
 
-- [ ] Página separada para ver histórico
-- [ ] Listar todos los Pokémon buscados (más recientes primero)
-- [ ] Botón para eliminar individual del histórico
-- [ ] Botón para limpiar todo el histórico y caché
-- [ ] Click en item del histórico redirige a búsqueda
+- [x] Página separada para ver histórico
+- [x] Listar todos los Pokémon buscados (más recientes primero)
+- [x] Botón para eliminar individual del histórico
+- [x] Botón para limpiar todo el histórico y caché
+- [x] Click en item del histórico redirige a búsqueda
 
 #### 4. Sistema de Favoritos (15 pts)
 
@@ -61,10 +61,10 @@ Desarrollar una aplicación web llamada **"PokéFinder"** que permita buscar, ex
 
 #### 5. Cadena Evolutiva (10 pts)
 
-- [ ] Mostrar la línea evolutiva completa del Pokémon
-- [ ] Incluir sprites de cada etapa
-- [ ] Indicar nivel o condición de evolución
-- [ ] Click en evolución busca ese Pokémon
+- [x] Mostrar la línea evolutiva completa del Pokémon
+- [x] Incluir sprites de cada etapa
+- [x] Indicar nivel o condición de evolución
+- [x] Click en evolución busca ese Pokémon
 
 #### 6. Búsqueda por Habilidad (15 pts)
 
