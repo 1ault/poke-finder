@@ -38,6 +38,9 @@
 				img: () =>  { return document.querySelector('img[data-name="img-poke-sprite"]'); }, 
 			},
 			pokeCard: {
+				hability: {					
+					container: () => { return document.querySelector('div[data-name="pokemon-container"]'); },
+				},
 				stats: {
 					hp: () => {
 						return document.querySelector(
@@ -94,6 +97,62 @@
 			},
 			pokemon: {
 				card: {
+					abilities: {
+						init: (id, name, length, description) => {
+return `
+
+<div class="padding-1rem background-color-FCFCFC font-size-0-9rem border-width-4px border-color-2d2d2d border-estyle-solid flex-wrap">
+	<div class="flex text-align-center flex-justify-space-between">
+		<div>
+		 <h2 class="font-weight-900">✨${name}</h2>
+		</div>
+
+		<div class="
+			background-color-FFE261 
+			padding-x-0-75rem
+			padding-y-0-5rem 
+			flex flex-align-center flex-justify-center border-width-4px border-color-2d2d2d border-estyle-solid">
+			<span>#${id}</span>
+		</div>
+	</div>
+
+	<div class="tmp-divide2"></div>
+
+	<div class="padding-0-5rem background-color-DBDBDB flex-gap-0-5rem flex flex-column border-width-4px border-color-2d2d2d border-estyle-solid">
+		<div><span class="font-weight-bold">EFECTO<span></div>
+		<div class="text flex-item"><span>${description}<span></div>
+	</div>
+
+	<div class="padding-0-5rem padding-y-1rem font-weight-bold ">POKÉMON CON ESTA HABILIDAD (${length})</div>
+
+	<div
+		class="background-color-DBDBDB  tmp-grid-container border-width-4px border-color-2d2d2d border-estyle-solid"
+		data-name="pokemon-container"
+	>
+	</div>
+
+</div>
+`;
+						},
+						addPokemon: (name, id, sprite) => {
+							return `
+<div
+	data-action="search"
+	data-name="poke-evo-root"
+	data-poke-name="${name}"
+	data-poke-id="${id}"
+	class="tmpevohover2 flex flex-align-center text-align-center flex-column flex-justify-center background-color-DBDBDB border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+>
+	<img
+		src="${sprite}"
+		alt="${name}"
+		class="sprite-historial"
+	/>
+	<span>${name}</span>
+</div>
+							`;
+						},
+					},
 					generate: {
 						types: (text) => {
 							return `<span class="poke-type">${text}</span>`;
@@ -682,7 +741,7 @@
 						datosPokemon.evolution_chain.chain
 					);
 
-					html = await new Promise(async (resolve, reject) => {
+					html = await new Promise((resolve, reject) => {
 						try {
 							let result = "";
 							for (const val of chainEvo) {
@@ -741,7 +800,7 @@
 								// 	continue;
 							}
 
-
+							// throw new Error("test");
 							
 
 							resolve(result);
@@ -1076,10 +1135,56 @@
 				 * @param {string} input
 				 * @return {object} data
 				 */
+				async pokeApiPokemonAbility(input) {
+					try {
+						const response = await fetch(
+							`https://pokeapi.co/api/v2/ability/${input}`,
+							{
+								method: "GET",
+							}
+						);
+
+						if (!response.ok) {
+							throw new Error(`Error: ${response.status}`);
+						}
+
+						const data = await response.json();
+
+						return data;
+					} catch (error) {
+						console.error("Hubo un problema:", error);
+					}
+				},
+				/**
+				 * pokeApiSearch
+				 * @param {string} input
+				 * @return {object} data
+				 */
 				async pokeApiSearch(input) {
 					try {
 						const response = await fetch(
 							`https://pokeapi.co/api/v2/pokemon/${input}`,
+							{
+								method: "GET",
+							}
+						);
+
+						if (!response.ok) {
+							throw new Error(`Error: ${response.status}`);
+						}
+
+						const data = await response.json();
+
+						return data;
+					} catch (error) {
+						console.error("Hubo un problema:", error);
+					}
+				},
+
+				async pokeApiSearchFull(input) {
+					try {
+						const response = await fetch(
+							`${input}`,
 							{
 								method: "GET",
 							}
@@ -1359,113 +1464,187 @@
 				if (
 					e.submitter.dataset.name ===
 					htmlElemnts?.form?.finder?.button?.search()?.dataset?.name ?? null
-				) {
+				) 
+				{
 
-					// const options_val = htmlElemnts.form.finder.select.option().value.trim();
-					// console.log(options_val);
+					const options_val = htmlElemnts.form.finder.select.option().value.trim();
+					console.log(options_val);
 
 					const busqueda =
 						htmlElemnts.form.finder.input
 						.search()
 						.value
 						.trim();
-					
+							
 					if (!busqueda) return;
 
-
 					utils.routers.query.set("search", `${busqueda}`);
-					
 
-					const cacheItem =
-						utils.storageLocal.buscarEnCache(busqueda);
-					let datosPokemon;
-					let fuente = "api";
+					switch (options_val) {
+						case "Pokemon": 
+						{
 
-					if (cacheItem) {
-						datosPokemon = cacheItem.data;
-						fuente = "cache";
-					}
+							const cacheItem =
+								utils.storageLocal.buscarEnCache(busqueda);
+							let datosPokemon;
+							let fuente = "api";
 
-					if (!datosPokemon) {
-						try {
-							const datosCompletos =
-								await utils.fetch.pokeApiSearch(busqueda);
-							const datosCompletosSpecies =
-								await utils.fetch.pokeApiPokemonSpecies(
-									busqueda
+							if (cacheItem) {
+								datosPokemon = cacheItem.data;
+								fuente = "cache";
+							}
+
+							if (!datosPokemon) 
+							{
+								try {
+									const datosCompletos =
+										await utils.fetch.pokeApiSearch(busqueda);
+									const datosCompletosSpecies =
+										await utils.fetch.pokeApiPokemonSpecies(
+											busqueda
+										);
+									const datosCompletosEvolution =
+										await utils.fetch.pokeApiEvolutionChain(
+											datosCompletosSpecies.evolution_chain.url
+										);
+
+									datosPokemon = {
+										id: datosCompletos.id,
+										name: datosCompletos.name,
+										sprites: {
+											front_default:
+											datosCompletos.sprites.front_default,
+										},
+										stats: datosCompletos.stats.map((stat) => ({
+											name: stat.stat.name,
+											base_stat: stat.base_stat,
+										})),
+										types: datosCompletos.types.map((type) => ({
+											name: type.type.name,
+										})),
+										abilities: datosCompletos.abilities.map(
+											(ability) => ({
+												name: ability.ability.name,
+												hidden: ability.is_hidden,
+											})
+										),
+										species: datosCompletosSpecies,
+										evolution_chain: datosCompletosEvolution,
+									};
+
+									utils.storageLocal.agregarAlCache(datosPokemon);
+									fuente = "api";
+								} catch (error) {
+									console.error("Error buscando:", error);
+									return;
+								}
+							}
+
+							utils.gui.newPokemonDataCard(datosPokemon, fuente);
+
+							htmlElemnts.formMain.reset();
+
+							const favoritoBtn = document.querySelector(
+								'button[data-name="favorito"]'
+							);
+							if (favoritoBtn) {
+								favoritoBtn.setAttribute("data-action", "favorito");
+								favoritoBtn.setAttribute(
+									"data-pokemon",
+									datosPokemon.name
 								);
-							const datosCompletosEvolution =
-								await utils.fetch.pokeApiEvolutionChain(
-									datosCompletosSpecies.evolution_chain.url
+								favoritoBtn.setAttribute(
+									"data-pokemon-id",
+									datosPokemon.id
 								);
 
-							datosPokemon = {
-								id: datosCompletos.id,
-								name: datosCompletos.name,
-								sprites: {
-									front_default:
-										datosCompletos.sprites.front_default,
-								},
-								stats: datosCompletos.stats.map((stat) => ({
-									name: stat.stat.name,
-									base_stat: stat.base_stat,
-								})),
-								types: datosCompletos.types.map((type) => ({
-									name: type.type.name,
-								})),
-								abilities: datosCompletos.abilities.map(
-									(ability) => ({
-										name: ability.ability.name,
-										hidden: ability.is_hidden,
-									})
-								),
-								species: datosCompletosSpecies,
-								evolution_chain: datosCompletosEvolution,
+								const esFavorito = utils.storageLocal.esFavorito(
+									datosPokemon.id
+								);
+								if (esFavorito) {
+									favoritoBtn.classList.add("corazon-rojo");
+									favoritoBtn.classList.remove("corazon-blanco");
+									favoritoBtn.innerHTML = "❤️";
+								} else {
+									favoritoBtn.classList.add("corazon-blanco");
+									favoritoBtn.classList.remove("corazon-rojo");
+									favoritoBtn.innerHTML = "🤍";
+								}
+
+								favoritoBtn.addEventListener("click", (e) => {
+									e.preventDefault();
+									handlers.favorito(e);
+								});
+							}
+							break;
+						}
+						case "Habilidad":
+							
+						
+							const datosCompletosHabilidad = await utils.fetch.pokeApiPokemonAbility(busqueda);
+
+							console.log(datosCompletosHabilidad);
+
+							const datosHabilidad = {
+								id: datosCompletosHabilidad?.id ?? null,
+								name: datosCompletosHabilidad?.name ?? null,
+								pokemon: datosCompletosHabilidad?.pokemon ?? null,
+								pokemonLength: datosCompletosHabilidad?.pokemon?.length ?? null,
+								description: datosCompletosHabilidad.effect_entries.find(e => e.language.name === "en")?.short_effect,
 							};
 
-							utils.storageLocal.agregarAlCache(datosPokemon);
-							fuente = "api";
-						} catch (error) {
-							console.error("Error buscando:", error);
-							return;
-						}
-					}
+							
 
-					utils.gui.newPokemonDataCard(datosPokemon, fuente);
+							let html = templates.empty();
+							html += templates.pokemon.card.abilities.init(
+								datosHabilidad.id,
+								datosHabilidad.name.toUpperCase().replaceAll("-", " "),
+								datosHabilidad.pokemonLength,
+								datosHabilidad.description
+							);
 
-					htmlElemnts.formMain.reset();
+							htmlElemnts.main.innerHTML = html;
 
-					const favoritoBtn = document.querySelector(
-						'button[data-name="favorito"]'
-					);
-					if (favoritoBtn) {
-						favoritoBtn.setAttribute("data-action", "favorito");
-						favoritoBtn.setAttribute(
-							"data-pokemon",
-							datosPokemon.name
-						);
-						favoritoBtn.setAttribute(
-							"data-pokemon-id",
-							datosPokemon.id
-						);
 
-						const esFavorito = utils.storageLocal.esFavorito(
-							datosPokemon.id
-						);
-						if (esFavorito) {
-							favoritoBtn.classList.add("corazon-rojo");
-							favoritoBtn.classList.remove("corazon-blanco");
-							favoritoBtn.innerHTML = "❤️";
-						} else {
-							favoritoBtn.classList.add("corazon-blanco");
-							favoritoBtn.classList.remove("corazon-rojo");
-							favoritoBtn.innerHTML = "🤍";
-						}
+							const pokemonContainer = htmlElemnts.pokeCard.hability.container();
 
-						favoritoBtn.addEventListener("click", (e) => {
-							e.preventDefault();
-							handlers.favorito(e);
-						});
+
+
+							const result = await new Promise((resolve, reject) => {
+							(async () => {
+								try {
+								let html = "";
+
+								for (const val of datosHabilidad.pokemon) {
+									const datosPokemonVal = await utils.fetch.pokeApiSearchFull(val.pokemon.url);
+
+									const id = datosPokemonVal.id;
+									const name = datosPokemonVal.name;
+									const sprite = datosPokemonVal.sprites.front_default;
+										
+
+									console.log(val);
+									console.log(datosPokemonVal);
+
+									html += templates.pokemon.card.abilities.addPokemon(name, id, sprite);
+								}
+
+								resolve(html);
+								} catch (e) {
+									reject(e);
+								}
+							})();
+							});
+
+							pokemonContainer.insertAdjacentHTML(
+								"beforeend", 
+								result
+							);
+
+							pokemonContainer.addEventListener("click", handlers.evoSeach);
+							break;
+						default:
+							break;
 					}
 				}
 			},

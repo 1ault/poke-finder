@@ -40,6 +40,8 @@ Pokédex max: 1025
 
 #660 DIGGERSBY
 
+#772 TYPE-NULL
+
 #777 TOGEDEMARU
 
 
