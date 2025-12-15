@@ -29,6 +29,9 @@
 					button: {
 						search: () => { return document.querySelector('button[data-name="finder-buscar"]'); },
 					},
+					select: {
+						option: () => { return document.querySelector('select[data-name="finder-select"]'); },
+					},
 				},
 			},
 			tmp: {
@@ -1358,8 +1361,15 @@
 					htmlElemnts?.form?.finder?.button?.search()?.dataset?.name ?? null
 				) {
 
+					// const options_val = htmlElemnts.form.finder.select.option().value.trim();
+					// console.log(options_val);
+
 					const busqueda =
-						htmlElemnts.form.finder.input.search().value.trim();
+						htmlElemnts.form.finder.input
+						.search()
+						.value
+						.trim();
+					
 					if (!busqueda) return;
 
 
@@ -1571,11 +1581,11 @@
 				historicoModule.init();
 				favoritosModule.init();
 
-				this.procesarParametrosURL();
-
+				
 				const localTheme = localStorage.getItem("theme") || "light";
 				document.documentElement.dataset.theme = localTheme;
-
+				
+				this.procesarParametrosURL();
 			},
 
 			procesarParametrosURL() {
@@ -1586,7 +1596,7 @@
 				).get("search");
 				if (!buscaParam) return;
 
-				htmlElemnts.form.finder.input.search.value = buscaParam;
+				htmlElemnts.form.finder.input.search().value = buscaParam;
 
 				setTimeout(() => {
 					htmlElemnts.form.finder.button.search().click();
