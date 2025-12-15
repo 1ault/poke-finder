@@ -9,6 +9,11 @@
 			formMain: document.querySelector('form[data-name="form-main"]'),
 			main: document.querySelector('main[data-name="main"]'),
 			form: {
+				gui: {
+					button: {
+						theme: () => { return document.querySelector('button[data-name="theme"]'); }
+					},
+				},
 				nav: {
 					button: {
 						historico: () => { return document.querySelector('button[data-name="nav-historico"]'); }, 
@@ -1456,6 +1461,21 @@
 			},
 			onFormSubmit(e) {
 				e.preventDefault();
+				
+				if (
+					e.submitter.dataset.name ===
+					htmlElemnts?.form?.gui?.button?.theme()?.dataset?.name ?? null
+				) {
+					const docTheme = document.documentElement.dataset.theme;
+					const buttonTheme = htmlElemnts?.form?.gui?.button?.theme();
+					
+					const theme = docTheme === "dark" ? "light" : "dark";
+					localStorage.setItem("theme", theme);
+					buttonTheme.textContent = theme === "dark" ? "🌙" : "☀️";
+					document.documentElement.dataset.theme = theme === "dark" ? "dark" : "light";
+
+					return;
+				}
 
 				handlers.routers(e);
 
@@ -1542,6 +1562,7 @@
 		};
 
 		return {
+			
 			init() {
 				htmlElemnts.formMain.addEventListener(
 					"submit",
@@ -1551,6 +1572,10 @@
 				favoritosModule.init();
 
 				this.procesarParametrosURL();
+
+				const localTheme = localStorage.getItem("theme") || "light";
+				document.documentElement.dataset.theme = localTheme;
+
 			},
 
 			procesarParametrosURL() {
@@ -1564,7 +1589,7 @@
 				htmlElemnts.form.finder.input.search.value = buscaParam;
 
 				setTimeout(() => {
-					htmlElemnts.form.finder.button.buscar().click();
+					htmlElemnts.form.finder.button.search().click();
 				}, 100);
 			},
 		};

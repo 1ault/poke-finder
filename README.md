@@ -43,6 +43,8 @@ Pokédex max: 1025
 #777 TOGEDEMARU
 
 
+battle-armor
+
 #### Chain
 
 #44 GLOOM
