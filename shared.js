@@ -101,7 +101,7 @@
 						init: (id, name, length, description) => {
 return `
 
-<div class="padding-1rem background-color-FCFCFC font-size-0-9rem border-width-4px border-color-2d2d2d border-estyle-solid flex-wrap">
+<div data-name="poke-info" class="padding-1rem background-color-FCFCFC font-size-0-9rem border-width-4px border-color-2d2d2d border-estyle-solid flex-wrap">
 	<div class="flex text-align-center flex-justify-space-between">
 		<div>
 		 <h2 class="font-weight-900">✨${name}</h2>
@@ -558,9 +558,8 @@ return `
 
 								const children =
 									evolution_chain.evolves_to ?? [];
-								// console.log("///////////////////////");
-								// console.log(evolution_chain);
-								// console.log(evolution_chain?.evolves_to?.length ?? "32");
+
+
 								for (let i = 0; i < children.length; i++) {
 									const val = children[i];
 
@@ -590,9 +589,6 @@ return `
 										node
 									);
 
-									// console.log("Karth");
-									// console.log(val.evolves_to.length);
-									// console.log(val.evolves_to);
 
 									if (val.evolves_to.length != 0) {
 										await utils.struct.node.tree.rooted.pokeChineToRooted(
@@ -616,7 +612,7 @@ return `
 				},
 			},
 			gui: {
-				newPokemonDataCard: (datosPokemon, fuente = "api") => {
+				newPokemonDataCard: async (datosPokemon, fuente = "api") => {
 					let html = templates.empty();
 
 					{
@@ -655,14 +651,41 @@ return `
 						html += templates.pokemon.card.end();
 					}
 
+					
+					
+					
+					// let elementHabilidades = htmlElemnts.pokeCard.habilidades();
+					// let elementHabilidades = html.querySelector('div[data-name="poke-habilidades"]');
+					// htmlElemnts.main.innerHTML +=
+					
+					const htmlPokeHabilidad = utils.gui.setPokemonDataCardHabilidades(datosPokemon);
+					const htmlPokeTypes = utils.gui.setPokemonDataCardTypes(datosPokemon);
+
+					const htmlPokeEvoChain = await utils.gui.setPokemonDataCardCadenaDeEvolucion(datosPokemon);
+					
 					htmlElemnts.main.innerHTML = html;
-					utils.gui.setPokemonDataCardHabilidades(datosPokemon);
-					utils.gui.setPokemonDataCardTypes(datosPokemon);
+					htmlElemnts.pokeCard.habilidades().innerHTML += htmlPokeHabilidad;
+					htmlElemnts.pokeCard.types().innerHTML += htmlPokeTypes;
+
 					utils.gui.setPokemonDataCardStats();
-					utils.gui.setPokemonDataCardCadenaDeEvolucion(datosPokemon);
+
+					htmlElemnts.pokeCard.evolucion().innerHTML += htmlPokeEvoChain;
+										
+					const element = htmlElemnts.pokeCard
+					.evolucion()
+					.querySelector(
+						`div[data-poke-name="${datosPokemon.name}"], div[data-poke-id="${datosPokemon.id}"]`
+					);
+
+					if (element) {
+						element.classList.add("tmp-evo-selected");
+						element.classList.remove("tmpevohover");
+						element.removeAttribute("data-action");
+					}
+					htmlElemnts.pokeCard.evolucion().addEventListener("click", handlers.evoSeach);
 				},
 				setPokemonDataCardTypes(datosPokemon) {
-					let elementTypes = htmlElemnts.pokeCard.types();
+					// let elementTypes = htmlElemnts.pokeCard.types();
 					let html = "";
 
 					datosPokemon.types.forEach((val) => {
@@ -671,12 +694,13 @@ return `
 						);
 					});
 
-					elementTypes.innerHTML += html;
+					// elementTypes.innerHTML += html;
+					return html;
 				},
 
 				setPokemonDataCardHabilidades(datosPokemon) {
-					let elementHabilidades = htmlElemnts.pokeCard.habilidades();
 					let html = "";
+					
 
 					datosPokemon.abilities.forEach((val) => {
 						if (val.hidden) {
@@ -697,7 +721,7 @@ return `
 							);
 					});
 
-					elementHabilidades.innerHTML += html;
+					return html;
 				},
 
 				chain: (arrayRoot, evolvet_to) => {
@@ -707,7 +731,7 @@ return `
 
 				async setPokemonDataCardCadenaDeEvolucion(datosPokemon) {
 					// ! Dato
-					let elementEvolucion = htmlElemnts.pokeCard.evolucion();
+					// let elementEvolucion = htmlElemnts.pokeCard.evolucion();
 					let html = "";
 
 					const chainEvo = [];
@@ -716,10 +740,6 @@ return `
 						await utils.fetch.pokeApiPokemonSpecieFull(
 							datosPokemon?.evolution_chain?.chain?.species?.url
 						);
-
-					// console.log(datosPokemon);
-					// console.log(datosPokemon.evolution_chain.chain);
-					// console.log(data_root);
 
 					const node = {
 						KeyID: pokeSpecie?.id ?? null,
@@ -745,7 +765,7 @@ return `
 						try {
 							let result = "";
 							for (const val of chainEvo) {
-								console.log(val);
+								// console.log(val);
 								// ! No borrar
 								// const poke = await utils.fetch.pokeApiSearch(val.KeyName);
 								// const sprite = poke?.sprites?.front_default ?? null;
@@ -810,159 +830,18 @@ return `
 					});
 					// console.log(html);
 
-					elementEvolucion.innerHTML += html;
+					// elementEvolucion.innerHTML += html;
 
 
 					// const elemnt = htmlElemnts.pokeCard
 					// 	.evolucion()
 					// 	.querySelector('div[data-poke-name="machop"]', 'div[data-poke-id="66"]');
 
-					
-					
-					
-					const element = htmlElemnts.pokeCard
-					.evolucion()
-					.querySelector(
-						`div[data-poke-name="${datosPokemon.name}"], div[data-poke-id="${datosPokemon.id}"]`
-					);
-
-					if (element) {
-						element.classList.add("tmp-evo-selected");
-						element.classList.remove("tmpevohover");
-						element.removeAttribute("data-action");
-					}
 					// htmlElemnts.pokeCard.evolucion().querySelector(div[data-poke-name="machop"]).classList.add();
 					// console.log(datosPokemon);
 					// data-poke-name="machop"
-
-
-					htmlElemnts.pokeCard.evolucion().addEventListener("click", handlers.evoSeach);
-					return;
-
-					// chain.evolves_to.forEach(val => {
-
-					//   utils.gui.chain(chainEvo, chain);
-					// });
-
-					// html += templates.pokemon.card.generate.evolucion.root();
-
-					// elementEvolucion.innerHTML += html;
-
-					// console.log(datosPokemon.apiEvolutionChain.chain.selfSpecies);
-					// console.log(datosPokemon.apiEvolutionChain.chain.evolvesToArray);
-
-					// console.log("---------------------");
-					// console.log("---------------------");
-					// console.log("Dato pokemon");
-					// console.log(datosPokemon.apiEvolutionChain.chain);
-
-					// console.log("---------------------");
-					// console.log("---------------------");
-					// console.log("---------------------");
-					// console.log("---------------------");
-					// console.log("---------------------");
-					// console.log("---------------------");
-					{
-						const KeyId = datosPokemon.name;
-						const KeyVal = datosPokemon;
-						const KeyP = datosPokemon.apiEvolutionChain.parent;
-						// const keyLeft = datosPokemon.apiEvolutionChain.chain.evolves_to[0];
-						// const keyRight = datosPokemon.apiEvolutionChain;
-						// console.log(keyRight);
-
-						// cadenaDeEvolucion.push(utils.struct.node.tree.rooted(KeyId, KeyVal, KeyP, null, null));
-						// // const KeyP = await utils.fetch.pokeApiPokemonSpecieFull(val.species.url);
-						// const KeyP = P?.evolves_from_species?.name ?? null;
-						// // const KeyP = datosPokemon.name;
-						// let keyLeft = null;
-
-						// if (val.evolves_to.length != 0) {
-						//   keyLeft = val?.evolves_to[0]?.species?.name ?? null;
-						// }
-
-						// const keyRight = sibling?.species?.name ?? null;
-					}
-					const pokeCadenaEvolucion =
-						datosPokemon.apiEvolutionChain.chain.evolvesToArray;
-
-					for (let i = 0; i < pokeCadenaEvolucion.length; i++) {
-						// let sibling = null;
-						// if (array[i + 1] !== undefined) {
-						//     sibling = array[i + 1];
-						// }
-						// let sibling = pokeCadenaEvolucion[i + 1]
-
-						// if (array[i] === something) break;
-
-						// const numbers = [];
-						// utils.struct.node.tree.rooted.
-						// Name
-						// console.log(val.evolves_to);
-
-						// evolves_from_species
-						// console.log(val);
-
-						// console.log(val);
-						// console.log(val.species.name);
-						// console.log(val.species.url);
-						// console.log(val.evolves_to);
-
-						// const pokeObj = {
-						//   name: val.species.name,
-						//   url: val.species.url,
-						//   child: val.evolves_to
-						// }
-
-						// console.log("---------------------ddddddddddddddddd-----------------------");
-						// console.log(parent);
-						// console.log(parent.evolves_from_species);
-						// console.log("--------------------------------------------");
-
-						const KeyId = val.species.name;
-						const KeyVal = val;
-						// const KeyP = await utils.fetch.pokeApiPokemonSpecieFull(val.species.url);
-						const P = await utils.fetch.pokeApiPokemonSpecieFull(
-							val.species.url
-						);
-						const KeyP = P?.evolves_from_species?.name ?? null;
-						// const KeyP = datosPokemon.name;
-						let keyLeft = null;
-
-						if (val.evolves_to.length != 0) {
-							keyLeft = val?.evolves_to[0]?.species?.name ?? null;
-						}
-
-						const keyRight = sibling?.species?.name ?? null;
-
-						cadenaDeEvolucion.push(
-							utils.struct.node.tree.rooted(
-								KeyId,
-								KeyVal,
-								KeyP,
-								keyLeft,
-								keyRight
-							)
-						);
-						// console.log(pokeObj);
-
-						// console.log(val.species.name);
-						// console.log(evolition.species.name);
-
-						// // Main Id
-						// console.log(evolition.species.url);
-					}
-
-					cadenaDeEvolucion.forEach((val) => {
-						// console.log(val);
-						html += templates.pokemon.card.generate.evolucion.root(
-							datosPokemon.sprites.front_default,
-							datosPokemon.name
-						);
-						// console.log(val.keyID);
-						// console.log(val.obj);
-					});
-
-					elementEvolucion.innerHTML += html;
+					
+					return html;
 				},
 
 				setPokemonDataCardStats() {
@@ -1415,12 +1294,15 @@ return `
 			setupFavoritosListeners() {
 				const listaFavoritos =
 					document.getElementById("favorites-list");
+
 				const botonLimpiarFavoritos = document.getElementById(
 					"clear-favorites-btn"
 				);
 
 				listaFavoritos.addEventListener("click", (e) => {
-					const boton = e.target.closest("button");
+					const boton = e.target.closest('button');
+					if (!boton) return;
+
 					const pokemonId = Number(boton.dataset.favoriteId);
 
 					utils.storageLocal.eliminarDeFavoritos(pokemonId);
@@ -1467,6 +1349,7 @@ return `
 				) 
 				{
 
+
 					const options_val = htmlElemnts.form.finder.select.option().value.trim();
 					console.log(options_val);
 
@@ -1478,11 +1361,28 @@ return `
 							
 					if (!busqueda) return;
 
+
+					
+
 					utils.routers.query.set("search", `${busqueda}`);
+
+					const pokeInfo = document.querySelector('[data-name="poke-info"]');
+
+					if (pokeInfo) {
+						pokeInfo.remove();
+					}
 
 					switch (options_val) {
 						case "Pokemon": 
 						{
+							if (busqueda <= 0) return;
+
+							if (busqueda > 1025) return;
+
+							const cargando = document.querySelectorAll(".cargando");
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
+
+
 
 							const cacheItem =
 								utils.storageLocal.buscarEnCache(busqueda);
@@ -1539,14 +1439,39 @@ return `
 									return;
 								}
 							}
+							
 
-							utils.gui.newPokemonDataCard(datosPokemon, fuente);
+							const audio = document.querySelector("#audio");
+
+							const random = Math.floor(Math.random() * 2);
+
+							const pokeAudioId = datosPokemon.id; 
+							let type = "latest";
+							if (random === 0) {
+								type = "legacy";
+							} 
+
+							audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${pokeAudioId}.ogg`;
+
+							audio.play().catch((e) => {
+								console.error("Audio play failed: ", e);
+								type = type === "legacy" ? "latest" : "legacy";
+								audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${pokeAudioId}.ogg`;
+								audio.play();
+							});
+
+
+							await utils.gui.newPokemonDataCard(datosPokemon, fuente);
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
 
 							htmlElemnts.formMain.reset();
+
 
 							const favoritoBtn = document.querySelector(
 								'button[data-name="favorito"]'
 							);
+
+
 							if (favoritoBtn) {
 								favoritoBtn.setAttribute("data-action", "favorito");
 								favoritoBtn.setAttribute(
@@ -1579,18 +1504,24 @@ return `
 							break;
 						}
 						case "Habilidad":
+
+							if (busqueda <= 0) return;
+
+							if (busqueda > 307) return;
 							
-						
+							const cargando = document.querySelectorAll(".cargando");
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
+
 							const datosCompletosHabilidad = await utils.fetch.pokeApiPokemonAbility(busqueda);
 
-							console.log(datosCompletosHabilidad);
 
 							const datosHabilidad = {
 								id: datosCompletosHabilidad?.id ?? null,
 								name: datosCompletosHabilidad?.name ?? null,
 								pokemon: datosCompletosHabilidad?.pokemon ?? null,
 								pokemonLength: datosCompletosHabilidad?.pokemon?.length ?? null,
-								description: datosCompletosHabilidad.effect_entries.find(e => e.language.name === "en")?.short_effect,
+								// description: datosCompletosHabilidad.effect_entries.find(e => e.language.name === "en")?.short_effect,
+								description: datosCompletosHabilidad.flavor_text_entries.find(e => e.language.name === "es")?.flavor_text,
 							};
 
 							
@@ -1602,12 +1533,6 @@ return `
 								datosHabilidad.pokemonLength,
 								datosHabilidad.description
 							);
-
-							htmlElemnts.main.innerHTML = html;
-
-
-							const pokemonContainer = htmlElemnts.pokeCard.hability.container();
-
 
 
 							const result = await new Promise((resolve, reject) => {
@@ -1623,8 +1548,8 @@ return `
 									const sprite = datosPokemonVal.sprites.front_default;
 										
 
-									console.log(val);
-									console.log(datosPokemonVal);
+									// console.log(val);
+									// console.log(datosPokemonVal);
 
 									html += templates.pokemon.card.abilities.addPokemon(name, id, sprite);
 								}
@@ -1635,6 +1560,11 @@ return `
 								}
 							})();
 							});
+
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
+							htmlElemnts.main.innerHTML = html;
+
+							const pokemonContainer = htmlElemnts.pokeCard.hability.container();
 
 							pokemonContainer.insertAdjacentHTML(
 								"beforeend", 
@@ -1760,10 +1690,6 @@ return `
 				historicoModule.init();
 				favoritosModule.init();
 
-				
-				const localTheme = localStorage.getItem("theme") || "light";
-				document.documentElement.dataset.theme = localTheme;
-				
 				this.procesarParametrosURL();
 			},
 

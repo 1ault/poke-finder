@@ -28,6 +28,8 @@ Pokédex max: 1025
 
 #44 GLOOM
 
+#65 ALAKAZAM
+
 #67 MACHOKE
 
 #133 EEVEE
@@ -44,6 +46,9 @@ Pokédex max: 1025
 
 #777 TOGEDEMARU
 
+#999 GIMMIGHOUL
+
+#1000 GHOLDENGO
 
 battle-armor
 
@@ -77,6 +82,9 @@ battle-armor
 #### Api
 
 [Consumo de API Pokémon (Estilo Brutalista)](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/10.%20Explicaci%C3%B3n%20sobre%20Consumo%20de%20API%20Pok%C3%A9mon)
+
+
+https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${variant}/${id}.ogg`
 
 
 | Endpoint | Uso | Ejemplo |

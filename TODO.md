@@ -39,7 +39,7 @@ Desarrollar una aplicación web llamada **"PokéFinder"** que permita buscar, ex
 
 - [ ] Guardar búsquedas en `localStorage`
 - [ ] Verificar caché antes de hacer petición a la API
-- [ ] Mostrar badge indicando origen de datos (API, Caché)
+- [x] Mostrar badge indicando origen de datos (API, Caché)
 - [ ] Tiempo de expiración del caché (TTL de 24 horas)
 
 #### 3. Histórico de Búsquedas (15 pts)
@@ -68,12 +68,12 @@ Desarrollar una aplicación web llamada **"PokéFinder"** que permita buscar, ex
 
 #### 6. Búsqueda por Habilidad (15 pts)
 
-- [ ] Selector para cambiar tipo de búsqueda (Pokémon / Habilidad)
-- [ ] Mostrar tarjeta de habilidad con:
+- [x] Selector para cambiar tipo de búsqueda (Pokémon / Habilidad)
+- [x] Mostrar tarjeta de habilidad con:
   - Nombre de la habilidad
   - Descripción en español
   - Lista de Pokémon que tienen esa habilidad
-- [ ] Click en Pokémon de la lista lo busca
+- [x] Click en Pokémon de la lista lo busca
 
 ### Nivel Avanzado (15 puntos)
 
@@ -250,9 +250,9 @@ Para el sistema VS, implementar la siguiente lógica de efectividad:
 
 ## 🏆 Bonus (Puntos Extra)
 
-- **+5 pts:** Implementar tema oscuro/claro con toggle
-- **+5 pts:** Implementar búsqueda con autocompletado
-- **+5 pts:** Agregar sonidos de Pokémon al buscar
+- [x] **+5 pts:** Implementar tema oscuro/claro con toggle
+- [ ] **+5 pts:** Implementar búsqueda con autocompletado
+- [x] **+5 pts:** Agregar sonidos de Pokémon al buscar
 
 ---
 
