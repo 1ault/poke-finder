@@ -141,7 +141,7 @@ return `
 	data-name="poke-evo-root"
 	data-poke-name="${name}"
 	data-poke-id="${id}"
-	class="tmpevohover2 flex flex-align-center text-align-center flex-column flex-justify-center background-color-DBDBDB border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+	class="font-weight-900 tmpevohover2 flex flex-align-center text-align-center flex-column flex-justify-center background-color-DBDBDB border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
 >
 	<img
 		src="${sprite}"
@@ -390,7 +390,7 @@ return `
 					pokeShowCadenaDeEvolucion: () => {
 						return `
 							<div class="tmp-divide"></div>
-							<div class="flex flex-justify-center"><span>CADENA DE EVOLUCIÓN</span></div>
+							<div class="padding-y-0-5rem flex flex-justify-center font-weight-900"><span class="font-weight-900">CADENA DE EVOLUCIÓN</span></div>
 							<div
 								data-name="poke-evolucion"
 								class="flex flex-align-center flex-justify-center flex-gap-0-3rem"
@@ -1552,7 +1552,7 @@ return `
 									// console.log(val);
 									// console.log(datosPokemonVal);
 
-									html += templates.pokemon.card.abilities.addPokemon(name, id, sprite);
+									html += templates.pokemon.card.abilities.addPokemon(name.toUpperCase(), id, sprite);
 								}
 
 								resolve(html);
