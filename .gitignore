@@ -2,4 +2,4 @@
 **/.vscode/
 **/.vs/
 **/.zed/
-**/.tmp/
+*.tmp

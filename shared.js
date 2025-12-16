@@ -1376,7 +1376,8 @@ return `
 						case "Pokemon": 
 						{
 							if (busqueda <= 0) return;
-
+							// 10154
+							// STURDY
 							if (busqueda > 1025) return;
 
 							const cargando = document.querySelectorAll(".cargando");
