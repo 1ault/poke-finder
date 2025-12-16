@@ -1032,6 +1032,9 @@ return `
 						return data;
 					} catch (error) {
 						console.error("Hubo un problema:", error);
+						
+						const cargando = document.querySelectorAll(".cargando");
+						for (val of cargando) { val.classList.toggle("display-hidden"); }
 					}
 				},
 				/**
@@ -1057,6 +1060,9 @@ return `
 						return data;
 					} catch (error) {
 						console.error("Hubo un problema:", error);
+
+						const cargando = document.querySelectorAll(".cargando");
+						for (val of cargando) { val.classList.toggle("display-hidden"); }
 					}
 				},
 
@@ -1395,52 +1401,59 @@ return `
 								fuente = "cache";
 							}
 
-							if (!datosPokemon) 
-							{
-								try {
-									const datosCompletos =
-										await utils.fetch.pokeApiSearch(busqueda);
-									const datosCompletosSpecies =
-										await utils.fetch.pokeApiPokemonSpecies(
-											busqueda
-										);
-									const datosCompletosEvolution =
-										await utils.fetch.pokeApiEvolutionChain(
-											datosCompletosSpecies.evolution_chain.url
-										);
+							try {
 
-									datosPokemon = {
-										id: datosCompletos.id,
-										name: datosCompletos.name,
-										sprites: {
-											front_default:
-											datosCompletos.sprites.front_default,
-										},
-										stats: datosCompletos.stats.map((stat) => ({
-											name: stat.stat.name,
-											base_stat: stat.base_stat,
-										})),
-										types: datosCompletos.types.map((type) => ({
-											name: type.type.name,
-										})),
-										abilities: datosCompletos.abilities.map(
-											(ability) => ({
-												name: ability.ability.name,
-												hidden: ability.is_hidden,
-											})
-										),
-										species: datosCompletosSpecies,
-										evolution_chain: datosCompletosEvolution,
-									};
+								if (!datosPokemon) 
+								{
+									try {
+										const datosCompletos =
+											await utils.fetch.pokeApiSearch(busqueda);
+										const datosCompletosSpecies =
+											await utils.fetch.pokeApiPokemonSpecies(
+												busqueda
+											);
+										const datosCompletosEvolution =
+											await utils.fetch.pokeApiEvolutionChain(
+												datosCompletosSpecies.evolution_chain.url
+											);
 
-									utils.storageLocal.agregarAlCache(datosPokemon);
-									fuente = "api";
-								} catch (error) {
-									console.error("Error buscando:", error);
-									return;
+										datosPokemon = {
+											id: datosCompletos.id,
+											name: datosCompletos.name,
+											sprites: {
+												front_default:
+												datosCompletos.sprites.front_default,
+											},
+											stats: datosCompletos.stats.map((stat) => ({
+												name: stat.stat.name,
+												base_stat: stat.base_stat,
+											})),
+											types: datosCompletos.types.map((type) => ({
+												name: type.type.name,
+											})),
+											abilities: datosCompletos.abilities.map(
+												(ability) => ({
+													name: ability.ability.name,
+													hidden: ability.is_hidden,
+												})
+											),
+											species: datosCompletosSpecies,
+											evolution_chain: datosCompletosEvolution,
+										};
+
+										utils.storageLocal.agregarAlCache(datosPokemon);
+										fuente = "api";
+									} catch (error) {
+										console.error("Error buscando:", error);
+										return;
+									}
 								}
+
+							} catch (e) {
+								const cargando = document.querySelectorAll(".cargando");
+								for (val of cargando) { val.classList.toggle("display-hidden"); }
+
 							}
-							
 
 							const audio = document.querySelector("#audio");
 
@@ -1547,10 +1560,12 @@ return `
 									const id = datosPokemonVal.id;
 									const name = datosPokemonVal.name;
 									const sprite = datosPokemonVal.sprites.front_default;
-										
+									
 
-									// console.log(val);
-									// console.log(datosPokemonVal);
+									if (id === 10154) {
+										html += templates.pokemon.card.abilities.addPokemon(name.toUpperCase(), id, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/777.png");
+										continue;
+									}
 
 									html += templates.pokemon.card.abilities.addPokemon(name.toUpperCase(), id, sprite);
 								}
