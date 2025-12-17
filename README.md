@@ -85,8 +85,10 @@ battle-armor
 [Consumo de API Pokémon (Estilo Brutalista)](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/10.%20Explicaci%C3%B3n%20sobre%20Consumo%20de%20API%20Pok%C3%A9mon)
 
 
-https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${variant}/${id}.ogg`
 
+https://pokeapi.co/
+
+https://github.com/PokeAPI/cries
 
 | Endpoint | Uso | Ejemplo |
 |----------|-----|---------|
@@ -95,6 +97,23 @@ https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${variant}/${
 | `/evolution-chain/{id}` | Cadena evolutiva completa | `/evolution-chain/10` |
 | `/ability/{name or id}` | Información de habilidad | `/ability/static` |
 
+
+##### Api Assets
+
+`Sprite`
+
+https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png
+
+
+`Cries`
+
+https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${variant}/${id}.og
+
+legacy, latest
+
+https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/legacy/1.ogg
+
+https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/1.ogg
 
 
 #### Cadena de evolución
