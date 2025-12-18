@@ -9,6 +9,15 @@
 
 ## Capturas
 
+![poke-finder buscar pokemon 1](./assets/1.png)
+![poke-finder buscar pokemon 2](./assets/2.png)
+![poke-finder buscar pokemon 3](./assets/3.png)
+![poke-finder buscar habilidad 1](./assets/4.png)
+![poke-finder historial](./assets/5.png)
+![poke-finder historial vs](./assets/6.png)
+![poke-finder favoritos](./assets/7.png)
+![poke-finder favoritos](./assets/8.png)
+![poke-finder theme](./assets/9.png)
 
 ## Instrucciones de uso
 
