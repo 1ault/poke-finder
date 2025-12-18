@@ -1,203 +1,281 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Poke-Finder</title>
-    
-    <link rel="icon" href="./favicon.ico?v=2">
-    <link rel="icon" type="image/png" href="./favicon.png?v=2">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Poke-Finder</title>
 
+		<link rel="icon" href="./favicon.ico?v=2" />
+		<link rel="icon" type="image/png" href="./favicon.png?v=2" />
 
-    <link rel="stylesheet" href="shared.css" />
-    <link rel="stylesheet" href="vs.css" />
+		<link rel="stylesheet" href="shared.css" />
+		<link rel="stylesheet" href="vs.css" />
 
-    <script>
-      const localTheme = localStorage.getItem("theme") || "light";
-      document.documentElement.dataset.theme = localTheme;
-    </script>
+		<script>
+			const localTheme = localStorage.getItem("theme") || "light";
+			document.documentElement.dataset.theme = localTheme;
+		</script>
+	</head>
 
+	<body class="flex flex-column margin-y-0-75rem flex-gap-1rem">
+		<audio style="display: none" id="audio" src=""></audio>
 
-  </head>
+		<div data-name="bg-pokeball" class="position-bg pointer-events-none">
+			<div
+				data-name="pokeball"
+				class="shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5 tmp-poke-mod pointer-events-none transform-rotate--15deg overflow-hidden background-linear-gradiant-poke-ball flex flex-justify-center flex-align-center border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
+			>
+				<div
+					data-name="pokeball-ball"
+					class="background-color-FCFCFC padding-3rem border-radius-circle border-color-2d2d2d border-width-20px border-estyle-solid"
+				></div>
+			</div>
+		</div>
 
-  <body class="flex flex-column margin-y-0-75rem flex-gap-1rem">
-    <audio style="display: none;" id="audio" src=""></audio>
+		<header
+			data-name="header"
+			class="z-index-2 background-transparent margin-x-0-49rem flex flex-align-center flex-column flex-gap-0-5rem"
+		>
+			<div
+				data-name="container-poke-title"
+				class="shadow-box-x6px-y6px-b0px-s0px-2d2d2d font-size-1-25rem transform-rotate--3deg margin-y-0-75rem padding-x-1rem padding-y-0-75rem background-color-4ecdc4 text-align-center border-width-4px border-estyle-solid"
+			>
+				<h1 data-name="poke-title">⚔️ POKÉMON VS ⚔️</h1>
+			</div>
 
-    <div data-name="bg-pokeball" class="position-bg pointer-events-none">
-      <div
-        data-name="pokeball"
-        class="shadow-box-x6px-y6px-b0px-s0px-rgba45-45-45-0-5 tmp-poke-mod pointer-events-none  transform-rotate--15deg  overflow-hidden  background-linear-gradiant-poke-ball  flex  flex-justify-center  flex-align-center  border-radius-circle  border-color-2d2d2d  border-width-20px  border-estyle-solid "
-      >
-        <div
-          data-name="pokeball-ball"
-          class="
-          background-color-FCFCFC 
-          padding-3rem 
-          border-radius-circle 
-          border-color-2d2d2d 
-          border-width-20px 
-          border-estyle-solid"
-        ></div>
-      </div>
-    </div>
+			<!-- FORM NAV (shared.js lo usa) -->
+			<form
+				data-name="form-main"
+				action=""
+				class="flex flex-gap-0-5rem flex-column"
+			>
+				<div class="flex flex-gap-0-5rem">
+					<button
+						data-name="nav-buscar"
+						type="submit"
+						style="
+							font-family: Courier New, monospace;
+							font-weight: bold;
+						"
+						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						🔍 Buscar
+					</button>
 
-   <header
-      data-name="header"
-      class="z-index-2 background-transparent margin-x-0-49rem flex flex-align-center flex-column flex-gap-0-5rem"
-    >
-      <div
-        data-name="container-poke-title"
-        class="shadow-box-x6px-y6px-b0px-s0px-2d2d2d font-size-1-25rem transform-rotate--3deg margin-y-0-75rem padding-x-1rem padding-y-0-75rem background-color-4ecdc4 text-align-center border-width-4px border-estyle-solid"
-      >
-        <h1 data-name="poke-title"> ⚔️ POKÉMON VS ⚔️</h1>
-      </div>
+					<button
+						data-name="nav-historico"
+						type="submit"
+						style="
+							font-family: Courier New, monospace;
+							font-weight: bold;
+						"
+						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						📜 Histórico
+					</button>
 
-      <!-- FORM NAV (shared.js lo usa) -->
-      <form data-name="form-main" action="" class="flex flex-gap-0-5rem flex-column">
-        <div class="flex flex-gap-0-5rem">
-          <button data-name="nav-buscar" type="submit"
-            class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid">
-            🔍 Buscar
-          </button>
+					<button
+						data-name="nav-vs"
+						type="submit"
+						style="
+							font-family: Courier New, monospace;
+							font-weight: bold;
+						"
+						class="anim-popup background-color-4ecdc4 font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						⚔️ VS
+					</button>
 
-          <button data-name="nav-historico" type="submit"
-            class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid">
-            📜 Histórico
-          </button>
+					<button
+						data-name="nav-favoritos"
+						type="submit"
+						style="
+							font-family: Courier New, monospace;
+							font-weight: bold;
+						"
+						class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						❤️ Favoritos
+					</button>
 
-          <button data-name="nav-vs" type="submit"
-            class="anim-popup background-color-4ecdc4 font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid">
-            ⚔️ VS
-          </button>
+					<button
+						data-name="theme"
+						type="submit"
+						class="anim-popup shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid"
+					>
+						☀️
+					</button>
+				</div>
 
-          <button data-name="nav-favoritos" type="submit"
-            class="anim-popup font-size-0-9rem shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid">
-            ❤️ Favoritos
-          </button>
+				<!-- Barra VS -->
+				<div
+					class="vs-search-row flex flex-justify-center flex-gap-0-5rem"
+				>
+					<input
+						id="vsInput1"
+						type="search"
+						style="
+							font-family: Courier New, monospace;
+							font-weight: bold;
+						"
+						placeholder="ID / NOMBRE (P1)"
+						class="anim-active-popup font-size-0-9rem padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+					/>
 
-          <button data-name="theme" type="submit"
-            class="anim-popup shadow-box-x6px-y6px-b0px-s0px-2d2d2d padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid">
-            ☀️
-          </button>
-        </div>
+					<button
+						id="btnBuscar1"
+						type="button"
+						style="
+							color: white;
+							font-family: Courier New, monospace;
+							font-weight: bold;
+							background-color: #ed2138;
+						"
+						class="background-color-ff6b6b anim-popup font-size-0-9rem padding-0-5rem border-width-4px border-color-2d2d2d border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+					>
+						Buscar
+					</button>
 
-        <!-- Barra VS -->
-        <div class="vs-search-row flex flex-justify-center flex-gap-0-5rem">
-          <input
-            id="vsInput1"
-            type="search"
-            placeholder="ID / NOMBRE (P1)"
-            class="anim-active-popup font-size-0-9rem padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
-          />
+					<div class="vs-vs-label">VS</div>
 
-          <button
-            id="btnBuscar1"
-            type="button"
-            class="background-color-ff6b6b anim-popup font-size-0-9rem padding-0-5rem border-width-4px border-color-2d2d2d border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
-          >
-            Buscar
-          </button>
+					<input
+						id="vsInput2"
+						type="search"
+						style="
+							font-family: Courier New, monospace;
+							font-weight: bold;
+						"
+						placeholder="ID / NOMBRE (P2)"
+						class="anim-active-popup font-size-0-9rem padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+					/>
 
-          <div class="vs-vs-label">VS</div>
+					<button
+						id="btnBuscar2"
+						type="button"
+						style="
+							color: white;
+							font-family: Courier New, monospace;
+							font-weight: bold;
+							background-color: #ed2138;
+						"
+						class="background-color-ff6b6b anim-popup font-size-0-9rem padding-0-5rem border-width-4px border-color-2d2d2d border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+					>
+						Buscar
+					</button>
+				</div>
 
-          <input
-            id="vsInput2"
-            type="search"
-            placeholder="ID / NOMBRE (P2)"
-            class="anim-active-popup font-size-0-9rem padding-0-5rem border-color-2d2d2d border-width-4px border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
-          />
+				<!-- Botón Batalla -->
+				<div class="flex flex-justify-center">
+					<button
+						id="btnBatallar"
+						type="button"
+						disabled
+						style="
+							font-family: Courier New, monospace;
+							font-weight: bold;
+							font-size: large;
+						"
+						class="vs-battle-btn anim-popup font-size-0-9rem padding-0-5rem border-width-4px border-color-2d2d2d border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
+					>
+						⚔️ ¡BATALLAR!
+					</button>
+				</div>
+			</form>
+		</header>
 
-          <button
-            id="btnBuscar2"
-            type="button"
-            class="background-color-ff6b6b anim-popup font-size-0-9rem padding-0-5rem border-width-4px border-color-2d2d2d border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
-          >
-            Buscar
-          </button>
-        </div>
+		<main
+			data-name="main"
+			class="z-index-2 flex flex-column flex-align-center"
+		>
+			<!-- Preview -->
+			<section class="vs-preview">
+				<div class="vs-card">
+					<div class="vs-source-badge" id="badgeP1">—</div>
+					<div class="vs-sprite" id="spriteP1"></div>
+					<div class="vs-name" id="nameP1">P1</div>
+					<div class="vs-types" id="typesP1"></div>
+					<button
+						class="vs-fav-btn"
+						id="favP1"
+						type="button"
+						title="Favorito"
+					>
+						🤍
+					</button>
+				</div>
 
-        <!-- Botón Batalla -->
-        <div class="flex flex-justify-center">
-          <button
-            id="btnBatallar"
-            type="button"
-            disabled
-            class="vs-battle-btn anim-popup font-size-0-9rem padding-0-5rem border-width-4px border-color-2d2d2d border-estyle-solid shadow-box-x6px-y6px-b0px-s0px-2d2d2d"
-          >
-            ⚔️ ¡BATALLAR!
-          </button>
-        </div>
-      </form>
-    </header>
+				<div class="vs-cross">⚔️</div>
 
-    <main data-name="main" class="z-index-2 flex flex-column flex-align-center">
-      <!-- Preview -->
-      <section class="vs-preview">
-        <div class="vs-card">
-          <div class="vs-source-badge" id="badgeP1">—</div>
-          <div class="vs-sprite" id="spriteP1"></div>
-          <div class="vs-name" id="nameP1">P1</div>
-          <div class="vs-types" id="typesP1"></div>
-          <button class="vs-fav-btn" id="favP1" type="button" title="Favorito">🤍</button>
-        </div>
+				<div class="vs-card">
+					<div class="vs-source-badge" id="badgeP2">—</div>
+					<div class="vs-sprite" id="spriteP2"></div>
+					<div class="vs-name" id="nameP2">P2</div>
+					<div class="vs-types" id="typesP2"></div>
+					<button
+						class="vs-fav-btn"
+						id="favP2"
+						type="button"
+						title="Favorito"
+					>
+						🤍
+					</button>
+				</div>
+			</section>
 
-        <div class="vs-cross">⚔️</div>
+			<!-- STACK -->
+			<section id="vsStack" class="vs-stack vs-hidden">
+				<div class="vs-title">⚔️ RESULTADO DE LA BATALLA ⚔️</div>
 
-        <div class="vs-card">
-          <div class="vs-source-badge" id="badgeP2">—</div>
-          <div class="vs-sprite" id="spriteP2"></div>
-          <div class="vs-name" id="nameP2">P2</div>
-          <div class="vs-types" id="typesP2"></div>
-          <button class="vs-fav-btn" id="favP2" type="button" title="Favorito">🤍</button>
-        </div>
-      </section>
+				<div class="vs-result">
+					<div class="vs-result-card" id="resultCard1">
+						<div class="vs-winner-tag vs-hidden" id="winnerTag1">
+							🏆 GANADOR
+						</div>
+						<div class="vs-mini-sprite" id="resultSprite1"></div>
+						<div class="vs-result-name" id="resultName1">—</div>
+						<div class="vs-result-types" id="resultTypes1"></div>
+						<div class="vs-points" id="resultPts1">0.0 pts</div>
+						<button class="vs-fav-btn" id="favR1" type="button">
+							🤍
+						</button>
+					</div>
 
-      <!-- STACK -->
-      <section id="vsStack" class="vs-stack vs-hidden">
-        <div class="vs-title">⚔️ RESULTADO DE LA BATALLA ⚔️</div>
+					<div class="vs-result-vs">VS</div>
 
-        <div class="vs-result">
-          <div class="vs-result-card" id="resultCard1">
-            <div class="vs-winner-tag vs-hidden" id="winnerTag1">🏆 GANADOR</div>
-            <div class="vs-mini-sprite" id="resultSprite1"></div>
-            <div class="vs-result-name" id="resultName1">—</div>
-            <div class="vs-result-types" id="resultTypes1"></div>
-            <div class="vs-points" id="resultPts1">0.0 pts</div>
-            <button class="vs-fav-btn" id="favR1" type="button">🤍</button>
-          </div>
+					<div class="vs-result-card" id="resultCard2">
+						<div class="vs-winner-tag vs-hidden" id="winnerTag2">
+							🏆 GANADOR
+						</div>
+						<div class="vs-mini-sprite" id="resultSprite2"></div>
+						<div class="vs-result-name" id="resultName2">—</div>
+						<div class="vs-result-types" id="resultTypes2"></div>
+						<div class="vs-points" id="resultPts2">0.0 pts</div>
+						<button class="vs-fav-btn" id="favR2" type="button">
+							🤍
+						</button>
+					</div>
+				</div>
 
-          <div class="vs-result-vs">VS</div>
+				<div class="vs-subtitle">📊 ANÁLISIS DE BATALLA</div>
 
-          <div class="vs-result-card" id="resultCard2">
-            <div class="vs-winner-tag vs-hidden" id="winnerTag2">🏆 GANADOR</div>
-            <div class="vs-mini-sprite" id="resultSprite2"></div>
-            <div class="vs-result-name" id="resultName2">—</div>
-            <div class="vs-result-types" id="resultTypes2"></div>
-            <div class="vs-points" id="resultPts2">0.0 pts</div>
-            <button class="vs-fav-btn" id="favR2" type="button">🤍</button>
-          </div>
-        </div>
+				<div class="vs-panel">
+					<div class="vs-panel-title">⚡ VENTAJAS DE TIPO</div>
+					<div class="vs-type-adv" id="typeAdv"></div>
+				</div>
 
-        <div class="vs-subtitle">📊 ANÁLISIS DE BATALLA</div>
+				<div class="vs-panel">
+					<div class="vs-panel-title">📈 COMPARACIÓN DE STATS</div>
+					<div class="vs-stats" id="statsCompare"></div>
+				</div>
 
-        <div class="vs-panel">
-          <div class="vs-panel-title">⚡ VENTAJAS DE TIPO</div>
-          <div class="vs-type-adv" id="typeAdv"></div>
-        </div>
+				<div class="vs-panel">
+					<div class="vs-panel-title">🧮 CÁLCULO DEL PUNTAJE</div>
+					<div class="vs-calc" id="calcBox"></div>
+				</div>
+			</section>
+		</main>
 
-        <div class="vs-panel">
-          <div class="vs-panel-title">📈 COMPARACIÓN DE STATS</div>
-          <div class="vs-stats" id="statsCompare"></div>
-        </div>
-
-        <div class="vs-panel">
-          <div class="vs-panel-title">🧮 CÁLCULO DEL PUNTAJE</div>
-          <div class="vs-calc" id="calcBox"></div>
-        </div>
-      </section>
-    </main>
-
-    <script src="shared.js"></script>
-    <script src="vs.js"></script>
-  </body>
+		<script src="shared.js"></script>
+		<script src="vs.js"></script>
+	</body>
 </html>
