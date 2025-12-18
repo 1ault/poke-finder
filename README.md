@@ -21,6 +21,8 @@
 
 ## Instrucciones de uso
 
+- Tener internet
+- Abrir el index.html en un http server
 
 ## Link a GitHub Pages
 
