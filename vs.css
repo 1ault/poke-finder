@@ -1,11 +1,40 @@
-/* ====== Helpers ====== */
 .vs-hidden { display: none !important; }
+/* Tu contenido SIEMPRE encima */
+header, main{
+  position: relative;
+  z-index: 2;
+}
 
-/* Hacer la pokebola más grande (sin romper shared) */
-[data-name="bg-pokeball"] [data-name="pokeball"]{
-  width: 520px;
-  height: 520px;
-  opacity: .16;
+/* El form ocupa un ancho cómodo y centrado */
+form[data-name="form-main"]{
+  width: min(980px, 92vw);
+  margin-inline: auto;
+}
+
+/* ✅ NAV (Buscar/Histórico/VS/Favoritos/Sol): centrado y con aire */
+form[data-name="form-main"] > .flex.flex-gap-0-5rem{
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .85rem;             
+  margin-bottom: .85rem;    
+}
+
+/* Barra VS: centrada con aire */
+.vs-search-row{
+  width: 100%;
+  justify-content: center;
+  margin-top: .15rem;
+  margin-bottom: .85rem;
+  gap: 1rem !important;
+  flex-wrap: wrap;
+}
+
+/* Inputs un poquito más grandes */
+#vsInput1, #vsInput2{
+  min-width: 240px;
+  width: 280px;
 }
 
 /* Texto VS en la fila de búsqueda */
@@ -18,15 +47,23 @@
   user-select: none;
 }
 
-/* Botón BATALLAR */
+/* Botón BATALLAR más grande */
 .vs-battle-btn{
   background: #ff3b3b;
   color: #ffffff;
   font-weight: 900;
+  padding: .9rem 2.2rem;
+  font-size: 1rem;
+  min-width: 220px;
 }
 .vs-battle-btn:disabled{
   opacity: .55;
   cursor: not-allowed;
+}
+
+/* Wrapper del batallar con un poquito de aire */
+form[data-name="form-main"] > .flex.flex-justify-center{
+  margin-top: .2rem;
 }
 
 /* ====== Preview cards (arriba) ====== */
@@ -202,7 +239,7 @@
   margin-top: .6rem;
 }
 
-/* ✅ IMPORTANTÍSIMO: NO poner display:none fijo aquí */
+/* ✅ winner tag (visible si NO tiene vs-hidden) */
 .vs-winner-tag{
   position:absolute;
   top: .6rem;
@@ -213,7 +250,7 @@
   font-weight: 900;
   padding: .15rem .45rem;
   font-size: .8rem;
-  display: block; /* <- visible cuando NO tenga vs-hidden */
+  display: block;
 }
 
 .vs-subtitle{
@@ -249,12 +286,13 @@
 }
 .vs-adv-good{ background: #6bff6b; }
 .vs-adv-bad{ background: #ff3b3b; color: #fff; }
-.vs-adv-neutral{ background: #ffcc00; }
+.vs-adv-neutral{ background: #ffcc00; } /* neutro */
 
 .vs-adv-top{ font-weight: 900; }
 .vs-adv-sub{ font-size: .85rem; margin-top: .2rem; }
 
-/* Stats compare */
+
+
 .vs-stats{
   display:flex;
   flex-direction: column;
@@ -282,14 +320,36 @@
   overflow:hidden;
 }
 
+/* línea central */
+.vs-stat-track::before{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  left:50%;
+  width:3px;
+  background:#2d2d2d;
+  transform: translateX(-50%);
+  opacity:.55;
+}
+
+/* barras */
 .vs-stat-left,
 .vs-stat-right{
   position:absolute;
   top:0; bottom:0;
 }
 
-.vs-stat-left{ left:0; }
-.vs-stat-right{ right:0; }
+/* P1: empieza en el centro y crece hacia la izquierda */
+.vs-stat-left{
+  right: 50%;
+  left: auto;
+}
+
+/* P2: empieza en el centro y crece hacia la derecha */
+.vs-stat-right{
+  left: 50%;
+  right: auto;
+}
 
 .vs-stat-label{
   position:absolute;
@@ -315,4 +375,12 @@
   padding: .7rem;
   font-weight: 700;
   line-height: 1.35;
+}
+
+/* Responsive */
+@media (max-width: 520px){
+  #vsInput1, #vsInput2{
+    width: 92vw;
+    min-width: unset;
+  }
 }

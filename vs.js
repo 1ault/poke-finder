@@ -1,4 +1,4 @@
-(() => {
++(() => {
   const VsApp = (() => {
     // =========================
     // 1) DOM
@@ -60,11 +60,15 @@
       statRow: ({ v1, v2, w1, w2, label, leftClass, rightClass }) => `
         <div class="vs-stat-row">
           <div class="vs-stat-num">${v1}</div>
+
           <div class="vs-stat-track">
+            <!-- del centro hacia afuera -->
             <div class="vs-stat-left ${leftClass}" style="width:${w1}%"></div>
             <div class="vs-stat-right ${rightClass}" style="width:${w2}%"></div>
+
             <div class="vs-stat-label">${label}</div>
           </div>
+
           <div class="vs-stat-num">${v2}</div>
         </div>
       `,
@@ -225,7 +229,6 @@
         utils.setHeart(favBtn, data);
       },
 
-      // ✅ GANADOR EN AMBOS LADOS
       mostrarResultado: (p1Pts, p2Pts) => {
         const tag1 = htmlElements.winnerTag1();
         const tag2 = htmlElements.winnerTag2();
@@ -234,7 +237,6 @@
 
         if (!tag1 || !tag2 || !card1 || !card2) return;
 
-        // reset
         tag1.classList.add("vs-hidden");
         tag2.classList.add("vs-hidden");
         card1.classList.remove("vs-win", "vs-lose");
@@ -249,7 +251,6 @@
           card2.classList.add("vs-win");
           card1.classList.add("vs-lose");
         } else {
-          // empate (opcional)
           card1.classList.add("vs-lose");
           card2.classList.add("vs-lose");
         }
@@ -275,8 +276,10 @@
           const v1 = utils.statValue(p1, r.key);
           const v2 = utils.statValue(p2, r.key);
           const max = getMax(r.key);
-          const w1 = Math.round((v1 / max) * 100);
-          const w2 = Math.round((v2 / max) * 100);
+
+          // ✅ DEL CENTRO HACIA AFUERA: máximo 50% por lado
+          const w1 = Math.round((v1 / max) * 50);
+          const w2 = Math.round((v2 / max) * 50);
 
           const diff = Math.abs(v1 - v2);
           const close = diff <= closeThreshold;
