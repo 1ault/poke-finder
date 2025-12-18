@@ -18,9 +18,9 @@
 ![poke-finder favoritos](./assets/7.png)
 ![poke-finder favoritos](./assets/8.png)
 ![poke-finder theme](./assets/9.png)
-![poke-finder iPhone-12-Pro](./assets/iPhone-12-Pro-1766091149035.jpeg)
-![poke-finder iPad](./assets/iPad-1766091140981.jpeg)
 ![poke-finder MacBook-Pro](./assets/MacBook-Pro-1766091136520.jpeg)
+![poke-finder iPad](./assets/iPad-1766091140981.jpeg)
+![poke-finder iPhone-12-Pro](./assets/iPhone-12-Pro-1766091149035.jpeg)
 
 ## Instrucciones de uso
 
