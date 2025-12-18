@@ -3,3 +3,5 @@
 **/.vs/
 **/.zed/
 *.tmp
+COMMIT.md
+debug.tmp

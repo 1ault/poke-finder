@@ -505,6 +505,245 @@ return `
 		};
 
 		const utils = {
+			search: async () => {
+				
+					const options_val = htmlElemnts.form.finder.select.option().value.trim();
+					console.log(options_val);
+
+					const busqueda =
+						htmlElemnts.form.finder.input
+						.search()
+						.value
+						.trim();
+							
+					if (!busqueda) return;
+
+
+					
+
+					utils.routers.query.set("search", `${busqueda}`);
+
+					const pokeInfo = document.querySelector('[data-name="poke-info"]');
+
+					if (pokeInfo) {
+						pokeInfo.remove();
+					}
+
+					switch (options_val) {
+						case "Pokemon": 
+						{
+							if (busqueda <= 0) return;
+							// 10154
+							// STURDY
+							if (busqueda > 1025) return;
+
+							const cargando = document.querySelectorAll(".cargando");
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
+
+
+
+							const cacheItem =
+								utils.storageLocal.buscarEnCache(busqueda);
+							let datosPokemon;
+							let fuente = "api";
+
+							if (cacheItem) {
+								datosPokemon = cacheItem.data;
+								fuente = "cache";
+							}
+
+							try {
+
+								if (!datosPokemon) 
+								{
+									try {
+										const datosCompletos =
+											await utils.fetch.pokeApiSearch(busqueda);
+										const datosCompletosSpecies =
+											await utils.fetch.pokeApiPokemonSpecies(
+												busqueda
+											);
+										const datosCompletosEvolution =
+											await utils.fetch.pokeApiEvolutionChain(
+												datosCompletosSpecies.evolution_chain.url
+											);
+
+										datosPokemon = {
+											id: datosCompletos.id,
+											name: datosCompletos.name,
+											sprites: {
+												front_default:
+												datosCompletos.sprites.front_default,
+											},
+											stats: datosCompletos.stats.map((stat) => ({
+												name: stat.stat.name,
+												base_stat: stat.base_stat,
+											})),
+											types: datosCompletos.types.map((type) => ({
+												name: type.type.name,
+											})),
+											abilities: datosCompletos.abilities.map(
+												(ability) => ({
+													name: ability.ability.name,
+													hidden: ability.is_hidden,
+												})
+											),
+											species: datosCompletosSpecies,
+											evolution_chain: datosCompletosEvolution,
+										};
+
+										utils.storageLocal.agregarAlCache(datosPokemon);
+										fuente = "api";
+									} catch (error) {
+										console.error("Error buscando:", error);
+										return;
+									}
+								}
+
+							} catch (e) {
+								const cargando = document.querySelectorAll(".cargando");
+								for (val of cargando) { val.classList.toggle("display-hidden"); }
+
+							}
+
+							const audio = document.querySelector("#audio");
+
+							const random = Math.floor(Math.random() * 2);
+
+							const pokeAudioId = datosPokemon.id; 
+							let type = "latest";
+							if (random === 0) {
+								type = "legacy";
+							} 
+
+							audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${pokeAudioId}.ogg`;
+
+							audio.play().catch((e) => {
+								console.error("Audio play failed: ", e);
+								type = type === "legacy" ? "latest" : "legacy";
+								audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${pokeAudioId}.ogg`;
+								audio.play();
+							});
+
+
+							await utils.gui.newPokemonDataCard(datosPokemon, fuente);
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
+
+							htmlElemnts.formMain.reset();
+
+
+							const favoritoBtn = document.querySelector(
+								'button[data-name="favorito"]'
+							);
+
+
+							if (favoritoBtn) {
+								favoritoBtn.setAttribute("data-action", "favorito");
+								favoritoBtn.setAttribute(
+									"data-pokemon",
+									datosPokemon.name
+								);
+								favoritoBtn.setAttribute(
+									"data-pokemon-id",
+									datosPokemon.id
+								);
+
+								const esFavorito = utils.storageLocal.esFavorito(
+									datosPokemon.id
+								);
+								if (esFavorito) {
+									favoritoBtn.classList.add("corazon-rojo");
+									favoritoBtn.classList.remove("corazon-blanco");
+									favoritoBtn.innerHTML = "❤️";
+								} else {
+									favoritoBtn.classList.add("corazon-blanco");
+									favoritoBtn.classList.remove("corazon-rojo");
+									favoritoBtn.innerHTML = "🤍";
+								}
+
+								favoritoBtn.addEventListener("click", (e) => {
+									e.preventDefault();
+									handlers.favorito(e);
+								});
+							}
+							break;
+						}
+						case "Habilidad":
+
+							if (busqueda <= 0) return;
+
+							if (busqueda > 307) return;
+							
+							const cargando = document.querySelectorAll(".cargando");
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
+
+							const datosCompletosHabilidad = await utils.fetch.pokeApiPokemonAbility(busqueda);
+
+
+							const datosHabilidad = {
+								id: datosCompletosHabilidad?.id ?? null,
+								name: datosCompletosHabilidad?.name ?? null,
+								pokemon: datosCompletosHabilidad?.pokemon ?? null,
+								pokemonLength: datosCompletosHabilidad?.pokemon?.length ?? null,
+								// description: datosCompletosHabilidad.effect_entries.find(e => e.language.name === "en")?.short_effect,
+								description: datosCompletosHabilidad.flavor_text_entries.find(e => e.language.name === "es")?.flavor_text,
+							};
+
+							
+
+							let html = templates.empty();
+							html += templates.pokemon.card.abilities.init(
+								datosHabilidad.id,
+								datosHabilidad.name.toUpperCase().replaceAll("-", " "),
+								datosHabilidad.pokemonLength,
+								datosHabilidad.description
+							);
+
+
+							const result = await new Promise((resolve, reject) => {
+							(async () => {
+								try {
+								let html = "";
+
+								for (const val of datosHabilidad.pokemon) {
+									const datosPokemonVal = await utils.fetch.pokeApiSearchFull(val.pokemon.url);
+
+									const id = datosPokemonVal.id;
+									const name = datosPokemonVal.name;
+									const sprite = datosPokemonVal.sprites.front_default;
+									
+
+									if (id === 10154) {
+										html += templates.pokemon.card.abilities.addPokemon(name.toUpperCase(), id, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/777.png");
+										continue;
+									}
+
+									html += templates.pokemon.card.abilities.addPokemon(name.toUpperCase(), id, sprite);
+								}
+
+								resolve(html);
+								} catch (e) {
+									reject(e);
+								}
+							})();
+							});
+
+							for (val of cargando) { val.classList.toggle("display-hidden"); }
+							htmlElemnts.main.innerHTML = html;
+
+							const pokemonContainer = htmlElemnts.pokeCard.hability.container();
+
+							pokemonContainer.insertAdjacentHTML(
+								"beforeend", 
+								result
+							);
+
+							pokemonContainer.addEventListener("click", handlers.evoSeach);
+							break;
+						default:
+							break;
+					}
+			},
 			routers: {
 				query: {
 					set: (key, value) => {
@@ -1354,244 +1593,7 @@ return `
 					htmlElemnts?.form?.finder?.button?.search()?.dataset?.name ?? null
 				) 
 				{
-
-
-					const options_val = htmlElemnts.form.finder.select.option().value.trim();
-					console.log(options_val);
-
-					const busqueda =
-						htmlElemnts.form.finder.input
-						.search()
-						.value
-						.trim();
-							
-					if (!busqueda) return;
-
-
-					
-
-					utils.routers.query.set("search", `${busqueda}`);
-
-					const pokeInfo = document.querySelector('[data-name="poke-info"]');
-
-					if (pokeInfo) {
-						pokeInfo.remove();
-					}
-
-					switch (options_val) {
-						case "Pokemon": 
-						{
-							if (busqueda <= 0) return;
-							// 10154
-							// STURDY
-							if (busqueda > 1025) return;
-
-							const cargando = document.querySelectorAll(".cargando");
-							for (val of cargando) { val.classList.toggle("display-hidden"); }
-
-
-
-							const cacheItem =
-								utils.storageLocal.buscarEnCache(busqueda);
-							let datosPokemon;
-							let fuente = "api";
-
-							if (cacheItem) {
-								datosPokemon = cacheItem.data;
-								fuente = "cache";
-							}
-
-							try {
-
-								if (!datosPokemon) 
-								{
-									try {
-										const datosCompletos =
-											await utils.fetch.pokeApiSearch(busqueda);
-										const datosCompletosSpecies =
-											await utils.fetch.pokeApiPokemonSpecies(
-												busqueda
-											);
-										const datosCompletosEvolution =
-											await utils.fetch.pokeApiEvolutionChain(
-												datosCompletosSpecies.evolution_chain.url
-											);
-
-										datosPokemon = {
-											id: datosCompletos.id,
-											name: datosCompletos.name,
-											sprites: {
-												front_default:
-												datosCompletos.sprites.front_default,
-											},
-											stats: datosCompletos.stats.map((stat) => ({
-												name: stat.stat.name,
-												base_stat: stat.base_stat,
-											})),
-											types: datosCompletos.types.map((type) => ({
-												name: type.type.name,
-											})),
-											abilities: datosCompletos.abilities.map(
-												(ability) => ({
-													name: ability.ability.name,
-													hidden: ability.is_hidden,
-												})
-											),
-											species: datosCompletosSpecies,
-											evolution_chain: datosCompletosEvolution,
-										};
-
-										utils.storageLocal.agregarAlCache(datosPokemon);
-										fuente = "api";
-									} catch (error) {
-										console.error("Error buscando:", error);
-										return;
-									}
-								}
-
-							} catch (e) {
-								const cargando = document.querySelectorAll(".cargando");
-								for (val of cargando) { val.classList.toggle("display-hidden"); }
-
-							}
-
-							const audio = document.querySelector("#audio");
-
-							const random = Math.floor(Math.random() * 2);
-
-							const pokeAudioId = datosPokemon.id; 
-							let type = "latest";
-							if (random === 0) {
-								type = "legacy";
-							} 
-
-							audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${pokeAudioId}.ogg`;
-
-							audio.play().catch((e) => {
-								console.error("Audio play failed: ", e);
-								type = type === "legacy" ? "latest" : "legacy";
-								audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${pokeAudioId}.ogg`;
-								audio.play();
-							});
-
-
-							await utils.gui.newPokemonDataCard(datosPokemon, fuente);
-							for (val of cargando) { val.classList.toggle("display-hidden"); }
-
-							htmlElemnts.formMain.reset();
-
-
-							const favoritoBtn = document.querySelector(
-								'button[data-name="favorito"]'
-							);
-
-
-							if (favoritoBtn) {
-								favoritoBtn.setAttribute("data-action", "favorito");
-								favoritoBtn.setAttribute(
-									"data-pokemon",
-									datosPokemon.name
-								);
-								favoritoBtn.setAttribute(
-									"data-pokemon-id",
-									datosPokemon.id
-								);
-
-								const esFavorito = utils.storageLocal.esFavorito(
-									datosPokemon.id
-								);
-								if (esFavorito) {
-									favoritoBtn.classList.add("corazon-rojo");
-									favoritoBtn.classList.remove("corazon-blanco");
-									favoritoBtn.innerHTML = "❤️";
-								} else {
-									favoritoBtn.classList.add("corazon-blanco");
-									favoritoBtn.classList.remove("corazon-rojo");
-									favoritoBtn.innerHTML = "🤍";
-								}
-
-								favoritoBtn.addEventListener("click", (e) => {
-									e.preventDefault();
-									handlers.favorito(e);
-								});
-							}
-							break;
-						}
-						case "Habilidad":
-
-							if (busqueda <= 0) return;
-
-							if (busqueda > 307) return;
-							
-							const cargando = document.querySelectorAll(".cargando");
-							for (val of cargando) { val.classList.toggle("display-hidden"); }
-
-							const datosCompletosHabilidad = await utils.fetch.pokeApiPokemonAbility(busqueda);
-
-
-							const datosHabilidad = {
-								id: datosCompletosHabilidad?.id ?? null,
-								name: datosCompletosHabilidad?.name ?? null,
-								pokemon: datosCompletosHabilidad?.pokemon ?? null,
-								pokemonLength: datosCompletosHabilidad?.pokemon?.length ?? null,
-								// description: datosCompletosHabilidad.effect_entries.find(e => e.language.name === "en")?.short_effect,
-								description: datosCompletosHabilidad.flavor_text_entries.find(e => e.language.name === "es")?.flavor_text,
-							};
-
-							
-
-							let html = templates.empty();
-							html += templates.pokemon.card.abilities.init(
-								datosHabilidad.id,
-								datosHabilidad.name.toUpperCase().replaceAll("-", " "),
-								datosHabilidad.pokemonLength,
-								datosHabilidad.description
-							);
-
-
-							const result = await new Promise((resolve, reject) => {
-							(async () => {
-								try {
-								let html = "";
-
-								for (const val of datosHabilidad.pokemon) {
-									const datosPokemonVal = await utils.fetch.pokeApiSearchFull(val.pokemon.url);
-
-									const id = datosPokemonVal.id;
-									const name = datosPokemonVal.name;
-									const sprite = datosPokemonVal.sprites.front_default;
-									
-
-									if (id === 10154) {
-										html += templates.pokemon.card.abilities.addPokemon(name.toUpperCase(), id, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/777.png");
-										continue;
-									}
-
-									html += templates.pokemon.card.abilities.addPokemon(name.toUpperCase(), id, sprite);
-								}
-
-								resolve(html);
-								} catch (e) {
-									reject(e);
-								}
-							})();
-							});
-
-							for (val of cargando) { val.classList.toggle("display-hidden"); }
-							htmlElemnts.main.innerHTML = html;
-
-							const pokemonContainer = htmlElemnts.pokeCard.hability.container();
-
-							pokemonContainer.insertAdjacentHTML(
-								"beforeend", 
-								result
-							);
-
-							pokemonContainer.addEventListener("click", handlers.evoSeach);
-							break;
-						default:
-							break;
-					}
+					await utils.search();
 				}
 			},
 			onFormSubmit(e) {
@@ -1703,6 +1705,21 @@ return `
 					"submit",
 					handlers.onFormSubmit
 				);
+
+				// htmlElemnts.formMain.addEventListener(
+				// 	"keydown",
+				// 	handlers.onFormSubmit
+				// );
+
+				// htmlElemnts?.form?.finder?.input?.search()?.addEventListener("keydown", handlers.search);
+				// console.log(htmlElemnts?.form?.finder?.input?.search());
+				// console.log(htmlElemnts?.form?.finder?.input?.search()?.addEventListener("keydown", ));
+
+				htmlElemnts?.form?.finder?.input?.search()?.addEventListener("keydown", async (e) => {
+					if (e.key === "Enter") { e.preventDefault(); await utils.search(); }
+				});
+
+
 				historicoModule.init();
 				favoritosModule.init();
 

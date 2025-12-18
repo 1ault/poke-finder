@@ -792,3 +792,33 @@ h1 {
 .anim-blink {
   animation: anim-blink 1s infinite;
 }
+
+
+
+/* =========================
+   POKEBALL BG MÁS GRANDE
+   ========================= */
+/* .position-bg{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  
+  width: min(900px, 92vmin);
+  height: min(900px, 92vmin);
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+div[data-name="pokeball"]{
+  width: 100%;
+  height: 100%;
+}
+
+
+div[data-name="pokeball-ball"]{
+  padding: 4rem; 
+} 
+  */

@@ -98,6 +98,7 @@ https://github.com/PokeAPI/cries
 | `/ability/{name or id}` | Información de habilidad | `/ability/static` |
 
 
+
 ##### Api Assets
 
 `Sprite`
