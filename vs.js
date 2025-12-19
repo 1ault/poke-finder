@@ -576,6 +576,29 @@
 
         utils.renderPreview(slot, payload);
 
+        
+          const audio = document.querySelector("#audio");
+
+          const random = Math.floor(Math.random() * 2);
+
+          // const pokeAudioId = datosPokemon.id;
+          let type = "latest";
+          if (random === 0) {
+            type = "legacy";
+          }
+
+          audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${value}.ogg`;
+
+          audio.play().catch((e) => {
+            console.error("Audio play failed: ", e);
+            type = type === "legacy" ? "latest" : "legacy";
+            audio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/${type}/${value}.ogg`;
+            audio.play();
+          });
+
+
+
+
         htmlElements.stack()?.classList.add("vs-hidden");
         htmlElements.btnBatallar().disabled = !(handlers.state.P1 && handlers.state.P2);
       },
