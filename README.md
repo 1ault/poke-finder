@@ -1,11 +1,12 @@
-
 # PokéFinder - Aplicación Web con Consumo de API
+
+https://1ault.github.io/poke-finder/
 
 ## Estudiantes
 
-- Arles Lopez
-- Juan Garcia
-- Whitney Ault
+-   Arles Lopez
+-   Juan Garcia
+-   Whitney Ault
 
 ## Capturas
 
@@ -24,13 +25,12 @@
 
 ## Instrucciones de uso
 
-- Tener internet
-- Abrir el index.html en un http server
+-   Tener internet
+-   Abrir el index.html en un http server
 
 ## Link a GitHub Pages
 
 [poke-finder](https://github.com/1ault/poke-finder)
-
 
 ## Fuentes
 
@@ -81,7 +81,6 @@ battle-armor
 
 [Proyecto Semestral: PokéFinder - Aplicación Web con Consumo de API](https://gist.github.com/ErickAgrazal/93abdea87c98063df4bb3f8f3be66728)
 
-
 [ErickAgrazal](https://gist.github.com/ErickAgrazal/93abdea87c98063df4bb3f8f3be66728)
 
 [ErickAgrazal](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS221/tree/master/explicaciones/9.%20Explicaci%C3%B3n%20sobre%20Edici%C3%B3n%20con%20LocalStorage)
@@ -98,27 +97,22 @@ battle-armor
 
 [Consumo de API Pokémon (Estilo Brutalista)](https://github.com/ErickAgrazal/agrazal-erick-2025-1GS222/tree/master/explicaciones/10.%20Explicaci%C3%B3n%20sobre%20Consumo%20de%20API%20Pok%C3%A9mon)
 
-
-
 https://pokeapi.co/
 
 https://github.com/PokeAPI/cries
 
-| Endpoint | Uso | Ejemplo |
-|----------|-----|---------|
-| `/pokemon/{name or id}` | Datos básicos del Pokémon | `/pokemon/pikachu` o `/pokemon/25` |
-| `/pokemon-species/{name or id}` | Datos de especie (evolución) | `/pokemon-species/pikachu` |
-| `/evolution-chain/{id}` | Cadena evolutiva completa | `/evolution-chain/10` |
-| `/ability/{name or id}` | Información de habilidad | `/ability/static` |
-
-
+| Endpoint                        | Uso                          | Ejemplo                            |
+| ------------------------------- | ---------------------------- | ---------------------------------- |
+| `/pokemon/{name or id}`         | Datos básicos del Pokémon    | `/pokemon/pikachu` o `/pokemon/25` |
+| `/pokemon-species/{name or id}` | Datos de especie (evolución) | `/pokemon-species/pikachu`         |
+| `/evolution-chain/{id}`         | Cadena evolutiva completa    | `/evolution-chain/10`              |
+| `/ability/{name or id}`         | Información de habilidad     | `/ability/static`                  |
 
 ##### Api Assets
 
 `Sprite`
 
 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png
-
 
 `Cries`
 
@@ -130,11 +124,9 @@ https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/legacy/1.ogg
 
 https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/1.ogg
 
-
 #### Cadena de evolución
 
 Arboles [^CLRS_ITA_10_4]
-
 
 #### Cache
 
@@ -142,16 +134,13 @@ Arboles [^CLRS_ITA_10_4]
 
 ### CSS
 
-
 [cssgridgarden](https://cssgridgarden.com/#es)
 
 [flexboxfroggy](https://flexboxfroggy.com/#es)
 
-
 [w3schools css3_variables](https://www.w3schools.com/css/css3_variables.asp)
 
 [w3schools css3_gradients](https://www.w3schools.com/css/css3_gradients.asp)
-
 
 #### Bg
 
@@ -167,11 +156,10 @@ Arboles [^CLRS_ITA_10_4]
 [mozilla linear-gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/linear-gradient)
 [mozilla repeating-linear-gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/repeating-linear-gradient)
 
-
 ## Footnotes
 
-[^CLRS_ITA_10_4]: 
-Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and  Clifford Stein.  
-*Introduction to Algorithms*, 4th Edition.  
-MIT Press, 2022.  
-Section 10.4 — “Representing Rooted Trees”, pp. 265–266.
+[^CLRS_ITA_10_4]:
+    Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.  
+    _Introduction to Algorithms_, 4th Edition.  
+    MIT Press, 2022.  
+    Section 10.4 — “Representing Rooted Trees”, pp. 265–266.
