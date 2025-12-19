@@ -164,38 +164,39 @@ Arboles [^CLRS_ITA_10_4]
 
 ```mermaid
 ---
+---
 config:
   kanban:
-    ticketBaseUrl: 'https://github.com/1ault/poke-finder/issues/'
+    ticketBaseUrl: 'https://github.com/1ault/poke-finder/issues/#TICKET#'
 ---
 kanban
   Backlog
-    AutocompleteBusqueda[Autocomplete Búsqueda<br/>#19 | P3 | S | 📌1997-bit]
+    AutocompleteBusqueda[Autocomplete Búsqueda]@{ ticket: 19, priority: 'P3', size: 'S', assigned: '1997-bit' }
 
   Ready
-    NavegacionHabilidad[Navegación desde Habilidad<br/>#17 | P1 | S | 📌1ault | ✅]
+    NavegacionHabilidad[Navegación desde Habilidad]@{ ticket: 17, priority: 'P1', size: 'S', assigned: '1ault' }
 
   "In Progress"
-    SistemaFavoritos[Sistema de Favoritos<br/>#8 | P0 | M | 📌1997-bit | ✅]
-    HistorialBusquedas[Historial Búsquedas<br/>#9 | P1 | M | 📌1997-bit | ✅]
+    SistemaFavoritos[Sistema de Favoritos Completo]@{ ticket: 8, priority: 'P0', size: 'M', assigned: '1997-bit' }
+    HistorialBusquedas[Historial de Búsquedas]@{ ticket: 9, priority: 'P1', size: 'M', assigned: '1997-bit' }
 
   "In Review"
-    SistemaTipos[Sistema de Tipos<br/>#13 | P1 | L | 📌ArlesLopez | ✅]
-    ComparadorEstadisticas[Comparador Stats<br/>#12 | P1 | M | ✅]
-    DeterminacionGanador[Determinación Ganador<br/>#14 | P1 | M | 📌ArlesLopez | ✅]
-    VistaHabilidad[Vista de Habilidad<br/>#16 | P0 | M | 📌1ault | ✅]
-    TemaOscuro[Tema Oscuro<br/>#18 | P3 | S | 📌1ault | ✅]
-    LayoutVSBattle[Layout VS Battle<br/>#11 | P0 | M | 📌ArlesLopez | ✅]
-    CadenaEvolutiva[Cadena Evolutiva<br/>#20 | P0 | M | 📌1ault | ✅]
-    ToggleBusqueda[Toggle Búsqueda<br/>#15 | P0 | M | 📌1ault | ✅]
-    IndicadorCarga[Indicador carga<br/>#23 | P0 | S | 📌1ault | ✅]
-    TemplateTarjeta[Template Tarjeta<br/>#7 | P0 | M | 📌1997-bit,1ault | ✅]
+    SistemaTipos[Sistema de Tipos/Efectividad]@{ ticket: 13, priority: 'P1', size: 'L', assigned: 'ArlesLopez' }
+    ComparadorEstadisticas[Comparador de Estadísticas]@{ ticket: 12, priority: 'P1', size: 'M' }
+    DeterminacionGanador[Determinación de Ganador]@{ ticket: 14, priority: 'P1', size: 'M', assigned: 'ArlesLopez' }
+    VistaHabilidad[Vista de Habilidad]@{ ticket: 16, priority: 'P0', size: 'M', assigned: '1ault' }
+    TemaOscuro[Tema Oscuro]@{ ticket: 18, priority: 'P3', size: 'S', assigned: '1ault' }
+    LayoutVSBattle[Layout de VS Battle]@{ ticket: 11, priority: 'P0', size: 'M', assigned: 'ArlesLopez' }
+    CadenaEvolutiva[Cadena Evolutiva]@{ ticket: 20, priority: 'P0', size: 'M', assigned: '1ault' }
+    ToggleBusqueda[Toggle de Modo de Búsqueda]@{ ticket: 15, priority: 'P0', size: 'M', assigned: '1ault' }
+    IndicadorCarga[Indicador de carga mientras se busca]@{ ticket: 23, priority: 'P0', size: 'S', assigned: '1ault' }
+    TemplateTarjeta[Template de Tarjeta Pokémon]@{ ticket: 7, priority: 'P0', size: 'M', assigned: '1997-bit, 1ault' }
 
   Done
-    MejoraCache[Mejora Caché<br/>#10 | P1 | S | 📌1997-bit | ✅]
-    MensajeNoHay[Mensaje vacío<br/>#21 | P1 | 📌1997-bit | ✅]
-    ClickHistorico[Click histórico<br/>#22 | P1 | 📌1997-bit | ✅]
-    EntregaFinal[Entrega final<br/>#1 | P0 | XL | 📌Todos | ✅]
+    MejoraCache[Mejora de Caché]@{ ticket: 10, priority: 'P1', size: 'S', assigned: '1997-bit' }
+    MensajeNoHay[Mensaje "No hay pokémones"]@{ ticket: 21, priority: 'P1', assigned: '1997-bit' }
+    ClickHistorico[Click histórico redirige a búsqueda]@{ ticket: 22, priority: 'P1', assigned: '1997-bit' }
+    EntregaFinal[Entrega: 18/12/2025]@{ ticket: 1, priority: 'P0', size: 'XL', assigned: '1997-bit, 1ault, ArlesLopez' }
 ```
 
 ## Footnotes
