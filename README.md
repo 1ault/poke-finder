@@ -158,10 +158,6 @@ Arboles [^CLRS_ITA_10_4]
 
 ## Kanban
 
-# 🎯 Proyecto poke-finder
-
-## 📊 Tablero Kanban del Proyecto
-
 ```mermaid
 ---
 ---
