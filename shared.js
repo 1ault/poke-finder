@@ -1267,6 +1267,7 @@
 				limpiarFavoritos() {
 					this.save("favoritos", []);
 				},
+
 				guardarEnFavoritos(pokemonData) {
 					const favoritos = this.get("favoritos", []);
 

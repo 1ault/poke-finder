@@ -156,10 +156,56 @@ Arboles [^CLRS_ITA_10_4]
 [mozilla linear-gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/linear-gradient)
 [mozilla repeating-linear-gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/repeating-linear-gradient)
 
+## Kanban
+
+# 🎯 Proyecto poke-finder
+
+## 📊 Tablero Kanban del Proyecto
+
+```mermaid
+---
+config:
+  kanban:
+    ticketBaseUrl: 'https://github.com/1ault/poke-finder/issues/'
+---
+kanban
+  Backlog
+    AutocompleteBusqueda[Autocomplete Búsqueda<br/>#19 | P3 | S | 📌1997-bit]
+
+  Ready
+    NavegacionHabilidad[Navegación desde Habilidad<br/>#17 | P1 | S | 📌1ault | ✅]
+
+  "In Progress"
+    SistemaFavoritos[Sistema de Favoritos<br/>#8 | P0 | M | 📌1997-bit | ✅]
+    HistorialBusquedas[Historial Búsquedas<br/>#9 | P1 | M | 📌1997-bit | ✅]
+
+  "In Review"
+    SistemaTipos[Sistema de Tipos<br/>#13 | P1 | L | 📌ArlesLopez | ✅]
+    ComparadorEstadisticas[Comparador Stats<br/>#12 | P1 | M | ✅]
+    DeterminacionGanador[Determinación Ganador<br/>#14 | P1 | M | 📌ArlesLopez | ✅]
+    VistaHabilidad[Vista de Habilidad<br/>#16 | P0 | M | 📌1ault | ✅]
+    TemaOscuro[Tema Oscuro<br/>#18 | P3 | S | 📌1ault | ✅]
+    LayoutVSBattle[Layout VS Battle<br/>#11 | P0 | M | 📌ArlesLopez | ✅]
+    CadenaEvolutiva[Cadena Evolutiva<br/>#20 | P0 | M | 📌1ault | ✅]
+    ToggleBusqueda[Toggle Búsqueda<br/>#15 | P0 | M | 📌1ault | ✅]
+    IndicadorCarga[Indicador carga<br/>#23 | P0 | S | 📌1ault | ✅]
+    TemplateTarjeta[Template Tarjeta<br/>#7 | P0 | M | 📌1997-bit,1ault | ✅]
+
+  Done
+    MejoraCache[Mejora Caché<br/>#10 | P1 | S | 📌1997-bit | ✅]
+    MensajeNoHay[Mensaje vacío<br/>#21 | P1 | 📌1997-bit | ✅]
+    ClickHistorico[Click histórico<br/>#22 | P1 | 📌1997-bit | ✅]
+    EntregaFinal[Entrega final<br/>#1 | P0 | XL | 📌Todos | ✅]
+```
+
 ## Footnotes
 
 [^CLRS_ITA_10_4]:
-    Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.  
-    _Introduction to Algorithms_, 4th Edition.  
-    MIT Press, 2022.  
+    Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.
+    _Introduction to Algorithms_, 4th Edition.
+    MIT Press, 2022.
     Section 10.4 — “Representing Rooted Trees”, pp. 265–266.
+
+```
+
+```
