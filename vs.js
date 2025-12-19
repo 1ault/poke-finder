@@ -78,6 +78,7 @@
     // 3) Utils
     // =========================
     const utils = {
+      
       TYPE_CHART: {
         normal:  { rock:0.5, ghost:0, steel:0.5 },
         fire:    { fire:0.5, water:0.5, grass:2, ice:2, bug:2, rock:0.5, dragon:0.5, steel:2 },
@@ -114,6 +115,7 @@
             item?.data?.name?.toLowerCase() === busqueda
         ) || null;
       },
+      
 
       agregarAlCache: (pokemonData) => {
         const cache = utils.getCacheList();
@@ -355,6 +357,7 @@
         `;
       },
     };
+    
 
     // =========================
     // 4) Handlers
