@@ -30,7 +30,7 @@ https://1ault.github.io/poke-finder/
 
 ## Link a GitHub Pages
 
-[poke-finder](https://github.com/1ault/poke-finder)
+[poke-finder](https://1ault.github.io/poke-finder/)
 
 ## Fuentes
 
